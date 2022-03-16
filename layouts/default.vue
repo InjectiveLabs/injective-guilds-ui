@@ -2,10 +2,13 @@
   <div class="min-h-screen bg-black">
     <HOCLoading :status="status">
       <client-only>
-        <TopBar />
-        <main>
-          <nuxt />
-        </main>
+        <div>
+          <TopBar />
+          <main class="w-full h-full min-h-screen">
+            <nuxt />
+          </main>
+          <Footer />
+        </div>
       </client-only>
     </HOCLoading>
   </div>
@@ -16,11 +19,13 @@ import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
 import HOCLoading from '~/components/hoc/loading.vue'
 import TopBar from '~/components/elements/layout/topbar.vue'
+import Footer from '~/components/elements/layout/footer/index.vue'
 
 export default Vue.extend({
   components: {
     HOCLoading,
     TopBar,
+    Footer,
   },
 
   data() {

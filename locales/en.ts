@@ -3,4 +3,5 @@ export default {
   wallet: {
     connectWallet: 'Connect Wallet',
   },
+  'Privacy Policy': 'Privacy Policy',
 }
