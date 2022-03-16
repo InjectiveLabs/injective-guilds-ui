@@ -8,6 +8,7 @@
       flex flex-wrap
       lg:justify-between
       border-t
+      border-primary-500
       py-4
     "
   >
