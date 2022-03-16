@@ -20,8 +20,8 @@ export default {
     '~/plugins/elements',
     '~/plugins/i18n',
 
-    { src: '~/plugins/tooltip', ssr: false },
-    { src: '~/plugins/clipboard', ssr: false },
+    { src: './plugins/tooltip', ssr: false },
+    { src: './plugins/clipboard', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

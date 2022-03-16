@@ -1,7 +1,6 @@
 export default {
   tradingGuild: 'Trading Guilds',
-  test: {
-    one: 'One',
-    two: 'Two',
+  wallet: {
+    connectWallet: 'Connect Wallet',
   },
 }
