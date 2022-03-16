@@ -1,11 +1,11 @@
 <template>
-  <span></span>
+  <div>
+    <span class="font-logo text-9xl"> {{ $t('tradingGuild') }}</span>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
-  
-})
+export default Vue.extend({})
 </script>

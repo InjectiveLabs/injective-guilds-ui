@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <client-only>
+    <nuxt />
+  </client-only>
 </template>
 
 <script lang="ts">

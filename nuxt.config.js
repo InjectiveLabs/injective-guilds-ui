@@ -15,7 +15,14 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '~/plugins/icons',
+    '~/plugins/elements',
+    '~/plugins/i18n',
+
+    { src: '~/plugins/tooltip', ssr: false },
+    { src: '~/plugins/clipboard', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
@@ -60,6 +67,8 @@ export default {
     APP_GOOGLE_ANALYTICS_KEY: process.env.APP_GOOGLE_ANALYTICS_KEY,
     APP_GOOGLE_SITE_VERIFICATION_KEY:
       process.env.APP_GOOGLE_SITE_VERIFICATION_KEY,
+    APP_NETWORK: process.env.APP_NETWORK,
+    APP_CHAIN_ID: process.env.APP_CHAIN_ID,
     NODE_ENV: process.env.NODE_ENV,
     APP_ENV: process.env.APP_ENV || 'production',
     APP_VER: process.env.npm_package_version,

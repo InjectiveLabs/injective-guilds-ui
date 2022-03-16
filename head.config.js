@@ -17,7 +17,7 @@ module.exports = {
   titleTemplate: process.env.APP_NAME || 'Injective Guilds',
   meta,
   htmlAttrs: {
-    class: 'font-sans dark',
+    class: 'font-sans',
   },
   bodyAttrs: {
     class: '',
