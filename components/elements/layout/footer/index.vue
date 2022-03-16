@@ -7,8 +7,7 @@
       shadow-md
       flex flex-wrap
       lg:justify-between
-      border-t
-      border-primary-500
+      border-t border-primary-500
       py-4
     "
   >
@@ -40,16 +39,16 @@
         lg:w-auto
       "
     >
-      <feature-item feature="START A GUILD" />
-      <feature-item feature="ITEM 1" />
-      <feature-item feature="ITEM 2" />
+      <feature-item :feature="$t('footer.startAGuild')" />
+      <feature-item :feature="$t('footer.item1')" />
+      <feature-item :feature="$t('footer.item2')" />
       <item class="text-footer">
         <a
           class="cursor-pointer"
           href="https://injectivelabs.org/privacy-policy"
           target="_blank"
         >
-          {{ $t('Privacy Policy') }}
+          {{ $t('footer.privacyPolicy') }}
         </a>
       </item>
     </ul>
@@ -63,8 +62,7 @@
         lg:flex-no-wrap
         h-full
         w-full
-        lg:w-auto
-        lg:mr-8
+        lg:w-auto lg:mr-8
       "
     >
       <item>
@@ -78,11 +76,7 @@
           <a href="https://t.me/joininjective" target="_blank" class="mr-4">
             <v-icon-telegram class="w-6 h-6" />
           </a>
-          <a
-            href="https://www.reddit.com/r/injective/"
-            target="_blank"
-            
-          >
+          <a href="https://www.reddit.com/r/injective/" target="_blank">
             <v-icon-reddit class="w-6 h-6" />
           </a>
         </div>

@@ -3,5 +3,10 @@ export default {
   wallet: {
     connectWallet: 'Connect Wallet',
   },
-  'Privacy Policy': 'Privacy Policy',
+  footer: {
+    privacyPolicy: 'Privacy Policy',
+    startAGuild: 'START A GUILD',
+    item1: 'ITEM 1',
+    item2: 'ITEM 2',
+  },
 }
