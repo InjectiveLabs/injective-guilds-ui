@@ -9,6 +9,7 @@
       lg:justify-between
       border-t border-primary-500
       py-4
+      items-center
     "
   >
     <div
@@ -50,9 +51,9 @@
         lg:w-auto
       "
     >
-      <feature-item :feature="$t('footer.startAGuild')" />
-      <feature-item :feature="$t('footer.item1')" />
-      <feature-item :feature="$t('footer.item2')" />
+      <feature-item class="uppercase" :feature="$t('footer.startAGuild')" />
+      <feature-item class="uppercase" :feature="$t('footer.item1')" />
+      <feature-item class="uppercase" :feature="$t('footer.item2')" />
       <div class="flex items-center text-gray-400">
         <a
           class="cursor-pointer"

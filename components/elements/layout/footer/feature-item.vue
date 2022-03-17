@@ -11,7 +11,6 @@
       flex-col flex-wrap
       justify-center
       items-center
-      uppercase
     "
     @click="handleClick"
     >{{ feature }}</span
