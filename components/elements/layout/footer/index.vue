@@ -74,6 +74,7 @@
         h-full
         w-full
         lg:w-auto lg:mr-8
+        items-center
       "
     >
       <div class="flex items-center text-gray-400">

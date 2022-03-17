@@ -1,13 +1,11 @@
 <template>
-  <div class="min-h-screen bg-black">
+  <div class="bg-black">
     <HOCLoading :status="status">
       <client-only>
         <div>
           <TopBar />
-          <main class="w-full h-full flex flex-col min-h-screen">
-            <div class="relative flex-grow">
-              <nuxt />
-            </div>
+          <main class="min-h-screen-excluding-header-footer">
+            <nuxt />
           </main>
           <Footer />
         </div>
