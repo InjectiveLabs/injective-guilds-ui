@@ -4,8 +4,10 @@
       <client-only>
         <div>
           <TopBar />
-          <main class="w-full h-full min-h-screen">
-            <nuxt />
+          <main class="w-full h-full flex flex-col min-h-screen">
+            <div class="relative flex-grow">
+              <nuxt />
+            </div>
           </main>
           <Footer />
         </div>

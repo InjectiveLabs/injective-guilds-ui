@@ -5,8 +5,8 @@ export default {
   },
   footer: {
     privacyPolicy: 'Privacy Policy',
-    startAGuild: 'START A GUILD',
-    item1: 'ITEM 1',
-    item2: 'ITEM 2',
+    startAGuild: 'Start a guild',
+    item1: 'Item 1',
+    item2: 'Item 2',
   },
 }

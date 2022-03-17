@@ -23,11 +23,22 @@
         items-center
       "
     >
-      <item class="lg:ml-6 xl:ml-7 text-base h-auto sm:h-full">
+      <div
+        class="
+          flex
+          items-center
+          text-gray-400
+          lg:ml-6
+          xl:ml-7
+          text-base
+          h-auto
+          sm:h-full
+        "
+      >
         <span>&copy; {{ new Date().getFullYear() }} Open DeFi Foundation</span>
-      </item>
+      </div>
     </div>
-    <ul
+    <div
       class="
         justify-center
         flex
@@ -42,7 +53,7 @@
       <feature-item :feature="$t('footer.startAGuild')" />
       <feature-item :feature="$t('footer.item1')" />
       <feature-item :feature="$t('footer.item2')" />
-      <item class="text-footer">
+      <div class="flex items-center text-gray-400">
         <a
           class="cursor-pointer"
           href="https://injectivelabs.org/privacy-policy"
@@ -50,10 +61,10 @@
         >
           {{ $t('footer.privacyPolicy') }}
         </a>
-      </item>
-    </ul>
+      </div>
+    </div>
 
-    <ul
+    <div
       class="
         justify-center
         flex
@@ -65,34 +76,34 @@
         lg:w-auto lg:mr-8
       "
     >
-      <item>
-        <div class="flex">
-          <a href="https://twitter.com/InjectiveLabs" class="mr-4">
-            <v-icon-twitter class="w-6 h-6" />
-          </a>
-          <a href="https://discord.gg/injective" target="_blank" class="mr-4">
-            <v-icon-discord class="w-6 h-6" />
-          </a>
-          <a href="https://t.me/joininjective" target="_blank" class="mr-4">
-            <v-icon-telegram class="w-6 h-6" />
-          </a>
-          <a href="https://www.reddit.com/r/injective/" target="_blank">
-            <v-icon-reddit class="w-6 h-6" />
-          </a>
-        </div>
-      </item>
-    </ul>
+      <div class="flex items-center text-gray-400">
+        <a
+          href="https://twitter.com/InjectiveLabs"
+          target="_blank"
+          class="mr-4"
+        >
+          <v-icon-twitter class="w-6 h-6" />
+        </a>
+        <a href="https://discord.gg/injective" target="_blank" class="mr-4">
+          <v-icon-discord class="w-6 h-6" />
+        </a>
+        <a href="https://t.me/joininjective" target="_blank" class="mr-4">
+          <v-icon-telegram class="w-6 h-6" />
+        </a>
+        <a href="https://www.reddit.com/r/injective/" target="_blank">
+          <v-icon-reddit class="w-6 h-6" />
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Item from './item.vue'
 import FeatureItem from './feature-item.vue'
 
 export default Vue.extend({
   components: {
-    Item,
     FeatureItem,
   },
 })

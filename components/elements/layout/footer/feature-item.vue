@@ -11,6 +11,7 @@
       flex-col flex-wrap
       justify-center
       items-center
+      uppercase
     "
     @click="handleClick"
     >{{ feature }}</span
@@ -29,7 +30,10 @@ export default Vue.extend({
   },
 
   methods: {
-    handleClick() {},
+    handleClick() {
+      const { feature } = this
+      this.$emit('click', feature)
+    },
   },
 })
 </script>
