@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-white">
     <span class="font-logo text-9xl"> {{ $t('tradingGuild') }}</span>
   </div>
 </template>

@@ -14,6 +14,19 @@ module.exports = {
       logo: ['Cyberway Riders'],
     },
 
+    screens: {
+      xs: '480px',
+      sm: '640px',
+      md: '768px',
+      '2md': '800px',
+      '3md': '840px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1366px',
+      '3xl': '1440px',
+      '4xl': '1681px',
+    },
+
     extend: {
       colors: {
         current: 'currentColor',

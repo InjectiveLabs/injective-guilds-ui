@@ -1,7 +1,7 @@
 import VueI18n from 'vue-i18n/types'
 import VueRouter from 'vue-router'
 import { Toasted } from 'vue-toasted'
-// import { accessorType } from '~/store'
+import { accessorType } from '~/store'
 
 /**
  * Overloads VueI18n interface to avoid needing to cast return value to string.
@@ -20,7 +20,7 @@ declare module 'vue/types/vue' {
     $t: typeof VueI18n.prototype.t
     $onError: (e: string) => void
     $router: VueRouter
-    // $accessor: typeof accessorType
+    $accessor: typeof accessorType
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
