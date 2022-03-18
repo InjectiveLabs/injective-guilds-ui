@@ -36,6 +36,7 @@ module.exports = {
 
         primary: {
           500: '#0FF4E7',
+          400: '#22D3EE',
         },
 
         accent: {
