@@ -1185,10 +1185,37 @@
     link-module-alias "^1.2.0"
     shx "^0.3.2"
 
+"@injectivelabs/exceptions@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.npmjs.org/@injectivelabs/exceptions/-/exceptions-0.1.10.tgz#2134ba2281ce3803bbabcff0b2b9c15b4c7ea094"
+  integrity sha512-kb/qDJmHR7oJ5WVQ21MO/qTgr0FG+Fh3t5HQDHdZ/K4SBjCNUhAZHWNj971YQ2XPZ5YFaR3YSTe40Ii8lt/tVg==
+  dependencies:
+    "@injectivelabs/ts-types" "^0.1.10"
+    link-module-alias "^1.2.0"
+    shx "^0.3.2"
+
+"@injectivelabs/networks@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.npmjs.org/@injectivelabs/networks/-/networks-0.1.11.tgz#7759739a477d80c1eecd0545a9f1311b6d3d9c6f"
+  integrity sha512-AAD7r+Z5qRHRimnFddC0XfAz30C7jh6X697tAaNd5X6LjvAdcAfsC2VVy4FPKGBGUtKO2q3PrO28qiyErn2nnQ==
+  dependencies:
+    "@injectivelabs/exceptions" "^0.1.10"
+    "@injectivelabs/utils" "^0.1.11"
+    link-module-alias "^1.2.0"
+    shx "^0.3.2"
+
 "@injectivelabs/ts-types@^0.0.27":
   version "0.0.27"
   resolved "https://registry.npmjs.org/@injectivelabs/ts-types/-/ts-types-0.0.27.tgz#f897941c700f603d07070949731ddfb43f840e4c"
   integrity sha512-SnLKlwduu4kQTlWrCDGDryy1cpvmdjTLKudprVI9UEjxtqBCfpHxT8eT3TXSEUdZNk80wUbEdNNv8pGtdn4FrQ==
+  dependencies:
+    link-module-alias "^1.2.0"
+    shx "^0.3.2"
+
+"@injectivelabs/ts-types@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.npmjs.org/@injectivelabs/ts-types/-/ts-types-0.1.10.tgz#e3bc7841cf1f08d4c43cc4a6fa9aaa15b34b06f9"
+  integrity sha512-RlJpwSy5G/vL3jtLecKEcvH06xb0cfSXrrxJidIhqa/6gFEkS8Jfw2wQYnlS0UoFSb9WIAPMUWItIpKGoJ+zAw==
   dependencies:
     link-module-alias "^1.2.0"
     shx "^0.3.2"
@@ -1206,6 +1233,20 @@
     bignumber.js "^9.0.1"
     link-module-alias "^1.2.0"
     shx "^0.3.2"
+    store2 "^2.12.0"
+
+"@injectivelabs/utils@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.npmjs.org/@injectivelabs/utils/-/utils-0.1.11.tgz#ec74d82cf20ed91472b1bfff8450446158ebcade"
+  integrity sha512-Gz2eO4yfaIDvF02FtOAAjMXprZM9kQExuxRp7Iv0cowUWQ06IJ6AjYdkEARt7kXTqxSwhwBvX0HcRPWQpp42QA==
+  dependencies:
+    "@injectivelabs/exceptions" "^0.1.10"
+    "@injectivelabs/ts-types" "^0.1.10"
+    axios "^0.21.1"
+    bignumber.js "^9.0.1"
+    link-module-alias "^1.2.0"
+    shx "^0.3.2"
+    snakecase-keys "^5.1.2"
     store2 "^2.12.0"
 
 "@injectivelabs/web3-contract-typings@^0.1.12":
@@ -7388,7 +7429,7 @@ map-obj@^1.0.0:
   resolved "https://registry.npmjs.org/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
   integrity sha1-2TPOuSBdgr3PSIb2dCvcK03qFG0=
 
-map-obj@^4.0.0:
+map-obj@^4.0.0, map-obj@^4.1.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
   integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
@@ -8097,6 +8138,14 @@ nuxt-bugsnag@^4.2.2:
     "@bugsnag/plugin-vue" "^7.3.5"
     deepmerge "^4.2.2"
     webpack-bugsnag-plugins "^1.4.3"
+
+nuxt-typed-vuex@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/nuxt-typed-vuex/-/nuxt-typed-vuex-0.2.0.tgz#989ff05bf30aa10bc82456f03cf5645bc9621e3a"
+  integrity sha512-c+6LRuwv4aox0aarAccd5zdd3tWOBDxbc32VRLeVpAt//ZG8Lcutt4Xc067iyRaquOashkJvQ8//Ko18EaySTw==
+  dependencies:
+    typed-vuex "0.2.0"
+    upath "^2.0.1"
 
 nuxt@^2.15.7:
   version "2.15.8"
@@ -10484,6 +10533,23 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
+snake-case@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/snake-case/-/snake-case-3.0.4.tgz#4f2bbd568e9935abdfd593f34c691dadb49c452c"
+  integrity sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==
+  dependencies:
+    dot-case "^3.0.4"
+    tslib "^2.0.3"
+
+snakecase-keys@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.npmjs.org/snakecase-keys/-/snakecase-keys-5.1.2.tgz#36b9d8796eed3e7fe589b359252ee8d98540c7bc"
+  integrity sha512-fvtDQZqPBqYb0dEY97TGuOMbN2NJ05Tj4MaoKwjTKkmjcG6mrd58JYGr23UWZRi6Aqv49Fk4HtjTIStOQenaug==
+  dependencies:
+    map-obj "^4.1.0"
+    snake-case "^3.0.4"
+    type-fest "^2.5.2"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -11453,6 +11519,11 @@ type-fest@^0.8.1:
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
+type-fest@^2.5.2:
+  version "2.12.0"
+  resolved "https://registry.npmjs.org/type-fest/-/type-fest-2.12.0.tgz#ce342f58cab9114912f54b493d60ab39c3fc82b6"
+  integrity sha512-Qe5GRT+n/4GoqCNGGVp5Snapg1Omq3V7irBJB3EaKsp7HWDo5Gv2d/67gfNyV+d5EXD+x/RF5l1h4yJ7qNkcGA==
+
 type-is@^1.6.16:
   version "1.6.18"
   resolved "https://registry.npmjs.org/type-is/-/type-is-1.6.18.tgz#4e552cd05df09467dcbc4ef739de89f2cf37c131"
@@ -11460,6 +11531,11 @@ type-is@^1.6.16:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.24"
+
+typed-vuex@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/typed-vuex/-/typed-vuex-0.2.0.tgz#1c1b60150926a764c0a5a2d5eb6620ef8e9096aa"
+  integrity sha512-0JZJBcQiXJq4TnQh0W3sdZzTnwUiHO0AygttInsXO8BZ4eRTbNRmldKDIzsgA7WRlVi+pJ8oAKDlDDpkx0Ilpg==
 
 typedarray-to-buffer@^3.1.5:
   version "3.1.5"

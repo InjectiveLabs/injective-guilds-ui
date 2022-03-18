@@ -16,12 +16,13 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/icons',
     '~/plugins/elements',
     '~/plugins/i18n',
+    '~/plugins/icons',
+    '~/plugins/store',
 
-    { src: './plugins/tooltip', ssr: false },
-    { src: './plugins/clipboard', ssr: false },
+    { src: '~/plugins/tooltip', ssr: false },
+    { src: '~/plugins/clipboard', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -35,6 +36,7 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    'nuxt-typed-vuex',
   ],
 
   modules,
