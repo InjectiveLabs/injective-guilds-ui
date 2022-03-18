@@ -8,7 +8,6 @@ const mutationsToPersist = [
   'wallet/logout',
   'wallet/setAddress',
   'wallet/setWallet',
-  'wallet/setWalletOptions',
   'wallet/setInjectiveAddress',
   'wallet/setAddressConfirmation'
 ]
@@ -27,7 +26,6 @@ const store: Plugin = ({ store, app }) => {
       const stateToPersist = {
         wallet: {
           wallet: app.$accessor.wallet.wallet,
-          walletOptions: app.$accessor.wallet.walletOptions,
           addresses: app.$accessor.wallet.addresses,
           address: app.$accessor.wallet.address,
           injectiveAddress: app.$accessor.wallet.injectiveAddress,

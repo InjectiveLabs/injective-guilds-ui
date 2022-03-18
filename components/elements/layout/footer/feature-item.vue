@@ -13,8 +13,9 @@
       items-center
     "
     @click="handleClick"
-    >{{ feature }}</span
   >
+    {{ feature }}
+  </span>
 </template>
 
 <script lang="ts">
@@ -24,15 +25,16 @@ export default Vue.extend({
   props: {
     feature: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
   methods: {
     handleClick() {
       const { feature } = this
+
       this.$emit('click', feature)
-    },
-  },
+    }
+  }
 })
 </script>

@@ -13,6 +13,6 @@ export default ({ app }: Context) => {
     locale: englishLocale,
     fallbackLocale,
     silentFallbackWarn: true,
-    messages: { en },
+    messages: { en }
   })
 }

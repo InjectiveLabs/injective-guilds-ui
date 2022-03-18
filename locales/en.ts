@@ -1,12 +1,13 @@
+import wallet from './en/wallet'
+
 export default {
+  ...wallet,
+  myGuild: 'My Guild',
   tradingGuild: 'Trading Guilds',
-  wallet: {
-    connectWallet: 'Connect Wallet',
-  },
   footer: {
     privacyPolicy: 'Privacy Policy',
     startAGuild: 'Start a guild',
     item1: 'Item 1',
-    item2: 'Item 2',
-  },
+    item2: 'Item 2'
+  }
 }

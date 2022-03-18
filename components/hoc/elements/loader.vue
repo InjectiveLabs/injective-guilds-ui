@@ -5,7 +5,7 @@
         <div />
         <div />
         <div />
-        <LogoMini class="logo-mini h-8 w-8" />
+        <div />
       </div>
     </div>
   </div>
@@ -13,19 +13,16 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import LogoMini from '~/components/svg/logo-mini.vue'
 
 export default Vue.extend({
-  components: {
-    LogoMini,
-  },
+  components: {},
 
   props: {
     logo: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 })
 </script>
 
@@ -33,8 +30,8 @@ export default Vue.extend({
 .loading-spinner {
   display: inline-block;
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
 }
 .loading-spinner div {
   box-sizing: border-box;
@@ -42,27 +39,26 @@ export default Vue.extend({
   position: absolute;
   width: 48px;
   height: 48px;
-  border: 2.3px solid #01cafd;
+  margin: 6px;
+  border: 6px solid theme('colors.primary.500');
   border-radius: 50%;
-  animation: loading-spinner 1.2s cubic-bezier(0.5, 0.4, 0.8, 1) infinite;
-  border-color: #01cafd #01cafd transparent transparent;
+  animation: loading-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: theme('colors.primary.500') transparent transparent transparent;
 }
 
-.loading-spinner .logo-mini {
-  margin-top: 9px;
-  margin-left: 8px;
+.dark .loading-spinner div {
+  border-color: #00f2ff transparent transparent transparent;
 }
 
 .loading-spinner div:nth-child(1) {
-  animation-delay: -0.3s;
+  animation-delay: -0.45s;
 }
 .loading-spinner div:nth-child(2) {
-  animation-delay: -0.55s;
+  animation-delay: -0.3s;
 }
 .loading-spinner div:nth-child(3) {
-  animation-delay: -0.8s;
+  animation-delay: -0.15s;
 }
-
 @keyframes loading-spinner {
   0% {
     transform: rotate(0deg);

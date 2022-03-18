@@ -5,20 +5,20 @@ import VLoading from '~/components/hoc/elements/loader.vue'
 
 export default Vue.extend({
   components: {
-    VLoading,
+    VLoading
   },
 
   props: {
     status: {
       default: () => new Status(),
-      type: Object as PropType<Status>,
-    },
+      type: Object as PropType<Status>
+    }
   },
 
   render(createElement): VNode {
     const parentAttributes = {
       attrs: this.$attrs,
-      on: this.$listeners,
+      on: this.$listeners
     }
 
     if (this.$slots.default !== undefined) {
@@ -28,12 +28,12 @@ export default Vue.extend({
 
       return createElement('div', { class: 'min-h-loading' }, [
         createElement('v-loading', {
-          ...parentAttributes,
-        }),
+          ...parentAttributes
+        })
       ])
     }
 
     return createElement('span')
-  },
+  }
 })
 </script>

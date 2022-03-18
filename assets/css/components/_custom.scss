@@ -1,0 +1,51 @@
+.spinner {
+  @apply block mx-auto w-6 h-6 bg-transparent border-4 rounded-full top-0 left-0 border-transparent;
+  border-top-color: theme('colors.white');
+  animation: spin 0.6s ease-out infinite;
+}
+
+[class*='bg-gray-200'] .spinner {
+  border-top-color: theme('colors.primary.500');
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.toasted.bubble.error {
+  @apply text-black font-bold;
+  background: theme('colors.accent.500') !important;
+}
+
+.toasted.bubble.info {
+  @apply text-white shadow-md;
+  background: theme('colors.black') !important;
+
+  .action {
+    @apply font-bold;
+  }
+
+  .text-primary-500 {
+    color: theme('colors.primary.500') !important;
+  }
+}
+
+.toasted.bubble.success {
+  @apply text-gray-800 font-bold;
+  background: theme('colors.primary.500') !important;
+}
+
+.toasted.bubble.default {
+  @apply text-gray-200 shadow-sm;
+  background: theme('colors.black') !important;
+}
+
+.toasted-container .toasted.default .action.text-primary-500 {
+  @apply text-primary-500 font-bold;
+}
+
+.toasted-container .toasted.default .action.text-red-500 {
+  @apply text-red-500 font-bold;
+}

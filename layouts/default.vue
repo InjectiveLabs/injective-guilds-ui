@@ -1,6 +1,6 @@
 <template>
   <div class="bg-black">
-    <HOCLoading :status="status">
+    <VHOCLoading :status="status">
       <client-only>
         <div>
           <TopBar />
@@ -10,27 +10,25 @@
           <Footer />
         </div>
       </client-only>
-    </HOCLoading>
+    </VHOCLoading>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
-import HOCLoading from '~/components/hoc/loading.vue'
 import TopBar from '~/components/elements/layout/topbar.vue'
 import Footer from '~/components/elements/layout/footer/index.vue'
 
 export default Vue.extend({
   components: {
-    HOCLoading,
     TopBar,
-    Footer,
+    Footer
   },
 
   data() {
     return {
-      status: new Status(StatusType.Idle),
+      status: new Status(StatusType.Idle)
     }
   },
 
@@ -44,6 +42,6 @@ export default Vue.extend({
 
   methods: {
     //
-  },
+  }
 })
 </script>

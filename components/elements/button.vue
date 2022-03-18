@@ -6,60 +6,59 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <slot />
+    <slot v-if="status && status.isNotLoading()" />
+    <span v-if="status && status.isLoading()" class="block w-full">
+      <span class="spinner" />
+    </span>
   </button>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
+import { Status } from '@injectivelabs/utils'
 
 export default Vue.extend({
   props: {
-    default: {
+    status: {
       required: false,
-      default: false,
-      type: Boolean,
+      type: Object as PropType<Status>,
+      default: () => new Status()
     },
 
     text: {
-      required: false,
       default: false,
-      type: Boolean,
+      type: Boolean
     },
 
     outline: {
-      required: false,
       default: false,
-      type: Boolean,
+      type: Boolean
     },
 
     primary: {
-      required: false,
       default: false,
-      type: Boolean,
+      type: Boolean
     },
 
-    red: {
-      required: false,
+    accent: {
       default: false,
-      type: Boolean,
+      type: Boolean
     },
 
     disabled: {
-      required: false,
       default: false,
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
 
   computed: {
-    classes() {
+    classes(): string[] {
       const classes = [
         'text-center',
         'rounded',
         'focus:outline-none',
         'py-2',
-        'px-6',
+        'px-6'
       ]
 
       if (this.disabled) {
@@ -73,59 +72,35 @@ export default Vue.extend({
         if (!this.text) {
           classes.push('border', 'border-gray-700')
         }
+
+        return classes
       }
 
-      if (!this.disabled) {
-        if (this.text) {
-          const color = this.red
-            ? ['text-red-500', 'hover:text-red-600']
-            : this.default
-            ? ['text-gray-500', 'hover:text-primary-500']
-            : ['text-primary-500', 'hover:text-primary-600']
+      if (this.text || this.outline) {
+        classes.push('bg-transparent', 'font-medium')
+        if (this.outline) {
+          const borderColor = this.accent
+            ? ['border-red-500', 'hover:border-red-600']
+            : ['border-primary-500', 'hover:text-primary-600']
 
-          classes.push('font-bold', 'tracking-wide', ...color)
-        } else if (this.primary) {
-          if (this.outline) {
-            classes.push(
-              'bg-transparent',
-              'font-medium',
-              'border',
-              'border-primary-500',
-              'text-primary-500',
-              'hover:text-primary-400'
-            )
-          } else {
-            classes.push(
-              'font-bold',
-              'bg-primary-500',
-              'hover:bg-primary-400',
-              'text-gray-800',
-              'shadow-none'
-            )
-          }
-        } else if (this.red) {
-          if (this.outline) {
-            classes.push(
-              'bg-transparent',
-              'font-medium',
-              'border',
-              'border-red-500',
-              'text-red-500',
-              'hover:text-red-400'
-            )
-          } else {
-            classes.push(
-              'font-bold',
-              'bg-red-500',
-              'hover:bg-red-400',
-              'text-gray-800',
-              'shadow-none'
-            )
-          }
+          classes.push(...borderColor, 'border')
         }
+
+        const textColor = this.accent
+          ? ['text-red-500', 'hover:text-red-600']
+          : ['text-primary-500', 'hover:text-primary-600']
+
+        return [...classes, ...textColor, 'tracking-wide']
       }
-      return classes.join(' ')
-    },
-  },
+
+      // solid button
+      classes.push('font-bold', 'shadow-none', 'text-black')
+      const bgColor = this.accent
+        ? ['text-red-500', 'hover:text-red-600']
+        : ['bg-primary-500', 'hover:bg-primary-600']
+
+      return [...classes, ...bgColor]
+    }
+  }
 })
 </script>

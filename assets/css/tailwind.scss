@@ -4,4 +4,9 @@
 @import './components/roots';
 
 @tailwind components;
+@import './components/inputs';
+@import 'vue-select/src/scss/vue-select.scss';
+
 @tailwind utilities;
+@import './components/animate';
+@import './components/custom';

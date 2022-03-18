@@ -106,7 +106,7 @@ import FeatureItem from './feature-item.vue'
 
 export default Vue.extend({
   components: {
-    FeatureItem,
-  },
+    FeatureItem
+  }
 })
 </script>

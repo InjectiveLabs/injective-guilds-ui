@@ -1,4 +1,3 @@
-/* eslint-disable nuxt/no-cjs-in-config */
 const routes = require('./routes.config')
 const head = require('./head.config')
 const modules = require('./modules.config')
@@ -6,6 +5,7 @@ const build = require('./build.config')
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
+  ssr: false,
   target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -16,13 +16,15 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/icons',
     '~/plugins/elements',
     '~/plugins/i18n',
-    '~/plugins/icons',
+    '~/plugins/utils',
     '~/plugins/store',
 
-    { src: '~/plugins/tooltip', ssr: false },
     { src: '~/plugins/clipboard', ssr: false },
+    { src: '~/plugins/tooltip', ssr: false },
+    { src: '~/plugins/veevalidate', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -30,13 +32,12 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/stylelint
+    '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
-    // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    'nuxt-typed-vuex',
+    '@nuxtjs/vendor',
+    'nuxt-typed-vuex'
   ],
 
   modules,
@@ -48,17 +49,17 @@ export default {
   build: {
     ...build,
     babel: {
-      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]],
-    },
+      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]]
+    }
   },
 
   'google-gtag': {
-    id: process.env.APP_GOOGLE_ANALYTICS_KEY,
+    id: process.env.APP_GOOGLE_ANALYTICS_KEY
   },
 
   sitemap: {
     hostname: process.env.APP_BASE_URL || 'https://guilds.injective.app',
-    gzip: true,
+    gzip: true
   },
 
   loading: { color: '#00f2ff' },
@@ -66,39 +67,45 @@ export default {
   env: {
     APP_TITLE: process.env.APP_TITLE || 'Injective Guilds',
     APP_BASE_URL: process.env.APP_BASE_URL || 'https://guilds.injective.app',
+    APP_NETWORK: process.env.APP_NETWORK,
+    APP_CHAIN_ID: process.env.APP_CHAIN_ID,
+    APP_ALCHEMY_KEY: process.env.APP_ALCHEMY_KEY,
+    APP_ALCHEMY_KOVAN_KEY: process.env.APP_ALCHEMY_KOVAN_KEY,
     APP_GOOGLE_ANALYTICS_KEY: process.env.APP_GOOGLE_ANALYTICS_KEY,
     APP_GOOGLE_SITE_VERIFICATION_KEY:
       process.env.APP_GOOGLE_SITE_VERIFICATION_KEY,
-    APP_NETWORK: process.env.APP_NETWORK,
-    APP_CHAIN_ID: process.env.APP_CHAIN_ID,
     NODE_ENV: process.env.NODE_ENV,
     APP_ENV: process.env.APP_ENV || 'production',
     APP_VER: process.env.npm_package_version,
+    APP_EXCHANGE_API_ENDPOINT: process.env.APP_EXCHANGE_API_ENDPOINT,
+    APP_SENTRY_GRPC_ENDPOINT: process.env.APP_SENTRY_GRPC_ENDPOINT,
+    GEO_IP_RESTRICTIONS_ENABLED: process.env.GEO_IP_RESTRICTIONS_ENABLED
   },
 
   router: {
-    linkActiveClass: 'is-active',
+    linkActiveClass: 'is-active'
   },
 
   toast: {
     position: 'bottom-right',
-    duration: 20000,
+    duration: 6000,
+    theme: 'bubble'
   },
 
   generate: {
-    routes,
+    routes
   },
 
   typescript: {
     typeCheck: {
       eslint: {
-        files: './**/*.{ts,js,vue}',
-      },
-    },
+        files: './**/*.{ts,js,vue}'
+      }
+    }
   },
 
   tailwindcss: {
     config: './tailwind.config.js',
-    cssPath: './assets/css/tailwind.scss',
-  },
+    cssPath: './assets/css/tailwind.scss'
+  }
 }

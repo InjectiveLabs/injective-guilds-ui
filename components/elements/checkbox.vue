@@ -18,34 +18,34 @@ import Vue from 'vue'
 export default Vue.extend({
   model: {
     prop: 'value',
-    event: 'input',
+    event: 'input'
   },
 
   props: {
     value: {
       type: [Boolean, String],
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
     return {
-      checked: false,
+      checked: false
     }
   },
 
   computed: {
     uid(): string {
       return window.crypto.getRandomValues(new Uint32Array(1))[0].toString()
-    },
+    }
   },
 
   methods: {
     handleChange() {
       this.checked = !this.checked
       this.$emit('input', this.checked)
-    },
-  },
+    }
+  }
 })
 </script>
 

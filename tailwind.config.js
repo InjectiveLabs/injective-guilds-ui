@@ -5,13 +5,13 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: '1rem',
+      padding: '1rem'
     },
 
     fontFamily: {
       sans: ['Space Grotesk', ...defaultTheme.fontFamily.sans],
       mono: ['Helvetica Neue', ...defaultTheme.fontFamily.mono],
-      logo: ['Cyberway Riders'],
+      logo: ['Cyberway Riders']
     },
 
     screens: {
@@ -24,7 +24,7 @@ module.exports = {
       xl: '1280px',
       '2xl': '1366px',
       '3xl': '1440px',
-      '4xl': '1681px',
+      '4xl': '1681px'
     },
 
     extend: {
@@ -35,28 +35,29 @@ module.exports = {
         transparent: 'transparent',
 
         primary: {
-          500: '#0FF4E7',
           400: '#22D3EE',
+          500: '#0FF4E7',
+          600: '#09c6bb'
         },
 
         accent: {
           500: '#E03B18',
-          600: '#D73513',
+          600: '#D73513'
         },
 
         gray: {
           100: '#F8F8F8',
           200: '#F2F2F2',
           400: '#727376',
-          500: '#EAE8E8',
-        },
+          500: '#EAE8E8'
+        }
       },
 
       skew: {
         45: '45deg',
-        '-45': '-45deg',
-      },
-    },
+        '-45': '-45deg'
+      }
+    }
   },
 
   purge: {
@@ -65,6 +66,6 @@ module.exports = {
     whitelist: [
       //
     ],
-    whitelistPatterns: [],
-  },
+    whitelistPatterns: []
+  }
 }

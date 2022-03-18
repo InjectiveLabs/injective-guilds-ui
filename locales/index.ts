@@ -9,7 +9,7 @@ export interface Locale {
 
 export const english = {
   name: 'English',
-  locale: englishLocale,
+  locale: englishLocale
 }
 
 export const locales: Locale[] = [english]
