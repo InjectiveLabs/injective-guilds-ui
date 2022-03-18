@@ -1,7 +1,18 @@
 <template>
-  <div class="text-white">
-    <span class="font-logo text-9xl"> {{ $t('tradingGuild') }}</span>
-    <span @click="logout">Temp logout button</span>
+  <div>
+    <section
+      :style="{ backgroundImage: `url('/svg/homepage-banner.svg')` }"
+      class="py-16 bg-cover bg-right-bottom h-banner"
+    >
+      <div class="container flex h-full items-center">
+        <div class="text-white">
+          <p class="font-logo text-9xl">{{ $t('tradingGuild.title') }}</p>
+          <p class="text-lg mt-8 max-w-lg">
+            {{ $t('tradingGuild.description') }}
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

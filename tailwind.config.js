@@ -53,6 +53,10 @@ module.exports = {
         }
       },
 
+      height: {
+        banner: '537px'
+      },
+
       skew: {
         45: '45deg',
         '-45': '-45deg'
