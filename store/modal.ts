@@ -11,13 +11,13 @@ const modals = modalValues.reduce((previous: ModalState, current: Modal) => {
 }, {} as ModalState)
 
 const initialStateFactory = () => ({
-  modals,
+  modals
 })
 
 const initialState = initialStateFactory()
 
 export const state = () => ({
-  modals: initialState.modals as ModalState,
+  modals: initialState.modals as ModalState
 })
 
 export type ModalStoreState = ReturnType<typeof state>
@@ -37,7 +37,7 @@ export const mutations = {
     if (modalExists(modal)) {
       state.modals = {
         ...state.modals,
-        [modal]: !state.modals[modal],
+        [modal]: !state.modals[modal]
       }
     }
   },
@@ -48,5 +48,5 @@ export const mutations = {
 
       state.modals = { ...initialState.modals, [modal]: true }
     }
-  },
+  }
 }

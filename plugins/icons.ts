@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Arrow from '~/components/icons/arrow.vue'
 import ArrowCircle from '~/components/icons/arrow-circle.vue'
 import Person from '~/components/icons/person.vue'
 import Chain from '~/components/icons/chain.vue'
@@ -10,6 +11,7 @@ import Reddit from '~/components/icons/reddit.vue'
 import Telegram from '~/components/icons/telegram.vue'
 import Twitter from '~/components/icons/twitter.vue'
 
+Vue.component('VIconArrow', Arrow)
 Vue.component('VIconArrowCircle', ArrowCircle)
 Vue.component('VIconChain', Chain)
 Vue.component('VIconChevron', Chevron)

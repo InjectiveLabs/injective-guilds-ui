@@ -7,7 +7,7 @@ module.exports = {
     'function-name-case': null,
     'property-no-unknown': [
       true,
-      { ignoreProperties: ['font-named-instance'] },
+      { ignoreProperties: ['font-named-instance'] }
     ],
     'no-invalid-position-at-import-rule': null,
     'at-rule-no-unknown': [
@@ -27,11 +27,11 @@ module.exports = {
           'for',
           'if',
           'else',
-          'return',
-        ],
-      },
+          'return'
+        ]
+      }
     ],
     'declaration-block-trailing-semicolon': null,
-    'no-descending-specificity': null,
-  },
+    'no-descending-specificity': null
+  }
 }

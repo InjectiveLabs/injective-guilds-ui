@@ -9,3 +9,10 @@ export enum AppState {
 export enum Modal {
   ConnectWallet = 'connect-wallet',
 }
+
+export enum WalletConnectStatus {
+  connecting = 'Connecting',
+  disconnected = 'Disconnected',
+  idle = 'Idle',
+  connected = 'Connected',
+}

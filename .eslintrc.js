@@ -1,27 +1,14 @@
 module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    node: true,
-  },
-  extends: [
-    '@nuxtjs/eslint-config-typescript',
-    'plugin:nuxt/recommended',
-    'prettier',
-  ],
-  plugins: [],
-  // add your custom rules here
+  extends: ['@nuxtjs/eslint-config-typescript'],
   rules: {
     indent: 'off',
     'import/named': 'off',
     'arrow-parens': 'off',
-    '@typescript-eslint/no-unused-vars': 'warn',
-    'import/no-named-as-default': 'off',
-    'import/no-named-as-default-member': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
     'space-before-function-paren': 'off',
-    'vue/singleline-html-element-content-newline': 'off',
     'vue/multi-word-component-names': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
     'vue/html-self-closing': 'off',
-    'vue/html-indent': 'off',
-  },
+    'vue/html-indent': 'off'
+  }
 }

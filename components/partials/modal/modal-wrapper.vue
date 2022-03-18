@@ -1,5 +1,8 @@
 <template>
-  <div v-show="isOpen" class="fixed z-1100 inset-0 overflow-y-auto py-4">
+  <div
+    v-show="isVisibleOnViewport"
+    class="fixed z-1100 inset-0 overflow-y-auto py-4"
+  >
     <div
       class="
         flex
@@ -9,7 +12,6 @@
         pt-4
         px-4
         pb-20
-        text-center
         sm:p-0
       "
     >
@@ -57,17 +59,53 @@ export default Vue.extend({
   props: {
     isOpen: {
       default: false,
-      type: Boolean,
-    },
+      type: Boolean
+    }
+  },
+
+  data() {
+    return {
+      isVisibleOnViewport: false
+    }
+  },
+
+  watch: {
+    isOpen(newIsOpen: boolean) {
+      newIsOpen ? this.handleOnOpen() : this.handleOnClose()
+    }
   },
 
   mounted() {
     this.onEscKeyDown()
+
+    if (this.isOpen) {
+      this.handleOnOpen()
+    }
+  },
+
+  beforeDestroy() {
+    document.body.classList.remove('overflow-hidden')
   },
 
   methods: {
+    handleOnOpen() {
+      this.isVisibleOnViewport = true
+      this.$nextTick(() => {
+        document.body.classList.add('overflow-hidden')
+      })
+    },
+
+    handleOnClose() {
+      document.body.classList.remove('overflow-hidden')
+      setTimeout(() => {
+        this.isVisibleOnViewport = false
+      }, 300)
+    },
+
     handleCloseModal() {
-      this.$emit('modal-closed')
+      if (this.isOpen) {
+        this.$emit('modal-closed')
+      }
     },
 
     handleClickOnCloseButton() {
@@ -86,7 +124,7 @@ export default Vue.extend({
       this.$once('hook:destroyed', () => {
         document.removeEventListener('keydown', onEscape)
       })
-    },
-  },
+    }
+  }
 })
 </script>

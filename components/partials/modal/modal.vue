@@ -6,16 +6,18 @@
         class="modal w-full transform transition-all px-0.5 relative"
         :class="[sizeClasses, { accent: accent, md: md, lg: !md && !sm }]"
       >
-        <div class="w-full bg-black modal-content relative p-8"></div>
+        <div class="w-full bg-black modal-content relative p-8">
+          <slot />
+        </div>
 
         <span
-          class="modal-title text-sm font-bold uppercase"
+          class="modal-title text-sm font-bold uppercase text-center"
           :class="[accent ? 'text-accent-500' : 'text-primary-500']"
         >
-          Title
+          {{ title }}
         </span>
         <span
-          class="absolute right-[16px] top-0 cursor-pointer z-30"
+          class="modal-close cursor-pointer"
           :class="[accent ? 'text-accent-500' : 'text-primary-500']"
           @click="handleCloseModal"
         >
@@ -23,10 +25,6 @@
         </span>
         <div class="modal-glow" />
       </div>
-      <!-- <div
-          style="background-image: url('/svg/error-modal.svg')"
-          class="py-16 bg-cover"
-        ></div> -->
     </template>
   </ModalWrapper>
 </template>
@@ -37,29 +35,34 @@ import ModalWrapper from './modal-wrapper.vue'
 
 export default Vue.extend({
   components: {
-    ModalWrapper,
+    ModalWrapper
   },
 
   props: {
     isOpen: {
       default: false,
-      type: Boolean,
+      type: Boolean
     },
 
     sm: {
       type: Boolean,
-      default: false,
+      default: false
     },
 
     md: {
       type: Boolean,
-      default: false,
+      default: false
+    },
+
+    title: {
+      type: String,
+      default: ''
     },
 
     accent: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
 
   computed: {
@@ -75,14 +78,14 @@ export default Vue.extend({
       }
 
       return ['max-w-lg', 'lg:max-w-3xl']
-    },
+    }
   },
 
   methods: {
     handleCloseModal() {
       this.$emit('modal-closed')
-    },
-  },
+    }
+  }
 })
 </script>
 
@@ -105,7 +108,13 @@ export default Vue.extend({
 .modal-title {
   @apply absolute inset-x-0 z-30;
 
-  top: -20px;
+  top: -18px;
+}
+
+.modal-close {
+  @apply absolute z-30 top-0;
+
+  right: 16px;
 }
 
 .modal-glow {
@@ -136,21 +145,56 @@ export default Vue.extend({
     }
   }
 
-  &.md {
-    padding: 0 3px;
+  @media screen and (max-width: theme('screens.xs')) {
+    padding: 0 2px;
 
     &::before {
-      height: 80px;
-      top: -80px;
+      height: 48px;
+      top: -48px;
+    }
+
+    .modal-title {
+      top: -10px;
+    }
+
+    .modal-close {
+      top: 4px;
     }
   }
 
+  &.md,
   &.lg {
-    padding: 0 3px;
-
     &::before {
-      height: 92px;
-      top: -92px;
+      height: 60px;
+      top: -60px;
+    }
+
+    .modal-close {
+      right: 24px;
+    }
+  }
+
+  @media screen and (min-width: theme('screens.lg')) {
+    &.md {
+      padding: 0 3px;
+
+      .modal-close {
+        right: 28px;
+      }
+
+      &::before {
+        height: 80px;
+        top: -80px;
+      }
+    }
+
+    &.lg {
+      padding: 0 3px;
+
+      &::before {
+        height: 92px;
+        top: -92px;
+      }
     }
   }
 }
