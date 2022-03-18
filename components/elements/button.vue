@@ -33,18 +33,6 @@ export default Vue.extend({
       type: Boolean,
     },
 
-    redOutline: {
-      required: false,
-      default: false,
-      type: Boolean,
-    },
-
-    ghost: {
-      required: false,
-      default: false,
-      type: Boolean,
-    },
-
     primary: {
       required: false,
       default: false,
@@ -58,11 +46,6 @@ export default Vue.extend({
     },
 
     disabled: {
-      required: false,
-      default: false,
-      type: Boolean,
-    },
-    fullWidth: {
       required: false,
       default: false,
       type: Boolean,
@@ -102,52 +85,45 @@ export default Vue.extend({
 
           classes.push('font-bold', 'tracking-wide', ...color)
         } else if (this.primary) {
-          classes.push(
-            'font-bold',
-            'bg-primary-500',
-            'hover:bg-primary-400',
-            'text-gray-800',
-            'shadow-none'
-          )
+          if (this.outline) {
+            classes.push(
+              'bg-transparent',
+              'font-medium',
+              'border',
+              'border-primary-500',
+              'text-primary-500',
+              'hover:text-primary-400'
+            )
+          } else {
+            classes.push(
+              'font-bold',
+              'bg-primary-500',
+              'hover:bg-primary-400',
+              'text-gray-800',
+              'shadow-none'
+            )
+          }
         } else if (this.red) {
-          classes.push(
-            'font-bold',
-            'bg-red-500',
-            'hover:bg-red-400',
-            'text-gray-800',
-            'shadow-none'
-          )
-        } else if (this.outline) {
-          classes.push(
-            'text-primary-500',
-            'font-medium',
-            'border',
-            'hover:text-primary-400',
-            'border-primary-500'
-          )
-        } else if (this.redOutline) {
-          classes.push(
-            'bg-opacity-10',
-            'text-red-500',
-            'font-medium',
-            'border',
-            'border-red-500',
-            'border-opacity-30',
-            'hover:text-red-400'
-          )
-        } else if (this.ghost) {
-          classes.push(
-            'bg-transparent',
-            'font-bold',
-            'hover:text-primary-400',
-            'text-primary-500'
-          )
+          if (this.outline) {
+            classes.push(
+              'bg-transparent',
+              'font-medium',
+              'border',
+              'border-red-500',
+              'text-red-500',
+              'hover:text-red-400'
+            )
+          } else {
+            classes.push(
+              'font-bold',
+              'bg-red-500',
+              'hover:bg-red-400',
+              'text-gray-800',
+              'shadow-none'
+            )
+          }
         }
       }
-      if (this.fullWidth) {
-        classes.push('w-full')
-      }
-
       return classes.join(' ')
     },
   },
