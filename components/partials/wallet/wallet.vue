@@ -18,14 +18,14 @@
       <div class="h-full px-4 xs:px-8 transform xs:skew-x-45">
         <nuxt-link
           v-if="isUserConnectedProcessCompleted && isUserWalletConnected"
-          class="flex items-center"
+          class="flex items-center h-full"
           :to="{ name: 'my-guild' }"
         >
-          <div class="flex items-center">
-            <v-icon-person class="mr-2" />
-            <span class="font-bold uppercase mr-4">{{ $t('myGuild') }}</span>
-            <span>{{ formattedAddress }}</span>
-          </div>
+          <v-icon-person class="mr-2" />
+          <span class="font-bold uppercase mr-4">
+            {{ $t('myGuild.title') }}
+          </span>
+          <span>{{ formattedAddress }}</span>
         </nuxt-link>
 
         <div
