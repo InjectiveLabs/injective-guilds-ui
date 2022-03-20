@@ -124,10 +124,6 @@ export default Vue.extend({
   transform: matrix(-1, 0, 0, 1, 0, 0);
 }
 
-.hide-top-shadow {
-  @apply absolute w-full bg-black h-1 inset-x-0;
-}
-
 .modal {
   &.accent {
     &::before {

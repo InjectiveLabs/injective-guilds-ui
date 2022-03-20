@@ -5,7 +5,14 @@ export default {
   myGuild: {
     title: 'My Guild',
     description:
-      'You can view your portfolio stats and the stats of the Guild you have joined.'
+      'You can view your portfolio stats and the stats of the Guild you have joined.',
+    myHoldings: 'My Holdings',
+    walletBalance: 'Wallet Balance',
+    tradingAccountBalance: 'Trading Account Balance',
+    unrealisedPnL: 'Unrealised P&L',
+    openPositionMargin: 'Open Position Margin',
+    myEarnings: 'My Earnings',
+    historicalReturns: 'Historical Returns'
   },
   tradingGuild: {
     title: 'Trading Guilds',
