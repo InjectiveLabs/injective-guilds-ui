@@ -4,8 +4,15 @@ module.exports = {
   mode: 'jit',
   theme: {
     container: {
-      center: true,
-      padding: '1rem'
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '1.5rem',
+        xl: '2rem',
+        '2xl': '4rem',
+        '3xl': '10rem'
+      }
     },
 
     fontFamily: {
@@ -53,8 +60,29 @@ module.exports = {
         }
       },
 
+      fontSize: {
+        sm: [
+          '14px',
+          {
+            lineHeight: '18px'
+          }
+        ],
+
+        '3.5xl': [
+          '32px',
+          {
+            lineHeight: '40px'
+          }
+        ]
+      },
+
       height: {
         banner: '537px'
+      },
+
+      maxWidth: {
+        '3/4': '75%',
+        card: '414px'
       },
 
       skew: {
