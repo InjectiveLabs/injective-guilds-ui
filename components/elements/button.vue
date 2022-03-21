@@ -54,6 +54,9 @@ export default Vue.extend({
   computed: {
     classes(): string[] {
       const classes = [
+        'flex',
+        'items-center',
+        'max-h-10',
         'text-center',
         'rounded',
         'focus:outline-none',
@@ -80,14 +83,14 @@ export default Vue.extend({
         classes.push('bg-transparent', 'font-medium')
         if (this.outline) {
           const borderColor = this.accent
-            ? ['border-red-500', 'hover:border-red-600']
+            ? ['border-accent-500', 'hover:border-accent-600']
             : ['border-primary-500', 'hover:text-primary-600']
 
           classes.push(...borderColor, 'border')
         }
 
         const textColor = this.accent
-          ? ['text-red-500', 'hover:text-red-600']
+          ? ['text-accent-500', 'hover:text-accent-600']
           : ['text-primary-500', 'hover:text-primary-600']
 
         return [...classes, ...textColor, 'tracking-wide']
@@ -96,7 +99,7 @@ export default Vue.extend({
       // solid button
       classes.push('font-bold', 'shadow-none', 'text-black')
       const bgColor = this.accent
-        ? ['text-red-500', 'hover:text-red-600']
+        ? ['bg-accent-500', 'hover:bg-accent-600']
         : ['bg-primary-500', 'hover:bg-primary-600']
 
       return [...classes, ...bgColor]

@@ -2,6 +2,19 @@ import wallet from './en/wallet'
 
 export default {
   ...wallet,
+  common: {
+    confirm: 'Confirm',
+    leave: 'Leave',
+    viewDetails: 'View details'
+  },
+
+  guilds: {
+    asepoid: 'Asepoid',
+    akukx: 'Akukx',
+    ethixx: 'Ethixx',
+    schneider: 'Schneider'
+  },
+
   myGuild: {
     title: 'My Guild',
     description:
@@ -12,13 +25,28 @@ export default {
     unrealisedPnL: 'Unrealised P&L',
     openPositionMargin: 'Open Position Margin',
     myEarnings: 'My Earnings',
-    historicalReturns: 'Historical Returns'
+    historicalReturns: 'Historical Returns',
+    effectiveAPY: 'Effective APY'
   },
+
+  guildModal: {
+    title: 'Confirmation',
+    joinDescription:
+      'I join {guild} from this moment forward, for better, for worse, for richer, for poorer.',
+    joinConfirmationDescription:
+      'Congratulations. You are part of the {guild} now, to share weal and woe.',
+    leaveDescription:
+      'I leave {guild} from this moment forward, for better, for worse, for richer, for poorer.',
+    grantAuthConfirmationDescription:
+      'You are granting the authorization to the guild master the access to trade on behalf of you using your wallet balance. The APY is reference only. Your balance might be lower than the initial amount.'
+  },
+
   tradingGuild: {
     title: 'Trading Guilds',
     description:
       'Pick your guild wisely, you can only join 1 guild per address. And the guild will use all of your qualified funds in your wallet. Create a new wallet and fund it with the exact amount you wish to join.'
   },
+
   footer: {
     privacyPolicy: 'Privacy Policy',
     startAGuild: 'Start a guild',

@@ -68,6 +68,13 @@ module.exports = {
           }
         ],
 
+        '2.5xl': [
+          '28px',
+          {
+            lineHeight: '104%'
+          }
+        ],
+
         '3.5xl': [
           '32px',
           {
