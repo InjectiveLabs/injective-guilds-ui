@@ -80,6 +80,10 @@ module.exports = {
         banner: '537px'
       },
 
+      minWidth: {
+        12: '3rem'
+      },
+
       maxWidth: {
         '3/4': '75%',
         card: '414px'
@@ -88,6 +92,10 @@ module.exports = {
       skew: {
         45: '45deg',
         '-45': '-45deg'
+      },
+
+      zIndex: {
+        60: '60'
       }
     }
   },

@@ -1,19 +1,17 @@
 <template>
   <div>
     <div
-      class="
-        transform
-        xs:-skew-x-45
-        h-full
-        cursor-pointer
-        group
-        hover:border-l hover:border-r
-      "
+      id="wallet-address"
+      class="transform xs:-skew-x-45 h-full cursor-pointer group hover:border-l hover:border-r"
       :class="[
         isUserConnectedProcessCompleted && isUserWalletConnected
           ? 'border-primary-500 border-l border-r text-primary-500 bg-black hover:text-black hover:border-black hover:bg-primary-500'
           : 'bg-primary-500 hover:text-primary-500 hover:border-primary-500 hover:bg-transparent '
       ]"
+      @mouseenter="handleShowDropdown"
+      @mouseleave="handleHideDropdown"
+      @focus="handleShowDropdown"
+      @blur="handleHideDropdown"
     >
       <div class="h-full px-4 xs:px-8 transform xs:skew-x-45">
         <nuxt-link
@@ -40,18 +38,24 @@
         </div>
       </div>
     </div>
-    <connect-wallet-modal />
+    <v-modal-connect-wallet />
+    <v-wallet-dropdown
+      ref="popper-wallet-dropdown"
+      @logout="handleHideDropdown"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { formatWalletAddress } from '@injectivelabs/utils'
-import ConnectWalletModal from '~/components/partials/modal/connect-wallet.vue'
+import VModalConnectWallet from '~/components/partials/modal/connect-wallet.vue'
+import VWalletDropdown from '~/components/partials/wallet/dropdown.vue'
 
 export default Vue.extend({
   components: {
-    ConnectWalletModal
+    VModalConnectWallet,
+    VWalletDropdown
   },
 
   data() {
@@ -73,6 +77,10 @@ export default Vue.extend({
       const { injectiveAddress } = this
 
       return formatWalletAddress(injectiveAddress)
+    },
+
+    $popper(): any {
+      return this.$refs['popper-wallet-dropdown']
     }
   },
 
@@ -103,6 +111,22 @@ export default Vue.extend({
 
     handleConnectClick() {
       this.$root.$emit('connect-wallet-clicked')
+    },
+
+    handleShowDropdown() {
+      const { isUserWalletConnected, $popper } = this
+
+      if (isUserWalletConnected && $popper && $popper.$refs.popper) {
+        $popper.$refs.popper.showDropdown()
+      }
+    },
+
+    handleHideDropdown() {
+      const { $popper } = this
+
+      if ($popper && $popper.$refs.popper) {
+        $popper.$refs.popper.hideDropdown()
+      }
     }
   }
 })

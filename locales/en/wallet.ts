@@ -12,6 +12,8 @@ export default {
     copiedAddress: 'Address copied to your clipboard',
     download: 'download',
     logout: 'Logout',
+    myAccount: 'My account',
+    disconnect: 'Disconnect',
     metamask: 'Metamask',
     open: 'open',
     keplr: 'Keplr',
