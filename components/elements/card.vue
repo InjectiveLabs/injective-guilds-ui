@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div class="flex items-center h-full w-full">
-      <div class="bg-primary-500 w-3 self-stretch mr-2"></div>
+      <div class="bg-primary-500 w-3 self-stretch mr-1"></div>
       <div class="card-wrap" :class="{ square: square }">
         <div class="card">
           <slot />

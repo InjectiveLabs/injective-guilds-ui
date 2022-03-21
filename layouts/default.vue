@@ -4,7 +4,7 @@
       <client-only>
         <div>
           <TopBar />
-          <main class="min-h-screen-excluding-header-footer">
+          <main class="min-h-screen-excluding-header-footer pb-16">
             <nuxt />
           </main>
           <Footer />
