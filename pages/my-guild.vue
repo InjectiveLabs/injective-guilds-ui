@@ -107,16 +107,67 @@
         </div>
       </div>
     </v-banner>
+
+    <section class="pt-16 container">
+      <div class="border-t border-primary-500 w-full" />
+      <TableBody>
+        <TableRow
+          v-for="(guild, index) in myGuilds"
+          :key="`my-guild-${index}`"
+          :guild="guild"
+          @leave="handleLeaveGuildBtnClick"
+        >
+        </TableRow>
+      </TableBody>
+    </section>
+    <v-modal-leave-guild v-if="selectedGuild" :guild="selectedGuild" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { BigNumberInBase } from '@injectivelabs/utils'
 import VBanner from '~/layouts/child-page-banner.vue'
+import TableBody from '~/components/partials/grid-table/body.vue'
+import TableRow from '~/components/partials/my-guild/my-guild-row.vue'
+import VModalLeaveGuild from '~/components/partials/modal/leave-guild-modal.vue'
+import { Modal, MyGuild } from '~/types'
 
 export default Vue.extend({
   components: {
-    VBanner
+    TableBody,
+    TableRow,
+    VBanner,
+    VModalLeaveGuild
+  },
+
+  data() {
+    return {
+      selectedGuild: undefined as MyGuild | undefined,
+      myGuilds: [
+        {
+          name: 'schneider',
+          holdings: new BigNumberInBase('1388783'),
+          earnings: new BigNumberInBase('400'),
+          apy: 5.06
+        },
+        {
+          name: 'schneider',
+          holdings: new BigNumberInBase('1388783'),
+          earnings: new BigNumberInBase('400'),
+          apy: 5.06
+        }
+      ] as MyGuild[]
+    }
+  },
+
+  methods: {
+    handleLeaveGuildBtnClick(guild: MyGuild) {
+      this.selectedGuild = guild
+      this.$nextTick(() => {
+        this.$accessor.modal.openModal(Modal.LeaveGuild)
+      })
+    }
   }
 })
 </script>

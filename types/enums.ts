@@ -8,6 +8,7 @@ export enum AppState {
 
 export enum Modal {
   ConnectWallet = 'connect-wallet',
+  LeaveGuild = 'leave-guild'
 }
 
 export enum WalletConnectStatus {
