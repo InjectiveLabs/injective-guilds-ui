@@ -3,27 +3,34 @@
     <template #default>
       <div
         v-if="isOpen"
-        class="modal w-full transform transition-all px-0.5 relative"
+        class="w-full transform transition-all px-0.5 relative"
         :class="[sizeClasses, { accent: accent, md: md, lg: !md && !sm }]"
       >
-        <div class="w-full bg-black modal-content relative p-8">
-          <slot />
-        </div>
+        <div class="modal-wrap">
+          <div class="modal">
+            <p
+              class="text-sm font-bold uppercase text-center"
+              :class="[accent ? 'text-accent-500' : 'text-primary-500']"
+            >
+              {{ title }}
+            </p>
 
-        <span
-          class="modal-title text-sm font-bold uppercase text-center"
-          :class="[accent ? 'text-accent-500' : 'text-primary-500']"
-        >
-          {{ title }}
-        </span>
-        <span
-          class="modal-close cursor-pointer"
-          :class="[accent ? 'text-accent-500' : 'text-primary-500']"
-          @click="handleCloseModal"
-        >
-          <v-icon-close class="w-4 h-4" />
-        </span>
-        <div class="modal-glow" />
+            <div
+              :class="[accent ? 'text-accent-500' : 'text-primary-500']"
+              @click="handleCloseModal"
+            >
+              <v-icon-close class="cursor-pointer ml-auto w-4 h-4 -mr-2" />
+            </div>
+
+            <div
+              class="mt-5"
+              :class="[accent ? 'text-accent-500' : 'text-primary-500']"
+            >
+              <slot />
+            </div>
+          </div>
+          <div class="modal-glow" />
+        </div>
       </div>
     </template>
   </ModalWrapper>
@@ -70,7 +77,7 @@ export default Vue.extend({
       const { sm, md } = this
 
       if (sm) {
-        return ['xs:max-w-[448px]']
+        return ['max-w-[448px] xs:max-w-[448px]']
       }
 
       if (md) {
@@ -90,108 +97,83 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.modal-content {
-  @apply border-b border-l border-r border-primary-500 relative z-10 text-primary-500;
+.modal-wrap {
+  @apply relative h-full w-full;
 
-  box-shadow: 0 0 16px 2px rgba(15, 244, 231, 0.5);
+  filter: drop-shadow(0 0 8px rgba(15, 244, 231, 0.5));
 }
 
-.modal::before {
-  @apply absolute -inset-x-0 bg-cover w-full z-20;
+.modal {
+  @apply w-full h-full px-8 pb-8 pt-6 bg-black text-primary-500;
 
-  content: ' ';
-  background-image: url(/svg/primary-modal.svg);
-  height: 54px;
-  top: -54px;
-}
+  clip-path: polygon(
+    0 41px,
+    16px 23px,
+    112px 23px,
+    130px 0,
+    calc(100% - 130px) 0,
+    calc(100% - 112px) 23px,
+    calc(100% - 16px) 23px,
+    100% 41px,
+    100% 100%,
+    0 100%
+  );
 
-.modal-title {
-  @apply absolute inset-x-0 z-30;
+  &::before {
+    @apply inset-0 absolute bg-primary-500 w-full h-full;
 
-  top: -18px;
-}
-
-.modal-close {
-  @apply absolute z-30 top-0;
-
-  right: 16px;
+    content: '';
+    clip-path: polygon(
+      0 41px,
+      16px 23px,
+      112px 23px,
+      130px 0,
+      calc(100% - 130px) 0,
+      calc(100% - 112px) 23px,
+      calc(100% - 16px) 23px,
+      100% 41px,
+      100% 100%,
+      0 100%,
+      0 41px,
+      1px 41px,
+      1px calc(100% - 1px),
+      calc(100% - 1px) calc(100% - 1px),
+      calc(100% - 1px) 42px,
+      calc(100% - 17px) 24px,
+      calc(100% - 113px) 24px,
+      calc(100% - 125px) 10px,
+      125px 10px,
+      113px 24px,
+      17px 24px,
+      1px 42px
+    );
+  }
 }
 
 .modal-glow {
-  @apply absolute h-10 w-4/5 bg-primary-500 inset-x-0 mx-auto;
+  @apply absolute h-6 w-4/5 bg-primary-500 inset-x-0 mx-auto;
+
+  bottom: -10px;
 
   filter: blur(100px);
   transform: matrix(-1, 0, 0, 1, 0, 0);
 }
 
-.modal {
-  &.accent {
-    &::before {
-      background-image: url(/svg/accent-modal.svg);
-    }
+.accent {
+  .modal-wrap {
+    filter: drop-shadow(0 0 8px rgba(224, 59, 24, 0.5));
+  }
 
-    .modal-glow {
+  .modal {
+    @apply text-accent-500;
+
+    &::before {
       @apply bg-accent-500;
     }
-
-    .modal-content {
-      @apply border-accent-500 text-accent-500;
-
-      box-shadow: 0 0 16px rgba(224, 59, 24, 0.5);
-    }
   }
 
-  @media screen and (max-width: theme('screens.xs')) {
-    padding: 0 2px;
-
-    &::before {
-      height: 48px;
-      top: -48px;
-    }
-
-    .modal-title {
-      top: -10px;
-    }
-
-    .modal-close {
-      top: 4px;
-    }
-  }
-
-  &.md,
-  &.lg {
-    &::before {
-      height: 60px;
-      top: -60px;
-    }
-
-    .modal-close {
-      right: 24px;
-    }
-  }
-
-  @media screen and (min-width: theme('screens.lg')) {
-    &.md {
-      padding: 0 3px;
-
-      .modal-close {
-        right: 28px;
-      }
-
-      &::before {
-        height: 80px;
-        top: -80px;
-      }
-    }
-
-    &.lg {
-      padding: 0 3px;
-
-      &::before {
-        height: 92px;
-        top: -92px;
-      }
-    }
+  .modal-glow {
+    @apply bg-accent-500;
   }
 }
 </style>

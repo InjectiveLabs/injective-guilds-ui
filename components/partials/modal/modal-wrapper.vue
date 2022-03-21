@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="isVisibleOnViewport"
-    class="fixed z-1100 inset-0 overflow-y-auto py-4"
+    class="fixed inset-0 overflow-y-auto py-4 z-50"
   >
     <div
       class="
