@@ -96,6 +96,10 @@ module.exports = {
         card: '414px'
       },
 
+      rotate: {
+        135: '135deg'
+      },
+
       skew: {
         45: '45deg',
         '-45': '-45deg'

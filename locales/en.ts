@@ -29,6 +29,13 @@ export default {
     effectiveAPY: 'Effective APY'
   },
 
+  guild: {
+    guildMaster: 'Guild Master',
+    members: 'Members',
+    historicalReturns: 'Historical Returns',
+    portfolioValue: 'Portfolio Value'
+  },
+
   guildModal: {
     title: 'Confirmation',
     joinDescription:

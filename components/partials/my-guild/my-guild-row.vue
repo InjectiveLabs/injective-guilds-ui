@@ -18,7 +18,11 @@
               <v-button accent outline @click="handleLeaveGuildBtnClick">
                 <span>{{ $t('common.leave') }}</span>
               </v-button>
-              <v-button text>{{ $t('common.viewDetails') }}</v-button>
+              <nuxt-link
+                :to="{ name: 'guild-guild', params: { guild: guild.name } }"
+              >
+                <v-button text>{{ $t('common.viewDetails') }}</v-button>
+              </nuxt-link>
             </div>
           </div>
         </div>

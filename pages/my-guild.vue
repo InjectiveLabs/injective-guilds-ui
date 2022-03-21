@@ -11,25 +11,18 @@
           </p>
         </div>
 
-        <div class="text-primary-500 mx-auto md:ml-auto w-full">
-          <v-card>
+        <div class="mx-auto md:ml-auto w-full">
+          <v-card transparent>
             <div>
               <div class="flex items-start justify-between">
-                <span class="text-sm font-bold uppercase tracking-widest">
+                <span class="text-sm font-bold uppercase tracking-widest mt-1">
                   {{ $t('myGuild.myHoldings') }}
                 </span>
                 <span class="text-3.5xl font-bold">$1000.00</span>
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  mt-3
-                  text-sm
-                  tracking-wide
-                "
+                class="flex items-center justify-between mt-3 text-sm tracking-wide"
               >
                 <span>
                   {{ $t('myGuild.walletBalance') }}
@@ -38,14 +31,7 @@
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  mt-3
-                  text-sm
-                  tracking-wide
-                "
+                class="flex items-center justify-between mt-3 text-sm tracking-wide"
               >
                 <span>
                   {{ $t('myGuild.tradingAccountBalance') }}
@@ -54,14 +40,7 @@
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  mt-3
-                  text-sm
-                  tracking-wide
-                "
+                class="flex items-center justify-between mt-3 text-sm tracking-wide"
               >
                 <span>
                   {{ $t('myGuild.unrealisedPnL') }}
@@ -70,14 +49,7 @@
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  mt-3
-                  text-sm
-                  tracking-wide
-                "
+                class="flex items-center justify-between mt-3 text-sm tracking-wide"
               >
                 <span>
                   {{ $t('myGuild.openPositionMargin') }}
@@ -87,18 +59,18 @@
             </div>
           </v-card>
 
-          <v-card class="mt-2">
+          <v-card transparent class="mt-2">
             <div class="flex items-start justify-between">
-              <span class="text-sm font-bold uppercase tracking-widest">
+              <span class="text-sm font-bold uppercase tracking-widest mt-1">
                 {{ $t('myGuild.myEarnings') }}
               </span>
               <span class="text-3.5xl font-bold">$400.00</span>
             </div>
           </v-card>
 
-          <v-card class="mt-2">
+          <v-card transparent class="mt-2">
             <div class="flex items-start justify-between">
-              <span class="text-sm font-bold uppercase tracking-widest">
+              <span class="text-sm font-bold uppercase tracking-widest mt-1">
                 {{ $t('myGuild.historicalReturns') }}
               </span>
               <span class="text-3.5xl font-bold">5.06%</span>
@@ -126,12 +98,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { BigNumberInBase } from '@injectivelabs/utils'
 import VBanner from '~/layouts/child-page-banner.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/my-guild/my-guild-row.vue'
 import VModalLeaveGuild from '~/components/partials/modal/leave-guild-modal.vue'
 import { Modal, MyGuild } from '~/types'
+import { myGuilds as mockGuilds } from '~/app/data/mock'
 
 export default Vue.extend({
   components: {
@@ -144,20 +116,7 @@ export default Vue.extend({
   data() {
     return {
       selectedGuild: undefined as MyGuild | undefined,
-      myGuilds: [
-        {
-          name: 'schneider',
-          holdings: new BigNumberInBase('1388783'),
-          earnings: new BigNumberInBase('400'),
-          apy: 5.06
-        },
-        {
-          name: 'schneider',
-          holdings: new BigNumberInBase('1388783'),
-          earnings: new BigNumberInBase('400'),
-          apy: 5.06
-        }
-      ] as MyGuild[]
+      myGuilds: mockGuilds
     }
   },
 

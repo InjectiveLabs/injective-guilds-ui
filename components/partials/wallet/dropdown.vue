@@ -62,6 +62,7 @@
         <nuxt-link
           :to="{ name: 'my-guild' }"
           class="uppercase font-bold tracking-wider"
+          @click.native="hideDropdown"
         >
           {{ $t('myGuild.title') }}
         </nuxt-link>
@@ -136,8 +137,12 @@ export default Vue.extend({
   },
 
   methods: {
+    hideDropdown() {
+      this.$emit('hide')
+    },
+
     handleClickOnLogout() {
-      this.$emit('logout')
+      this.$emit('hide')
       this.$nextTick(() => {
         this.$accessor.wallet.logout()
       })

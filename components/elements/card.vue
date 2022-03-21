@@ -2,8 +2,8 @@
   <div class="relative">
     <div class="flex items-center h-full w-full">
       <div class="bg-primary-500 w-3 self-stretch mr-1"></div>
-      <div class="card-wrap" :class="{ square: square }">
-        <div class="card">
+      <div class="card-wrap">
+        <div class="card" :class="{ square: square, transparent: transparent }">
           <slot />
         </div>
       </div>
@@ -19,6 +19,11 @@ export default Vue.extend({
     square: {
       type: Boolean,
       default: false
+    },
+
+    transparent: {
+      type: Boolean,
+      default: false
     }
   }
 })
@@ -26,7 +31,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .card {
-  @apply w-full h-full px-6 pb-4 pt-10 bg-black bg-opacity-20;
+  @apply w-full h-full px-6 pb-4 pt-10 bg-black;
 
   clip-path: polygon(
     68px 0,
@@ -37,6 +42,10 @@ export default Vue.extend({
     0 100%,
     0 0
   );
+
+  &.transparent {
+    @apply bg-opacity-20;
+  }
 
   &::before {
     @apply inset-0 absolute bg-primary-500 w-full h-full;
@@ -91,6 +100,6 @@ export default Vue.extend({
 .card-wrap {
   @apply relative h-full w-full;
 
-  filter: drop-shadow(0 0 16px rgba(15, 244, 231, 0.5));
+  filter: drop-shadow(0 0 8px rgba(15, 244, 231, 0.5));
 }
 </style>
