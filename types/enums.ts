@@ -3,7 +3,7 @@ export enum AppState {
   Loading = 'Loading',
   Idle = 'Idle',
   Error = 'Error',
-  Success = 'Success',
+  Success = 'Success'
 }
 
 export enum Modal {
@@ -15,5 +15,12 @@ export enum WalletConnectStatus {
   connecting = 'Connecting',
   disconnected = 'Disconnected',
   idle = 'Idle',
-  connected = 'Connected',
+  connected = 'Connected'
+}
+
+export enum GuildStatus {
+  Full = 'full',
+  Valid = 'valid',
+  Joined = 'joined',
+  Unqualified = 'unqualified'
 }

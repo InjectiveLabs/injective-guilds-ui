@@ -52,5 +52,17 @@ export default {
     startAGuild: 'Start a guild',
     item1: 'Item 1',
     item2: 'Item 2'
+  },
+  guildCard: {
+    member: '{amount} members',
+    assetAmount: '$ {amount}',
+    totalAssets: 'Total Assets',
+    apy: 'APY',
+    joinNow: 'Join now',
+    leave: 'Leave',
+    maxCapacity: 'Max capacity',
+    unqualified: 'Unqualified',
+    youAreInThisGuild: 'You are in this guild',
+    requirement: 'Requirements:'
   }
 }
