@@ -1,8 +1,8 @@
 <template>
-  <div class="my-6 mx-6">
+  <section class="container">
     <div class="guild-card-image-container">
       <div
-        class="grid grid-col-1 h-full bg-cover"
+        class="w-full h-full bg-cover"
         :style="{ backgroundImage: `url(${guildInfo.image})` }"
       />
       <div
@@ -19,7 +19,7 @@
       <div class="triangle-2" />
       <div class="triangle-3" />
     </div>
-    <div class="info-container">
+    <div class="guild-card-info-container">
       <div class="flex">
         <div>
           <p class="text-3xl text-primary-500 mr-20">
@@ -89,7 +89,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -169,7 +169,7 @@ export default Vue.extend({
   }
 }
 
-.info-container {
+.guild-card-info-container {
   @apply overflow-hidden max-w-xl relative border-l border-primary-500 py-6 pl-10;
   pointer-events: none;
 
