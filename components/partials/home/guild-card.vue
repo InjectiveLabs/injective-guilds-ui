@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section>
     <div class="guild-card-image-container">
       <div
         class="w-full h-full bg-cover"

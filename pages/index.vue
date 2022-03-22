@@ -13,7 +13,9 @@
         </div>
       </div>
     </section>
-    <div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
+    <div
+      class="container grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6"
+    >
       <GuildCard
         v-for="guild in guildData"
         :key="guild.name"
