@@ -20,16 +20,16 @@
       <div class="triangle-3" />
     </div>
     <div class="guild-card-info-container">
-      <div class="flex">
-        <div>
-          <p class="text-3xl text-primary-500 mr-20">
+      <div class="flex flex-row justify-between">
+        <div class="flex-grow">
+          <p class="text-3xl text-primary-500">
             {{ $t('guildCard.assetAmount', { amount: assetAmountToFormat }) }}
           </p>
           <p class="text-base text-primary-500 mt-2.5">
             {{ $t('guildCard.totalAssets') }}
           </p>
         </div>
-        <div>
+        <div class="flex-grow">
           <p class="text-3xl text-primary-500">
             {{ apyToString }}
           </p>
@@ -79,7 +79,7 @@
         <v-button class="mt-6 pointer-events-auto" disabled>
           {{ $t('guildCard.unqualified') }}
         </v-button>
-        <div>
+        <div class="pr-7">
           <p class="text-base text-primary-500 mt-5">
             {{ $t('guildCard.requirement') }}
           </p>
@@ -130,7 +130,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .guild-card-image-container {
-  @apply h-[308px] overflow-hidden max-w-xl relative;
+  @apply h-[308px] overflow-hidden max-w-xl relative m-auto;
   clip-path: polygon(0% 56px, 56px 0%, 100% 0%, 100% 100%, 0 100%);
   &::before {
     @apply inset-0 absolute bg-primary-500 w-full h-full;
@@ -170,7 +170,7 @@ export default Vue.extend({
 }
 
 .guild-card-info-container {
-  @apply overflow-hidden max-w-xl relative border-l border-primary-500 py-6 pl-10;
+  @apply overflow-hidden max-w-xl relative border-l border-primary-500 py-6 pl-6 m-auto;
   pointer-events: none;
 
   cursor: pointer;
