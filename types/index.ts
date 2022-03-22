@@ -1,4 +1,5 @@
 import { BigNumberInBase } from '@injectivelabs/utils'
+import { GuildStatus } from './enums'
 
 export interface DOMEvent<T extends EventTarget> extends Event {
   target: T
@@ -29,10 +30,8 @@ export interface UIGuildCard {
   apy: number
   totalAssetsAmount: BigNumberInBase
   assets: Array<Currency>
-  isFull: boolean
-  isJoinable: boolean
-  isJoined: boolean
-  isQualified: boolean
+  status: GuildStatus
+  additionalInfo?: string
 }
 
 export * from './enums'

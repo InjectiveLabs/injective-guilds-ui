@@ -61,6 +61,8 @@ export default {
     joinNow: 'Join now',
     leave: 'Leave',
     maxCapacity: 'Max capacity',
-    unqualified: 'Unqualified'
+    unqualified: 'Unqualified',
+    youAreInThisGuild: 'You are in this guild',
+    requirement: 'Requirements:'
   }
 }

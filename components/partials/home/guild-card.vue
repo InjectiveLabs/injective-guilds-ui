@@ -1,8 +1,8 @@
 <template>
   <div class="my-6 mx-6">
-    <div class="image-container">
+    <div class="guild-card-image-container">
       <div
-        class="w-[542px] h-full bg-cover"
+        class="grid grid-col-1 h-full bg-cover"
         :style="{ backgroundImage: `url(${guildInfo.image})` }"
       />
       <div
@@ -48,41 +48,53 @@
         />
       </div>
       <v-button
-        v-if="guildInfo.isJoinable"
+        v-if="guildInfo.status === GuildStatus.Valid"
         class="mt-6 pointer-events-auto"
         primary
       >
         {{ $t('guildCard.joinNow') }}
       </v-button>
-      <v-button
-        v-else-if="guildInfo.isJoined"
-        class="mt-6 pointer-events-auto"
-        accent
-        outline
+      <div
+        v-else-if="guildInfo.status === GuildStatus.Joined"
+        class="flex gap-3"
       >
-        {{ $t('guildCard.leave') }}
-      </v-button>
+        <v-button class="mt-6 pointer-events-auto" accent outline>
+          {{ $t('guildCard.leave') }}
+        </v-button>
+        <p class="text-base text-primary-500 self-end">
+          {{ $t('guildCard.youAreInThisGuild') }}
+        </p>
+      </div>
       <v-button
-        v-else-if="guildInfo.isFull"
+        v-else-if="guildInfo.status === GuildStatus.Full"
         class="mt-6 pointer-events-auto"
         disabled
       >
         {{ $t('guildCard.maxCapacity') }}
       </v-button>
-      <v-button
-        v-else-if="!guildInfo.isQualified"
-        class="mt-6 pointer-events-auto"
-        disabled
+      <div
+        v-else-if="guildInfo.status === GuildStatus.Unqualified"
+        class="flex gap-3"
       >
-        {{ $t('guildCard.unqualified') }}
-      </v-button>
+        <v-button class="mt-6 pointer-events-auto" disabled>
+          {{ $t('guildCard.unqualified') }}
+        </v-button>
+        <div>
+          <p class="text-base text-primary-500 mt-5">
+            {{ $t('guildCard.requirement') }}
+          </p>
+          <p class="text-base text-primary-500">
+            {{ guildInfo.additionalInfo }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { UIGuildCard } from '~/types'
+import { UIGuildCard, GuildStatus } from '~/types'
 
 export default Vue.extend({
   props: {
@@ -91,17 +103,25 @@ export default Vue.extend({
       type: Object as PropType<UIGuildCard>
     }
   },
+  data() {
+    return {
+      GuildStatus
+    }
+  },
   computed: {
     apyToString(): string {
       const { guildInfo } = this
+
       return `${guildInfo.apy}%`
     },
     memberAmountToFormat(): string {
       const { guildInfo } = this
+
       return guildInfo.memberAmount.toFormat()
     },
     assetAmountToFormat(): string {
       const { guildInfo } = this
+
       return guildInfo.totalAssetsAmount.toFormat()
     }
   }
@@ -109,8 +129,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.image-container {
-  @apply w-[542px] h-[308px] overflow-hidden  relative;
+.guild-card-image-container {
+  @apply h-[308px] overflow-hidden max-w-xl relative;
   clip-path: polygon(0% 56px, 56px 0%, 100% 0%, 100% 100%, 0 100%);
   &::before {
     @apply inset-0 absolute bg-primary-500 w-full h-full;
@@ -150,7 +170,7 @@ export default Vue.extend({
 }
 
 .info-container {
-  @apply w-[542px] h-[240px]  overflow-hidden relative border-l border-primary-500 py-6 pl-10;
+  @apply overflow-hidden max-w-xl relative border-l border-primary-500 py-6 pl-10;
   pointer-events: none;
 
   cursor: pointer;

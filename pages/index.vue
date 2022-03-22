@@ -13,7 +13,7 @@
         </div>
       </div>
     </section>
-    <div class="flex flex-wrap">
+    <div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
       <GuildCard
         v-for="guild in guildData"
         :key="guild.name"
@@ -56,10 +56,7 @@ export default Vue.extend({
               name: 'USDC'
             }
           ],
-          isFull: false,
-          isJoinable: false,
-          isJoined: true,
-          isQualified: true
+          status: 'joined'
         },
         {
           name: 'Ethixx',
@@ -84,10 +81,7 @@ export default Vue.extend({
               name: 'USDC'
             }
           ],
-          isFull: false,
-          isJoinable: true,
-          isJoined: false,
-          isQualified: true
+          status: 'valid'
         },
         {
           name: 'Akukx',
@@ -112,10 +106,7 @@ export default Vue.extend({
               name: 'USDC'
             }
           ],
-          isFull: true,
-          isJoinable: false,
-          isJoined: false,
-          isQualified: true
+          status: 'full'
         },
         {
           name: 'Asepoid',
@@ -140,10 +131,8 @@ export default Vue.extend({
               name: 'USDC'
             }
           ],
-          isFull: false,
-          isJoinable: false,
-          isJoined: false,
-          isQualified: false
+          status: 'unqualified',
+          additionalInfo: '1,000 USDT + 500 INJ stake'
         }
       ]
     }
