@@ -1,5 +1,8 @@
 <template>
-  <div class="px-6 grid-cols-12 gap-4 uppercase xl:grid hidden items-center">
+  <div
+    class="grid-cols-12 gap-4 uppercase hidden items-center border-b border-primary-500"
+    :class="[dense ? 'lg:grid' : 'xl:grid']"
+  >
     <slot></slot>
   </div>
 </template>
@@ -7,5 +10,12 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  props: {
+    dense: {
+      type: Boolean,
+      default: false
+    }
+  }
+})
 </script>

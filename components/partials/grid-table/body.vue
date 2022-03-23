@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-1">
+  <div class="grid grid-cols-1 scroll overflow-y-auto">
     <slot></slot>
     <div
       v-if="showEmpty"

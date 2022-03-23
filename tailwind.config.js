@@ -87,6 +87,10 @@ module.exports = {
         banner: '537px'
       },
 
+      maxHeight: {
+        guildTable: '380px'
+      },
+
       minWidth: {
         12: '3rem'
       },

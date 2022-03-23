@@ -7,6 +7,7 @@ import Close from '~/components/icons/close.vue'
 import Copy from '~/components/icons/copy.vue'
 import Discord from '~/components/icons/discord.vue'
 import Eye from '~/components/icons/eye.vue'
+import Info from '~/components/icons/info.vue'
 import Person from '~/components/icons/person.vue'
 import Reddit from '~/components/icons/reddit.vue'
 import Telegram from '~/components/icons/telegram.vue'
@@ -21,6 +22,7 @@ Vue.component('VIconClose', Close)
 Vue.component('VIconCopy', Copy)
 Vue.component('VIconDiscord', Discord)
 Vue.component('VIconEye', Eye)
+Vue.component('VIconInfo', Info)
 Vue.component('VIconPerson', Person)
 Vue.component('VIconReddit', Reddit)
 Vue.component('VIconTelegram', Telegram)

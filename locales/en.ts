@@ -33,7 +33,33 @@ export default {
     guildMaster: 'Guild Master',
     members: 'Members',
     historicalReturns: 'Historical Returns',
-    portfolioValue: 'Portfolio Value'
+    portfolioValue: 'Portfolio Value',
+    portfolio: {
+      title: 'Guild Portfolio',
+      asset: 'Asset',
+      total: 'Total',
+      available: 'Available',
+      marginHold: 'Margin hold',
+      unrealizedPNL: 'Unrealized PNL',
+      unrealizedPNLTooltip: 'Unrealized PNL tooltip placeholder',
+      value: 'Value',
+      dailyChange: 'Daily change',
+      allocation: 'Allocation'
+    },
+    member: {
+      title: 'Members',
+      address: 'Address',
+      since: 'Since',
+      percentage: 'Percentage'
+    },
+    trade: {
+      title: 'Trades',
+      market: 'Market',
+      side: 'Side',
+      amount: 'Amount',
+      price: 'Price',
+      date: 'Date'
+    }
   },
 
   guildModal: {

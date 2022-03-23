@@ -30,53 +30,32 @@
         </v-card>
       </div>
     </div>
+
+    <v-portfolio class="mt-16" />
+    <v-member class="mt-10" />
+    <v-trade class="mt-10" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { formatWalletAddress } from '@injectivelabs/utils'
-import {
-  getExplorerUrl,
-  getAddressFromInjectiveAddress
-} from '@injectivelabs/ui-common'
 import VChart from '~/components/partials/guild/chart-wrapper.vue'
 import VGuildMaster from '~/components/partials/guild/guild-master.vue'
-import { guildMaster as mockGuildMaster } from '~/app/data/mock'
-import { NETWORK } from '~/app/utils/constants'
+import VPortfolio from '~/components/partials/guild/portfolio/index.vue'
+import VMember from '~/components/partials/guild/member/index.vue'
+import VTrade from '~/components/partials/guild/trade/index.vue'
 
 export default Vue.extend({
   components: {
+    VChart,
     VGuildMaster,
-    VChart
+    VMember,
+    VPortfolio,
+    VTrade
   },
 
   data() {
-    return {
-      guildMaster: mockGuildMaster
-    }
-  },
-
-  computed: {
-    guildMasterExplorerUrl(): string {
-      const { guildMaster } = this
-
-      return `${getExplorerUrl(NETWORK)}/account/${guildMaster.address}`
-    },
-
-    // ethereumAddress(): string {
-    //   getAddressFromInjectiveAddress
-    // }
-
-    formattedGuildMasterAddress(): string {
-      const { guildMaster } = this
-
-      if (!guildMaster.address) {
-        return ''
-      }
-
-      return formatWalletAddress(guildMaster.address)
-    }
+    return {}
   }
 })
 </script>
