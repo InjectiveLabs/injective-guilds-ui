@@ -5,16 +5,12 @@
     </span>
 
     <div>
-      <a
-        v-if="isInjectiveAddress"
-        :href="guildMasterExplorerUrl"
-        target="_blank"
-      >
+      <a v-if="isInjectiveAddress" :href="explorerUrl" target="_blank">
         <div class="flex items-center">
           <span class="text-lg font-bold">
             {{ formattedInjectiveAddress }}
           </span>
-          <v-icon-arrow class="h-5 w-5 transform rotate-135 ml-2" />
+          <v-icon-arrow class="h-3 w-3 ml-2" />
         </div>
       </a>
 
@@ -70,7 +66,7 @@ export default Vue.extend({
   },
 
   computed: {
-    guildMasterExplorerUrl(): string {
+    explorerUrl(): string {
       const { guildMaster } = this
 
       return `${getExplorerUrl(NETWORK)}/account/${guildMaster.address}`

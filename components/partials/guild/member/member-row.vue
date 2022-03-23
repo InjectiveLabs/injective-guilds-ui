@@ -4,7 +4,12 @@
       {{ $t('guild.member.address') }}
     </span>
     <div class="lg:col-span-7 text-right lg:text-left">
-      <span class="break-all">{{ item.address }}</span>
+      <a :href="explorerUrl" target="_blank" class="hover:text-primary-500">
+        <div class="flex items-center">
+          <span class="break-all">{{ item.address }}</span>
+          <v-icon-arrow class="hidden lg:block min-w-3 h-3 w-3 ml-2" />
+        </div>
+      </a>
     </div>
 
     <span class="lg:hidden">
@@ -27,7 +32,9 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { format } from 'date-fns'
+import { getExplorerUrl } from '@injectivelabs/ui-common'
 import { UIMember } from '~/types'
+import { NETWORK } from '~/app/utils/constants'
 import TableRow from '~/components/partials/grid-table/row.vue'
 
 export default Vue.extend({
@@ -43,6 +50,12 @@ export default Vue.extend({
   },
 
   computed: {
+    explorerUrl(): string {
+      const { item } = this
+
+      return `${getExplorerUrl(NETWORK)}/account/${item.address}`
+    },
+
     dateToFormat(): string | undefined {
       const { item } = this
 
