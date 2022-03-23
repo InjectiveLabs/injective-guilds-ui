@@ -49,3 +49,88 @@
 .toasted-container .toasted.default .action.text-red-500 {
   @apply text-red-500 font-bold;
 }
+
+.tooltip {
+  @apply block z-60;
+
+  .tooltip-inner {
+    @apply bg-primary-500 text-primary-500 border-transparent rounded py-1 px-3 text-xs border max-w-sm bg-opacity-20;
+  }
+
+  .tooltip-arrow {
+    @apply hidden;
+  }
+
+  &[x-placement^='top'] {
+    margin-bottom: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 0 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^='bottom'] {
+    margin-top: 5px;
+
+    .tooltip-arrow {
+      border-width: 0 5px 5px 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^='right'] {
+    margin-left: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 5px 0;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      left: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^='left'] {
+    margin-right: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 0 5px 5px;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      right: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
+
+// apex chart tooltip
+#chart .apexcharts-tooltip.apexcharts-theme-light {
+  @apply bg-black text-primary-500 border-primary-500;
+}
+
+#chart .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+  @apply bg-black text-primary-500 border-primary-500;
+}
+
+#chart .apexcharts-tooltip-marker {
+  @apply hidden;
+}

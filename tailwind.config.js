@@ -87,13 +87,22 @@ module.exports = {
         banner: '537px'
       },
 
+      maxHeight: {
+        guildTable: '380px'
+      },
+
       minWidth: {
+        3: '0.75rem',
         12: '3rem'
       },
 
       maxWidth: {
         '3/4': '75%',
         card: '414px'
+      },
+
+      rotate: {
+        135: '135deg'
       },
 
       skew: {

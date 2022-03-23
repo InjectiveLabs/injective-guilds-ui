@@ -6,6 +6,14 @@ export enum AppState {
   Success = 'Success'
 }
 
+export enum ChartInterval {
+  Day = '24H',
+  Week = '7D',
+  TwoWeek = '14D',
+  Month = '30D',
+  All = 'ALL'
+}
+
 export enum Modal {
   ConnectWallet = 'connect-wallet',
   LeaveGuild = 'leave-guild'

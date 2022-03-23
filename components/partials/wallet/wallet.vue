@@ -18,6 +18,7 @@
           v-if="isUserConnectedProcessCompleted && isUserWalletConnected"
           class="flex items-center h-full"
           :to="{ name: 'my-guild' }"
+          @click.native="handleHideDropdown"
         >
           <v-icon-person class="mr-2" />
           <span class="font-bold uppercase mr-4">
@@ -41,7 +42,7 @@
     <v-modal-connect-wallet />
     <v-wallet-dropdown
       ref="popper-wallet-dropdown"
-      @logout="handleHideDropdown"
+      @hide="handleHideDropdown"
     />
   </div>
 </template>

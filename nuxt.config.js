@@ -96,6 +96,13 @@ export default {
     routes
   },
 
+  vendor: [
+    {
+      src: '@injectivelabs/token-metadata/dist/images',
+      dst: './static/vendor/@injectivelabs/token-metadata'
+    }
+  ],
+
   typescript: {
     typeCheck: {
       eslint: {
