@@ -33,3 +33,10 @@ export enum JoinLeaveGuildState {
   Failed = 'failed',
   Success = 'success'
 }
+
+export enum TableHeaderType {
+  // guilds
+  TotalAssetsAmount = 'totalAssetsAmount',
+  APY = 'apy',
+  Member = 'member'
+}

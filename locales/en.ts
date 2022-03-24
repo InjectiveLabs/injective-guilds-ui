@@ -127,5 +127,13 @@ export default {
   joinAGuildWarning: {
     title: 'Join guild',
     description: 'You have not joined a guild yet.'
+  },
+
+  leaderboard: {
+    leaderboard: 'Leaderboard',
+    member: 'MEMBER',
+    apy: 'APY',
+    totalAssets: 'TOTAL ASSSETS',
+    guild: 'GUILD'
   }
 }
