@@ -3,6 +3,10 @@ import { BigNumberInBase } from '@injectivelabs/utils'
 import { TradeDirection } from '@injectivelabs/ts-types'
 import { GuildStatus } from './enums'
 
+export interface ApiResponse<T> {
+  data: T
+}
+
 export interface DOMEvent<T extends EventTarget> extends Event {
   target: T
   charCode?: number
@@ -43,12 +47,6 @@ export interface UIPortfolioAsset {
   token: Token
 }
 
-export interface UIMember {
-  address: string
-  since: number
-  percentage: string
-}
-
 export interface UITrade {
   market: string
   amount: BigNumberInBase
@@ -59,3 +57,5 @@ export interface UITrade {
 }
 
 export * from './enums'
+export * from '~/app/services/guild/types'
+export * from '~/app/services/member/types'

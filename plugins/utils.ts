@@ -5,6 +5,7 @@ import {
   IS_PRODUCTION,
   IS_TESTNET
 } from '~/app/utils/constants'
+import { MemberNotFoundException } from '~/app/exceptions'
 
 const isErrorExcludedFromToast = (error: any): boolean => {
   const disabledPatterns = [
@@ -69,6 +70,10 @@ export default ({ app }: Context, inject: any) => {
   })
 
   inject('onError', (error: Error) => {
+    if (error instanceof MemberNotFoundException) {
+      return
+    }
+
     if (!isErrorExcludedFromToast(error)) {
       app.$toast.error(parseMessage(error))
     }

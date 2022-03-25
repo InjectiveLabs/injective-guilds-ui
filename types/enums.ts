@@ -16,7 +16,8 @@ export enum ChartInterval {
 
 export enum Modal {
   ConnectWallet = 'connect-wallet',
-  LeaveGuild = 'leave-guild'
+  LeaveGuild = 'leave-guild',
+  JoinAGuild = 'join-a-guild'
 }
 
 export enum WalletConnectStatus {

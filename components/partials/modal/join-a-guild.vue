@@ -1,19 +1,18 @@
 <template>
   <v-modal
     :is-open="isModalOpen"
-    accent
     sm
-    :title="$t('guildModal.title')"
+    :title="$t('joinAGuild.title')"
     @modal-closed="closeModal"
   >
     <section>
       <p class="text-2xl font-bold leading-8">
-        {{ $t('guildModal.leaveDescription', { guild: guild.name }) }}
+        {{ $t('joinAGuild.description') }}
       </p>
 
-      <v-button class="w-full mt-16" accent @click="handleConfirm">
+      <v-button class="w-full mt-16" @click="closeModal">
         <span class="m-auto text-lg leading-6">
-          {{ $t('common.confirm') }}
+          {{ $t('common.OK') }}
         </span>
       </v-button>
     </section>
@@ -39,17 +38,13 @@ export default Vue.extend({
 
   computed: {
     isModalOpen(): boolean {
-      return this.$accessor.modal.modals[Modal.LeaveGuild]
+      return this.$accessor.modal.modals[Modal.JoinAGuild]
     }
   },
 
   methods: {
     closeModal() {
-      this.$accessor.modal.closeModal(Modal.LeaveGuild)
-    },
-
-    handleConfirm() {
-      this.closeModal()
+      this.$accessor.modal.closeModal(Modal.JoinAGuild)
     }
   }
 })

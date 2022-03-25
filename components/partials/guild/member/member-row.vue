@@ -3,7 +3,7 @@
     <span class="lg:hidden">
       {{ $t('guild.member.address') }}
     </span>
-    <div class="lg:col-span-7 text-right lg:text-left">
+    <div class="lg:col-span-9 text-right lg:text-left">
       <a :href="explorerUrl" target="_blank" class="hover:text-primary-500">
         <div class="flex items-center">
           <span class="break-all">{{ item.address }}</span>
@@ -20,12 +20,12 @@
       <span v-else class="text-white text-opacity-50">{{ dateToFormat }}</span>
     </div>
 
-    <span class="lg:hidden">
+    <!-- <span class="lg:hidden">
       {{ $t('guild.member.percentage') }}
     </span>
     <div class="lg:col-span-2 text-right">
       <span>{{ item.percentage }}</span>
-    </div>
+    </div> -->
   </TableRow>
 </template>
 
@@ -33,7 +33,7 @@
 import Vue, { PropType } from 'vue'
 import { format } from 'date-fns'
 import { getExplorerUrl } from '@injectivelabs/ui-common'
-import { UIMember } from '~/types'
+import { UiGuildMember } from '~/types'
 import { NETWORK } from '~/app/utils/constants'
 import TableRow from '~/components/partials/grid-table/row.vue'
 
@@ -44,7 +44,7 @@ export default Vue.extend({
 
   props: {
     item: {
-      type: Object as PropType<UIMember>,
+      type: Object as PropType<UiGuildMember>,
       required: true
     }
   },

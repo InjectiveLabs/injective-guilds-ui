@@ -113,6 +113,8 @@ export default Vue.extend({
     VModalLeaveGuild
   },
 
+  middleware: ['wallet-connected', 'has-joined-guild'],
+
   data() {
     return {
       selectedGuild: undefined as MyGuild | undefined,

@@ -24,7 +24,7 @@
       {{ $t('guild.portfolio.unrealizedPNL') }}
     </span>
     <div class="lg:col-span-4 text-right">
-      <span v-if="item.pnl.eq(0)">&mdash;</span>
+      <span v-if="item.unrealizedPnl.eq(0)">&mdash;</span>
       <span v-else>{{ pnlToFormat }}</span>
     </div>
 
@@ -32,14 +32,14 @@
       {{ $t('guild.portfolio.value') }}
     </span>
     <div class="lg:col-span-2 text-right">
-      <span>{{ valueToFormat }}</span>
+      <span>${{ valueToFormat }}</span>
     </div>
 
     <span class="lg:hidden">
       {{ $t('guild.portfolio.allocation') }}
     </span>
     <div class="lg:col-span-2 text-right">
-      <span>{{ item.allocation }}</span>
+      <span>{{ allocation }}%</span>
     </div>
   </TableRow>
 </template>
@@ -47,9 +47,10 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { BigNumberInBase } from '@injectivelabs/utils'
-import { UIPortfolioAsset } from '~/types'
+import { UiPortfolioBalanceWithToken } from '~/types'
 import TableRow from '~/components/partials/grid-table/row.vue'
 import {
+  UI_DEFAULT_PERCENTAGE_DECIMALS,
   UI_DEFAULT_ASSET_DECIMALS,
   UI_DEFAULT_FIAT_DECIMALS
 } from '~/app/utils/constants'
@@ -61,7 +62,12 @@ export default Vue.extend({
 
   props: {
     item: {
-      type: Object as PropType<UIPortfolioAsset>,
+      type: Object as PropType<UiPortfolioBalanceWithToken>,
+      required: true
+    },
+
+    portfolioValue: {
+      type: Object as PropType<BigNumberInBase>,
       required: true
     }
   },
@@ -70,8 +76,8 @@ export default Vue.extend({
     pnlToFormat(): String {
       const { item } = this
 
-      return item.pnl.toFormat(
-        UI_DEFAULT_FIAT_DECIMALS,
+      return item.unrealizedPnl.toFormat(
+        UI_DEFAULT_ASSET_DECIMALS,
         BigNumberInBase.ROUND_DOWN
       )
     },
@@ -79,10 +85,19 @@ export default Vue.extend({
     valueToFormat(): string {
       const { item } = this
 
-      return item.value.toFormat(
-        UI_DEFAULT_ASSET_DECIMALS,
+      return item.totalValueInUsd.toFormat(
+        UI_DEFAULT_FIAT_DECIMALS,
         BigNumberInBase.ROUND_DOWN
       )
+    },
+
+    allocation(): string {
+      const { item, portfolioValue } = this
+
+      return item.totalValueInUsd
+        .dividedBy(portfolioValue)
+        .multipliedBy(100)
+        .toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
     }
   }
 })

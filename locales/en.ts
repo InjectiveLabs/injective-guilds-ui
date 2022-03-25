@@ -5,6 +5,7 @@ export default {
   common: {
     confirm: 'Confirm',
     leave: 'Leave',
+    OK: 'OK',
     viewDetails: 'View details'
   },
 
@@ -34,6 +35,7 @@ export default {
     members: 'Members',
     historicalReturns: 'Historical Returns',
     portfolioValue: 'Portfolio Value',
+    notFoundErrorToast: 'Guild {name} not found.',
     portfolio: {
       title: 'Guild Portfolio',
       asset: 'Asset',
@@ -86,16 +88,21 @@ export default {
     item1: 'Item 1',
     item2: 'Item 2'
   },
+
   guildCard: {
-    member: '{amount} members',
-    assetAmount: '$ {amount}',
-    totalAssets: 'Total Assets',
-    apy: 'APY',
+    member: 'members',
+    portfolioValue: 'Portfolio Value',
+    historicalReturns: 'Historical Returns',
     joinNow: 'Join now',
     leave: 'Leave',
     maxCapacity: 'Max capacity',
     unqualified: 'Unqualified',
     youAreInThisGuild: 'You are in this guild',
-    requirement: 'Requirements:'
+    requirement: 'Requirements'
+  },
+
+  joinAGuild: {
+    title: 'Join guild',
+    description: 'You have not joined a guild yet.'
   }
 }
