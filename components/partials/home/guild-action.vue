@@ -17,7 +17,7 @@
     </div>
 
     <div class="flex items-start">
-      <v-button v-if="isPartOfGuild" accent outline>
+      <v-button v-if="isPartOfGuild" accent :outline="!banner">
         {{ $t('guildCard.leave') }}
       </v-button>
 
@@ -78,8 +78,13 @@ import { UiGuildWithMeta, UiGuildRequirement, UiProfile } from '~/types'
 export default Vue.extend({
   props: {
     guild: {
-      required: true,
-      type: Object as PropType<UiGuildWithMeta>
+      type: Object as PropType<UiGuildWithMeta>,
+      required: true
+    },
+
+    banner: {
+      type: Boolean,
+      default: false
     }
   },
 

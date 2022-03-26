@@ -4,7 +4,7 @@
       <div class="col-span-2 xl:col-span-12 grid grid-cols-2 lg:grid-cols-3">
         <div class="col-span-2 sm:col-span-1 flex lg:items-center">
           <img
-            :src="logoLink"
+            :src="guildImageMappings[guild.id].thumbnail"
             :alt="guild.name"
             class="h-20 w-20 rounded-full"
           />
@@ -64,6 +64,7 @@ import {
   UI_DEFAULT_FIAT_DECIMALS,
   UI_DEFAULT_PERCENTAGE_DECIMALS
 } from '~/app/utils/constants'
+import { guildImageMappings } from '~/app/data/guild'
 
 export default Vue.extend({
   components: {
@@ -77,13 +78,13 @@ export default Vue.extend({
     }
   },
 
+  data() {
+    return {
+      guildImageMappings
+    }
+  },
+
   computed: {
-    logoLink(): string {
-      // todo: setup image to guild name mapping
-
-      return '/guilds/schneider/sm.png'
-    },
-
     portfolioValue(): BigNumberInBase {
       const { guild } = this
 

@@ -1,32 +1,35 @@
 <template>
   <VHOCLoading :status="status">
-    <div class="container py-16">
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
-        <div class="md:col-span-2">
-          <v-guild-master />
+    <div>
+      <v-banner />
 
-          <v-card v-if="guild" class="mt-2">
-            <div class="flex items-start justify-between">
-              <span class="text-sm font-bold uppercase tracking-widest mt-1">
-                {{ $t('guild.members') }}
-              </span>
-              <span class="text-3.5xl font-bold">
-                {{ guild.memberCount }}
-              </span>
-            </div>
-          </v-card>
+      <div class="container py-16">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
+          <div class="md:col-span-2">
+            <v-guild-master />
 
-          <v-historical-returns class="mt-2" />
-        </div>
-        <div class="row-start-1 md:row-start-auto md:col-span-3">
-          <v-card square>
+            <v-card v-if="guild" class="mt-2">
+              <div class="flex items-start justify-between">
+                <span class="text-sm font-bold uppercase tracking-widest mt-1">
+                  {{ $t('guild.members') }}
+                </span>
+                <span class="text-3.5xl font-bold">
+                  {{ guild.memberCount }}
+                </span>
+              </div>
+            </v-card>
+
+            <v-historical-returns class="mt-2" />
+          </div>
+
+          <v-card class="row-start-1 md:row-start-auto md:col-span-3" square>
             <v-chart :portfolio-value="portfolioValue" />
           </v-card>
         </div>
-      </div>
 
-      <v-portfolio class="mt-16" :portfolio-value="portfolioValue" />
-      <v-member class="mt-10" />
+        <v-portfolio class="mt-16" :portfolio-value="portfolioValue" />
+        <v-member class="mt-10" />
+      </div>
     </div>
   </VHOCLoading>
 </template>
@@ -36,6 +39,7 @@ import Vue from 'vue'
 import { BigNumberInBase, Status, StatusType } from '@injectivelabs/utils'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { GuildNotFoundException } from '~/app/exceptions'
+import VBanner from '~/components/partials/guild/guild-banner.vue'
 import VChart from '~/components/partials/guild/chart-wrapper.vue'
 import VGuildMaster from '~/components/partials/guild/guild-master.vue'
 import VHistoricalReturns from '~/components/partials/guild/historical-returns.vue'
@@ -45,6 +49,7 @@ import { UiGuildWithMeta, UiPortfolioBalanceWithToken } from '~/types'
 
 export default Vue.extend({
   components: {
+    VBanner,
     VChart,
     VGuildMaster,
     VHistoricalReturns,

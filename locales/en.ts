@@ -37,6 +37,9 @@ export default {
 
   guild: {
     guildMaster: 'Guild Master',
+    guildName: 'Guild name',
+    backgroundStory: 'Background Story',
+    tradingStrategy: 'Trading Strategy',
     members: 'Members',
     historicalReturns: 'Historical Returns',
     portfolioValue: 'Portfolio Value',

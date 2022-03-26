@@ -47,12 +47,11 @@ export const actions = actionTree(
         return
       }
 
-      commit(
-        'setProfile',
-        await memberService.fetchProfile(
-          'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
-        )
-      )
+      try {
+        commit('setProfile', await memberService.fetchProfile(injectiveAddress))
+      } catch {
+        commit('setProfile', undefined)
+      }
     },
 
     async fetchProfilePortfolio({ commit }) {
@@ -65,9 +64,7 @@ export const actions = actionTree(
 
       commit(
         'setProfilePortfolio',
-        await memberService.fetchProfilePortfolio(
-          'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
-        )
+        await memberService.fetchProfilePortfolio(injectiveAddress)
       )
     }
   }

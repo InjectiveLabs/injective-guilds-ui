@@ -43,7 +43,7 @@
         </div>
       </v-banner>
 
-      <section class="pt-16 container">
+      <section class="py-16 container">
         <div class="border-t border-primary-500 w-full" />
         <TableBody v-if="guild">
           <TableRow :guild="guild" @leave="handleLeaveGuildBtnClick">
