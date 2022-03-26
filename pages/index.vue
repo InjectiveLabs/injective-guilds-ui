@@ -28,7 +28,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
-import GuildCard from '~/components/partials/home/guild-card.vue'
+import GuildCard from '~/components/partials/common/guild-card.vue'
 import { UiGuildWithMeta } from '~/types'
 
 export default Vue.extend({

@@ -26,10 +26,3 @@ export enum WalletConnectStatus {
   idle = 'Idle',
   connected = 'Connected'
 }
-
-export enum GuildStatus {
-  Full = 'full',
-  Valid = 'valid',
-  Joined = 'joined',
-  Unqualified = 'unqualified'
-}

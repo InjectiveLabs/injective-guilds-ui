@@ -1,7 +1,6 @@
 import { Token } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
 import { TradeDirection } from '@injectivelabs/ts-types'
-import { GuildStatus } from './enums'
 
 export interface ApiResponse<T> {
   data: T
@@ -17,36 +16,7 @@ export interface GeoLocation {
   country: string
 }
 
-export interface MyGuild {
-  name: string
-  holdings: BigNumberInBase
-  earnings: BigNumberInBase
-  apy: number
-}
-interface Currency {
-  symbol: string
-  logo: string
-  name: string
-}
-
-export interface UIGuildCard {
-  name: string
-  image: string
-  memberAmount: BigNumberInBase
-  apy: number
-  totalAssetsAmount: BigNumberInBase
-  assets: Array<Currency>
-  status: GuildStatus
-  additionalInfo?: string
-}
-
-export interface UIPortfolioAsset {
-  allocation: string
-  pnl: BigNumberInBase
-  value: BigNumberInBase
-  token: Token
-}
-
+// Todo: remove UiTrade
 export interface UITrade {
   market: string
   amount: BigNumberInBase

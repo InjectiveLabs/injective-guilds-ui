@@ -82,6 +82,7 @@ export interface UiGuildRequirement {
   denom: string
   minAmountInUsd: number
   minAmount: number
+  outstandingAmountInBase: BigNumberInBase
   token: Token
 }
 export interface UiGuild {

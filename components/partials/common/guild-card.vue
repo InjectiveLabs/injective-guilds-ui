@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <v-guild-card-action class="mt-6" :guild="guild" />
+      <v-guild-card-action class="mt-6 relative z-20" :guild="guild" />
     </div>
   </div>
 </template>
@@ -31,9 +31,9 @@
 import Vue, { PropType } from 'vue'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
-import VGuildCardImage from './guild-card-image.vue'
-import VGuildCardAction from './guild-action.vue'
-import { UiGuildWithMeta, GuildStatus } from '~/types'
+import VGuildCardImage from '../home/guild-card-image.vue'
+import VGuildCardAction from '../home/guild-action.vue'
+import { UiGuildWithMeta } from '~/types'
 import {
   UI_DEFAULT_FIAT_DECIMALS,
   UI_DEFAULT_PERCENTAGE_DECIMALS
@@ -52,17 +52,15 @@ export default Vue.extend({
     }
   },
 
-  data() {
-    return {
-      GuildStatus
-    }
-  },
-
   computed: {
     historicalReturns(): BigNumberInBase {
       const { guild } = this
 
-      if (!guild) {
+      if (
+        !guild ||
+        !guild.historicalReturns ||
+        !guild.historicalReturns.isFinite()
+      ) {
         return ZERO_IN_BASE
       }
 
@@ -96,13 +94,11 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .guild-card-info-container {
-  @apply overflow-hidden max-w-xl relative border-l border-primary-500 py-6 pl-6 self-center w-full;
-  pointer-events: none;
+  @apply overflow-hidden max-w-xl relative border-l border-primary-500 p-6 self-center w-full;
 
-  cursor: pointer;
   &::after,
   &::before {
-    @apply absolute left-0;
+    @apply absolute left-0 z-10;
     content: '';
     width: calc(100%);
   }

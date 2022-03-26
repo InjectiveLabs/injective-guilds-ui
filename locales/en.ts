@@ -16,18 +16,23 @@ export default {
     schneider: 'Schneider'
   },
 
+  toast: {
+    myGuildFetchProfileError: "Can't fetch profile, please try again later",
+    guildNotFoundErrorToast: 'Guild {name} not found.'
+  },
+
   myGuild: {
     title: 'My Guild',
     description:
       'You can view your portfolio stats and the stats of the Guild you have joined.',
     myHoldings: 'My Holdings',
-    walletBalance: 'Wallet Balance',
-    tradingAccountBalance: 'Trading Account Balance',
+    balance: 'Balance',
     unrealisedPnL: 'Unrealised P&L',
     openPositionMargin: 'Open Position Margin',
     myEarnings: 'My Earnings',
     historicalReturns: 'Historical Returns',
-    effectiveAPY: 'Effective APY'
+    portfolioValue: 'Portfolio Value',
+    members: 'Members'
   },
 
   guild: {
@@ -35,7 +40,6 @@ export default {
     members: 'Members',
     historicalReturns: 'Historical Returns',
     portfolioValue: 'Portfolio Value',
-    notFoundErrorToast: 'Guild {name} not found.',
     portfolio: {
       title: 'Guild Portfolio',
       asset: 'Asset',

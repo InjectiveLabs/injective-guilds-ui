@@ -19,7 +19,7 @@
                 <span>{{ $t('common.leave') }}</span>
               </v-button>
               <nuxt-link
-                :to="{ name: 'guild-guild', params: { guild: guild.name } }"
+                :to="{ name: 'guild-guild', params: { guild: guild.id } }"
               >
                 <v-button text>{{ $t('common.viewDetails') }}</v-button>
               </nuxt-link>
@@ -28,23 +28,23 @@
         </div>
         <div class="col-span-2 sm:col-span-1 lg:col-span-2 grid lg:grid-cols-3">
           <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
-            <span class="text-3.5xl">${{ holdingsToFormat }}</span>
-            <span class="text-sm lg:mt-2.5">{{
-              $t('myGuild.myHoldings')
-            }}</span>
-          </div>
-
-          <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
-            <span class="text-3.5xl">${{ earningsToFormat }}</span>
-            <span class="text-sm lg:mt-2.5">{{
-              $t('myGuild.myEarnings')
-            }}</span>
-          </div>
-
-          <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
-            <span class="text-3.5xl">${{ apyToString }}</span>
+            <span class="text-3.5xl">${{ portFolioValueToFormat }}</span>
             <span class="text-sm lg:mt-2.5">
-              {{ $t('myGuild.effectiveAPY') }}
+              {{ $t('myGuild.portfolioValue') }}
+            </span>
+          </div>
+
+          <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
+            <span class="text-3.5xl">{{ historicalReturnsToFormat }}%</span>
+            <span class="text-sm lg:mt-2.5">
+              {{ $t('myGuild.historicalReturns') }}
+            </span>
+          </div>
+
+          <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
+            <span class="text-3.5xl">{{ guild.memberCount }}</span>
+            <span class="text-sm lg:mt-2.5">
+              {{ $t('myGuild.members') }}
             </span>
           </div>
         </div>
@@ -56,8 +56,14 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
+import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
+import { BigNumberInBase } from '@injectivelabs/utils'
 import TableRow from '~/components/partials/grid-table/row.vue'
-import { MyGuild } from '~/types'
+import { UiGuildWithMeta } from '~/types'
+import {
+  UI_DEFAULT_FIAT_DECIMALS,
+  UI_DEFAULT_PERCENTAGE_DECIMALS
+} from '~/app/utils/constants'
 
 export default Vue.extend({
   components: {
@@ -66,46 +72,52 @@ export default Vue.extend({
 
   props: {
     guild: {
-      type: Object as PropType<MyGuild>,
+      type: Object as PropType<UiGuildWithMeta>,
       required: true
     }
   },
 
   computed: {
     logoLink(): string {
-      const { guild } = this
+      // todo: setup image to guild name mapping
 
-      return `/guilds/${guild.name.toLowerCase()}/sm.png`
+      return '/guilds/schneider/sm.png'
     },
 
-    holdingsToFormat(): string {
+    portfolioValue(): BigNumberInBase {
       const { guild } = this
 
-      if (!guild.holdings) {
-        return '0.00'
+      if (!guild || !guild.portfolio || !guild.portfolio.portfolioValue) {
+        return ZERO_IN_BASE
       }
 
-      return guild.holdings.toFormat(2)
+      return guild.portfolio.portfolioValue
     },
 
-    earningsToFormat(): string {
-      const { guild } = this
+    portFolioValueToFormat(): string {
+      const { portfolioValue } = this
 
-      if (!guild.earnings) {
-        return '0.00'
-      }
-
-      return guild.earnings.toFormat(2)
+      return portfolioValue.toFormat(UI_DEFAULT_FIAT_DECIMALS)
     },
 
-    apyToString(): string {
+    historicalReturns(): BigNumberInBase {
       const { guild } = this
 
-      if (!guild.apy) {
-        return '0.00'
+      if (
+        !guild ||
+        !guild.historicalReturns ||
+        !guild.historicalReturns.isFinite()
+      ) {
+        return ZERO_IN_BASE
       }
 
-      return `${guild.apy}%`
+      return guild.historicalReturns
+    },
+
+    historicalReturnsToFormat(): string {
+      const { historicalReturns } = this
+
+      return historicalReturns.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
     }
   },
 

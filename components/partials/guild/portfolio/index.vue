@@ -48,7 +48,6 @@ import Vue from 'vue'
 import TableHeader from '~/components/partials/grid-table/header.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/guild/portfolio/portfolio-row.vue'
-import { portfolioAssets as mockAssets } from '~/app/data/mock'
 import { UiGuild, UiPortfolioBalanceWithToken } from '~/types'
 
 export default Vue.extend({
@@ -56,12 +55,6 @@ export default Vue.extend({
     TableHeader,
     TableBody,
     TableRow
-  },
-
-  data() {
-    return {
-      assets: mockAssets
-    }
   },
 
   computed: {

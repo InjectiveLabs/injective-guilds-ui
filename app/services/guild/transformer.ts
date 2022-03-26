@@ -74,6 +74,7 @@ export const ApiGuildToUiGuild = async (
         denom: requirement.denom,
         minAmountInUsd: requirement.min_amount_usd,
         minAmount: requirement.min_amount,
+        outstandingAmountInBase: new BigNumberInBase(requirement.min_amount),
         token: TokenTransformer.tokenMetaToToken(token, token.address) as Token
       }
     })

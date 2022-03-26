@@ -1,6 +1,6 @@
 <template>
   <VHOCLoading :status="status">
-    <div class="container pt-16">
+    <div class="container py-16">
       <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
         <div class="md:col-span-2">
           <v-guild-master />
@@ -95,7 +95,7 @@ export default Vue.extend({
       .catch((error: any) => {
         if (error instanceof GuildNotFoundException) {
           this.$toast.error(
-            this.$t('guild.notFoundErrorToast', { name: guildId })
+            this.$t('toast.guildNotFoundErrorToast', { name: guildId })
           )
           this.$router.push('/')
         } else {

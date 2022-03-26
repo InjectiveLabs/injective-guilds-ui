@@ -25,7 +25,11 @@ export default Vue.extend({
     historicalReturns(): BigNumberInBase {
       const { guild } = this
 
-      if (!guild) {
+      if (
+        !guild ||
+        !guild.historicalReturns ||
+        !guild.historicalReturns.isFinite()
+      ) {
         return ZERO_IN_BASE
       }
 

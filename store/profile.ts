@@ -1,15 +1,17 @@
 import { actionTree } from 'typed-vuex'
 import { memberService } from '~/app/Services'
-import { UiProfile } from '~/types'
+import { UiProfile, UIProfilePortfolio } from '~/types'
 
 const initialStateFactory = () => ({
-  profile: undefined as UiProfile | undefined
+  profile: undefined as UiProfile | undefined,
+  profilePortfolio: undefined as UIProfilePortfolio | undefined
 })
 
 const initialState = initialStateFactory()
 
 export const state = () => ({
-  profile: initialState.profile
+  profile: initialState.profile,
+  profilePortfolio: initialState.profilePortfolio
 })
 
 export type GuildStoreState = ReturnType<typeof state>
@@ -19,10 +21,18 @@ export const mutations = {
     state.profile = profile
   },
 
+  setProfilePortfolio(
+    state: GuildStoreState,
+    profilePortfolio: UIProfilePortfolio
+  ) {
+    state.profilePortfolio = profilePortfolio
+  },
+
   reset(state: GuildStoreState) {
     const initialState = initialStateFactory()
 
     state.profile = initialState.profile
+    state.profilePortfolio = initialState.profilePortfolio
   }
 }
 
@@ -38,8 +48,26 @@ export const actions = actionTree(
       }
 
       commit(
-        'setPortfolios',
-        await memberService.fetchProfile(injectiveAddress)
+        'setProfile',
+        await memberService.fetchProfile(
+          'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
+        )
+      )
+    },
+
+    async fetchProfilePortfolio({ commit }) {
+      const { isUserWalletConnected, injectiveAddress } =
+        this.app.$accessor.wallet
+
+      if (!isUserWalletConnected || !injectiveAddress) {
+        return
+      }
+
+      commit(
+        'setProfilePortfolio',
+        await memberService.fetchProfilePortfolio(
+          'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
+        )
       )
     }
   }

@@ -67,18 +67,14 @@ export default Vue.extend({
     portfoliosChartData(): UIGuildChartData[] {
       const { portfolios } = this
 
-      const data = portfolios.map(({ updatedAt, portfolioValue }) => {
-        return [
-          updatedAt,
-          Number(portfolioValue.toFormat(UI_DEFAULT_FIAT_DECIMALS))
-        ]
-      })
-
       return [
         {
           name: 'Portfolio value',
           type: 'area',
-          data
+          data: portfolios.map(({ updatedAt, portfolioValue }) => [
+            updatedAt,
+            portfolioValue.toNumber()
+          ])
         }
       ]
     },

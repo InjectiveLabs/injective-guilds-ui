@@ -51,7 +51,6 @@ import {
   getExplorerUrl,
   getAddressFromInjectiveAddress
 } from '@injectivelabs/ui-common'
-import { guildMaster as mockGuildMaster } from '~/app/data/mock'
 import { NETWORK } from '~/app/utils/constants'
 import VIconEthereum from '~/components/icons/ethereum.vue'
 import VIconInjective from '~/components/icons/injective.vue'
@@ -65,8 +64,7 @@ export default Vue.extend({
 
   data() {
     return {
-      isInjectiveAddress: true,
-      guildMaster: mockGuildMaster
+      isInjectiveAddress: true
     }
   },
 
@@ -86,9 +84,9 @@ export default Vue.extend({
     },
 
     explorerUrl(): string {
-      const { guildMaster } = this
+      const { injectiveAddress } = this
 
-      return `${getExplorerUrl(NETWORK)}/account/${guildMaster.address}`
+      return `${getExplorerUrl(NETWORK)}/account/${injectiveAddress}`
     },
 
     address(): string {

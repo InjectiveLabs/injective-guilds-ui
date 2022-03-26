@@ -97,8 +97,8 @@ export const actions = actionTree(
     },
 
     async initPage() {
-      await this.app.$accessor.bank.fetchBankBalancesWithToken()
-      await this.app.$accessor.account.fetchSubaccountsBalancesWithPrices()
+      await this.app.$accessor.bank.fetchBankBalances()
+      await this.app.$accessor.account.fetchSubaccounts()
       await this.app.$accessor.profile.fetchProfile()
     },
 
@@ -176,7 +176,6 @@ export const actions = actionTree(
     async logout({ commit }) {
       await this.app.$accessor.bank.reset()
       await this.app.$accessor.account.reset()
-      await this.app.$accessor.guild.reset()
       await this.app.$accessor.profile.reset()
 
       commit('reset')
