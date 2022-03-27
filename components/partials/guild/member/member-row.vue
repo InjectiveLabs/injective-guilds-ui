@@ -3,7 +3,7 @@
     <span class="lg:hidden">
       {{ $t('guild.member.address') }}
     </span>
-    <div class="lg:col-span-9 text-right lg:text-left">
+    <div class="lg:col-span-7 text-right lg:text-left">
       <a :href="explorerUrl" target="_blank" class="hover:text-primary-500">
         <div class="flex items-center">
           <span class="break-all">{{ item.address }}</span>
@@ -20,21 +20,22 @@
       <span v-else class="text-white text-opacity-50">{{ dateToFormat }}</span>
     </div>
 
-    <!-- <span class="lg:hidden">
+    <span class="lg:hidden">
       {{ $t('guild.member.percentage') }}
     </span>
     <div class="lg:col-span-2 text-right">
-      <span>{{ item.percentage }}</span>
-    </div> -->
+      <span>{{ allocationToFormat }}%</span>
+    </div>
   </TableRow>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { format } from 'date-fns'
-import { getExplorerUrl } from '@injectivelabs/ui-common'
-import { UiGuildMember } from '~/types'
-import { NETWORK } from '~/app/utils/constants'
+import { getExplorerUrl, ZERO_IN_BASE } from '@injectivelabs/ui-common'
+import { BigNumberInBase } from '@injectivelabs/utils'
+import { UiGuildMemberWithPortfolio } from '~/types'
+import { NETWORK, UI_DEFAULT_PERCENTAGE_DECIMALS } from '~/app/utils/constants'
 import TableRow from '~/components/partials/grid-table/row.vue'
 
 export default Vue.extend({
@@ -44,12 +45,40 @@ export default Vue.extend({
 
   props: {
     item: {
-      type: Object as PropType<UiGuildMember>,
+      type: Object as PropType<UiGuildMemberWithPortfolio>,
+      required: true
+    },
+
+    portfolioValue: {
+      type: Object as PropType<BigNumberInBase>,
       required: true
     }
   },
 
   computed: {
+    allocation(): BigNumberInBase {
+      const { portfolioValue, item } = this
+
+      if (
+        !portfolioValue ||
+        !item ||
+        !item.portfolio ||
+        !item.portfolio.portfolioValue
+      ) {
+        return ZERO_IN_BASE
+      }
+
+      return item.portfolio.portfolioValue
+        .dividedBy(portfolioValue)
+        .multipliedBy(100)
+    },
+
+    allocationToFormat(): string {
+      const { allocation } = this
+
+      return allocation.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
+    },
+
     explorerUrl(): string {
       const { item } = this
 

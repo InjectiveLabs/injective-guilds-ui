@@ -1,12 +1,12 @@
 import { actionTree } from 'typed-vuex'
 import { guildService, memberService } from '~/app/Services'
-import { UiGuildWithMeta, UiGuildMember, UiPortfolio } from '~/types'
+import { UiGuildWithMeta, UiGuildMemberWithPortfolio, UiPortfolio } from '~/types'
 import { delayPromiseCall } from '~/app/utils/async'
 
 const initialStateFactory = () => ({
   guild: undefined as UiGuildWithMeta | undefined,
   guilds: [] as UiGuildWithMeta[],
-  members: [] as UiGuildMember[],
+  members: [] as UiGuildMemberWithPortfolio[],
   portfolios: [] as UiPortfolio[]
 })
 
@@ -22,7 +22,7 @@ export const state = () => ({
 export type GuildStoreState = ReturnType<typeof state>
 
 export const mutations = {
-  setMembers(state: GuildStoreState, members: UiGuildMember[]) {
+  setMembers(state: GuildStoreState, members: UiGuildMemberWithPortfolio[]) {
     state.members = members
   },
 
@@ -87,7 +87,19 @@ export const actions = actionTree(
     },
 
     async fetchMembers({ commit }, id) {
-      commit('setMembers', await guildService.fetchMembers(id))
+      const members = await guildService.fetchMembers(id)
+      const membersWithPortfolio = await Promise.all(
+        members.map(async (member) => {
+          const portfolio = await memberService.fetchPortfolio(member.address)
+
+          return {
+            ...member,
+            portfolio
+          }
+        })
+      )
+
+      commit('setMembers', membersWithPortfolio)
     },
 
     async fetchPortfolios({ commit }, id) {

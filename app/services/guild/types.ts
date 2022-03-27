@@ -59,6 +59,12 @@ export interface ApiMarket {
   is_perpetual: boolean
 }
 
+export interface UiPortfolio {
+  portfolioValue: BigNumberInBase
+  balances: UiPortfolioBalanceWithToken[]
+  updatedAt: number
+}
+
 export interface ApiGuildMember {
   guild_id: string
   injective_address: string
@@ -72,12 +78,9 @@ export interface UiGuildMember {
   since: number
 }
 
-export interface UiPortfolio {
-  portfolioValue: BigNumberInBase
-  balances: UiPortfolioBalanceWithToken[]
-  updatedAt: number
+export interface UiGuildMemberWithPortfolio extends UiGuildMember {
+  portfolio: UiPortfolio
 }
-
 export interface UiGuildRequirement {
   denom: string
   minAmountInUsd: number

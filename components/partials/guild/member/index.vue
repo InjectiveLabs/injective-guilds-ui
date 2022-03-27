@@ -6,15 +6,15 @@
 
     <div class="mt-4">
       <TableHeader class="text-sm font-bold p-4" dense>
-        <div class="col-span-9">
+        <div class="col-span-7">
           <span>{{ $t('guild.member.address') }}</span>
         </div>
         <div class="col-span-3 text-right">
           <span>{{ $t('guild.member.since') }}</span>
         </div>
-        <!-- <div class="col-span-2 text-right">
+        <div class="col-span-2 text-right">
           <span>{{ $t('guild.member.percentage') }}</span>
-        </div> -->
+        </div>
       </TableHeader>
 
       <TableBody
@@ -27,6 +27,7 @@
           :class="{
             'border-t border-primary-500 border-opacity-30': index !== 0
           }"
+          v-bind="$attrs"
         />
       </TableBody>
     </div>
@@ -38,7 +39,7 @@ import Vue from 'vue'
 import TableHeader from '~/components/partials/grid-table/header.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/guild/member/member-row.vue'
-import { UiGuildMember } from '~/types'
+import { UiGuildMemberWithPortfolio } from '~/types'
 
 export default Vue.extend({
   components: {
@@ -48,7 +49,7 @@ export default Vue.extend({
   },
 
   computed: {
-    members(): UiGuildMember[] {
+    members(): UiGuildMemberWithPortfolio[] {
       return this.$accessor.guild.members
     }
   }

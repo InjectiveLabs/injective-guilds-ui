@@ -96,4 +96,24 @@ export class MemberService {
       throw new HttpException(error.message)
     }
   }
+
+  async fetchPortfolio(address: string) {
+    try {
+      const response = (await this.client.get(
+        `members/${address}/portfolio`
+      )) as ApiResponse<{
+        data: ApiPortfolio
+      }>
+
+      return await GuildTransformer.ApiPortfolioToUiPortfolio(
+        response.data.data
+      )
+    } catch (error: any) {
+      if ([404].includes(error.response.status)) {
+        throw new MemberNotFoundException(error.message)
+      }
+
+      throw new HttpException(error.message)
+    }
+  }
 }
