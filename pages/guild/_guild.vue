@@ -59,6 +59,7 @@ export default Vue.extend({
 
   data() {
     return {
+      poll: undefined as any,
       status: new Status(StatusType.Loading)
     }
   },
@@ -92,11 +93,7 @@ export default Vue.extend({
   mounted() {
     const guildId = this.$route.params.guild
 
-    Promise.all([
-      this.$accessor.guild.fetchGuild(guildId),
-      this.$accessor.guild.fetchPortfolios(guildId),
-      this.$accessor.guild.fetchMembers(guildId)
-    ])
+    this.fetchGuildAndWallet()
       .catch((error: any) => {
         if (error instanceof GuildNotFoundException) {
           this.$toast.error(
@@ -110,6 +107,31 @@ export default Vue.extend({
       .finally(() => {
         this.status.setIdle()
       })
+
+    this.setPolling()
+  },
+
+  beforeDestroy() {
+    clearInterval(this.poll)
+  },
+
+  methods: {
+    fetchGuildAndWallet(): Promise<void[]> {
+      const guildId = this.$route.params.guild
+
+      return Promise.all([
+        this.$accessor.guild.fetchGuild(guildId),
+        this.$accessor.guild.fetchPortfolios(guildId),
+        this.$accessor.guild.fetchMembers(guildId),
+        this.$accessor.wallet.initPage()
+      ])
+    },
+
+    setPolling() {
+      this.poll = setInterval(() => {
+        this.fetchGuildAndWallet()
+      }, 30 * 1000)
+    }
   }
 })
 </script>

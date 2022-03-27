@@ -83,6 +83,7 @@ export default Vue.extend({
 
   data() {
     return {
+      poll: undefined as any,
       status: new Status(StatusType.Loading)
     }
   },
@@ -136,12 +137,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    const { guildId } = this.profile
-
-    Promise.all([
-      this.$accessor.guild.fetchGuild(guildId),
-      this.$accessor.profile.fetchProfilePortfolio()
-    ])
+    this.fetchGuildAndProfile()
       .catch((error: any) => {
         if (
           error instanceof GuildNotFoundException ||
@@ -156,6 +152,38 @@ export default Vue.extend({
       .finally(() => {
         this.status.setIdle()
       })
+
+    this.setPolling()
+  },
+
+  beforeDestroy() {
+    clearInterval(this.poll)
+  },
+
+  methods: {
+    fetchGuildAndProfile(): Promise<void[]> {
+      const { guildId } = this.profile
+
+      return Promise.all([
+        this.$accessor.guild.fetchGuild(guildId),
+        this.$accessor.profile.fetchProfile(),
+        this.$accessor.profile.fetchProfilePortfolio()
+      ])
+    },
+
+    setPolling() {
+      this.poll = setInterval(() => {
+        this.fetchGuildAndProfile().catch((error: any) => {
+          if (
+            error instanceof GuildNotFoundException ||
+            error instanceof MemberNotFoundException
+          ) {
+            this.$toast.error(this.$t('toast.myGuildFetchProfileError'))
+            this.$router.push('/')
+          }
+        })
+      }, 30 * 1000)
+    }
   }
 })
 </script>

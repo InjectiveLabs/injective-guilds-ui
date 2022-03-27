@@ -38,6 +38,7 @@ export default Vue.extend({
 
   data() {
     return {
+      poll: undefined as any,
       status: new Status(StatusType.Loading)
     }
   },
@@ -54,11 +55,26 @@ export default Vue.extend({
       .finally(() => {
         this.status.setIdle()
       })
+
+    this.setPolling()
+  },
+
+  beforeDestroy() {
+    clearInterval(this.poll)
   },
 
   methods: {
     logout() {
       this.$accessor.wallet.logout()
+    },
+
+    setPolling() {
+      this.poll = setInterval(() => {
+        Promise.all([
+          this.$accessor.guild.fetchGuilds(),
+          this.$accessor.wallet.initPage()
+        ])
+      }, 30 * 1000)
     }
   }
 })

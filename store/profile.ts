@@ -48,12 +48,7 @@ export const actions = actionTree(
       }
 
       try {
-        commit(
-          'setProfile',
-          await memberService.fetchProfile(
-            'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
-          )
-        )
+        commit('setProfile', await memberService.fetchProfile(injectiveAddress))
       } catch {
         // ensure profile is flushed on error
         commit('setProfile', undefined)
@@ -70,9 +65,7 @@ export const actions = actionTree(
 
       commit(
         'setProfilePortfolio',
-        await memberService.fetchProfilePortfolio(
-          'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
-        )
+        await memberService.fetchProfilePortfolio(injectiveAddress)
       )
     }
   }

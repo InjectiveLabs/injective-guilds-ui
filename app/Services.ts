@@ -1,10 +1,12 @@
 import { getUrlEndpointForNetwork } from '@injectivelabs/networks'
 import {
   BankService,
+  DerivativeActionService,
   DerivativeService,
   ServiceOptions,
-  SubaccountService,
+  SpotActionService,
   SpotService,
+  SubaccountService,
   TokenCoinGeckoService,
   TokenService
 } from '@injectivelabs/ui-common'
@@ -17,6 +19,7 @@ import {
 } from './utils/constants'
 import { GuildService } from './services/guild/service'
 import { MemberService } from './services/member/service'
+import { web3Strategy } from './web3'
 import { app } from '~/app/singletons/App'
 
 const endpoints = getUrlEndpointForNetwork(NETWORK)
@@ -53,3 +56,12 @@ export const memberService = new MemberService(
 export const spotService = new SpotService(commonServiceOptions)
 export const subaccountService = new SubaccountService(commonServiceOptions)
 export const tokenService = new TokenService(commonServiceOptions)
+
+export const derivativeActionService = new DerivativeActionService(
+  commonServiceOptions,
+  web3Strategy
+)
+export const spotActionService = new SpotActionService(
+  commonServiceOptions,
+  web3Strategy
+)

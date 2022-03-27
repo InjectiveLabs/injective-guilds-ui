@@ -114,15 +114,21 @@ export default Vue.extend({
   methods: {
     openModal(guild: UiGuild) {
       this.guild = guild
-      this.fetchStatus.setIdle()
+      this.fetchStatus.setLoading()
       this.joinState = JoinLeaveGuildState.Confirm
       this.$accessor.modal.openModal(Modal.LeaveGuild)
 
-      this.fetchGuildOrdersAndPositions()
+      Promise.all([this.$accessor.derivatives.fetchMarkets()]).finally(() => {
+        this.fetchStatus.setIdle()
+      })
     },
 
-    fetchGuildOrdersAndPositions() {
-      // on open fetch orders, positions and ...
+    closeOrdersAndPositions(): Promise<void[]> {
+      return Promise.all([
+        this.$accessor.derivatives.batchCancelOrder(),
+        this.$accessor.spot.batchCancelOrder(),
+        this.$accessor.positions.closeAllPosition()
+      ])
     },
 
     closeModal() {
@@ -152,10 +158,6 @@ export default Vue.extend({
             this.status.setIdle()
           })
       }
-    },
-
-    closeOrdersAndPositions() {
-      return new Promise((resolve) => setTimeout(resolve, 3 * 1000))
     }
   }
 })
