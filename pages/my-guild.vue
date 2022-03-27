@@ -46,11 +46,9 @@
       <section class="py-16 container">
         <div class="border-t border-primary-500 w-full" />
         <TableBody v-if="guild">
-          <TableRow :guild="guild" @leave="handleLeaveGuildBtnClick">
-          </TableRow>
+          <TableRow :guild="guild" />
         </TableBody>
       </section>
-      <v-modal-leave-guild :guild="guild" />
     </div>
   </VHOCLoading>
 </template>
@@ -62,9 +60,8 @@ import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import VBanner from '~/layouts/child-page-banner.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/my-guild/my-guild-row.vue'
-import VModalLeaveGuild from '~/components/partials/modal/leave-guild-modal.vue'
 import VOverview from '~/components/partials/my-guild/overview.vue'
-import { Modal, UiGuild, UiProfile, UIProfilePortfolio } from '~/types'
+import { UiGuild, UiProfile, UIProfilePortfolio } from '~/types'
 import {
   GuildNotFoundException,
   MemberNotFoundException
@@ -79,7 +76,6 @@ export default Vue.extend({
     TableBody,
     TableRow,
     VBanner,
-    VModalLeaveGuild,
     VOverview
   },
 
@@ -160,14 +156,6 @@ export default Vue.extend({
       .finally(() => {
         this.status.setIdle()
       })
-  },
-
-  methods: {
-    handleLeaveGuildBtnClick() {
-      this.$nextTick(() => {
-        this.$accessor.modal.openModal(Modal.LeaveGuild)
-      })
-    }
   }
 })
 </script>

@@ -111,8 +111,15 @@ export default {
 
   leaveGuildModal: {
     title: 'Confirmation',
-    leaveDescription:
-      'I leave {guild} from this moment forward, for better, for worse, for richer, for poorer.'
+    description: 'By leaving {name}, I am aware that:',
+    subDescriptionOne:
+      'All my open positions and open orders are going to be closed automatically.',
+    subDescriptionTwo:
+      'All permissions granted to the guild master will be revoked.',
+    subDescriptionThree:
+      'I will be able to join the guild again at any point as long as i meet the requirements.',
+    confirmationDescription: 'You have left {name}.',
+    failedDescription: 'Failed to leave Trading Guild: {name}.'
   },
 
   joinAGuildWarning: {

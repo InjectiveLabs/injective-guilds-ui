@@ -150,6 +150,50 @@ export default Vue.extend({
   }
 }
 
+@media only screen and (max-width: 480px) {
+  .modal {
+    clip-path: polygon(
+      0 41px,
+      16px 23px,
+      82px 23px,
+      100px 0,
+      calc(100% - 100px) 0,
+      calc(100% - 82px) 23px,
+      calc(100% - 16px) 23px,
+      100% 41px,
+      100% 100%,
+      0 100%
+    );
+
+    &::before {
+      clip-path: polygon(
+        0 41px,
+        16px 23px,
+        82px 23px,
+        100px 0,
+        calc(100% - 100px) 0,
+        calc(100% - 82px) 23px,
+        calc(100% - 16px) 23px,
+        100% 41px,
+        100% 100%,
+        0 100%,
+        0 41px,
+        1px 41px,
+        1px calc(100% - 1px),
+        calc(100% - 1px) calc(100% - 1px),
+        calc(100% - 1px) 42px,
+        calc(100% - 17px) 24px,
+        calc(100% - 83px) 24px,
+        calc(100% - 95px) 10px,
+        95px 10px,
+        83px 24px,
+        17px 24px,
+        1px 42px
+      );
+    }
+  }
+}
+
 .modal-glow {
   @apply absolute h-6 w-4/5 bg-primary-500 inset-x-0 mx-auto;
 

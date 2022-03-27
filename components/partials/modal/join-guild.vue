@@ -2,16 +2,16 @@
   <v-modal
     :is-open="isModalOpen"
     sm
-    :accent="joinStatus === JoinGuildStatus.Failed"
+    :accent="joinStatus === JoinLeaveGuildState.Failed"
     :title="$t('joinGuildModal.title')"
     @modal-closed="closeModal"
   >
-    <section class="h-56">
+    <section class="h-64">
       <div
-        v-if="joinStatus === JoinGuildStatus.Confirm"
+        v-if="joinStatus === JoinLeaveGuildState.Confirm"
         class="flex flex-col h-full"
       >
-        <p class="text-2xl font-bold leading-8">
+        <p class="text-xl font-bold xs:text-2xl xs:leading-8">
           {{ $t('joinGuildModal.description', { name: guild.name }) }}
         </p>
 
@@ -34,7 +34,7 @@
       </div>
 
       <div
-        v-else-if="joinStatus === JoinGuildStatus.Success"
+        v-else-if="joinStatus === JoinLeaveGuildState.Success"
         class="flex flex-col justify-between h-full"
       >
         <p class="text-2xl font-bold leading-8">
@@ -69,7 +69,12 @@
 import Vue, { PropType } from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
 import VModal from '~/components/partials/modal/modal.vue'
-import { JoinGuildStatus, Modal, UiGuild, UiGuildRequirement } from '~/types'
+import {
+  JoinLeaveGuildState,
+  Modal,
+  UiGuild,
+  UiGuildRequirement
+} from '~/types'
 import { delayPromiseCall } from '~/app/utils/async'
 
 export default Vue.extend({
@@ -91,9 +96,9 @@ export default Vue.extend({
 
   data() {
     return {
-      JoinGuildStatus,
+      JoinLeaveGuildState,
       authGranted: false,
-      joinStatus: JoinGuildStatus.Failed,
+      joinStatus: JoinLeaveGuildState.Confirm,
       status: new Status(StatusType.Idle)
     }
   },
@@ -112,7 +117,7 @@ export default Vue.extend({
     isModalOpen(isOpen: boolean) {
       if (isOpen) {
         this.authGranted = false
-        this.joinStatus = JoinGuildStatus.Confirm
+        this.joinStatus = JoinLeaveGuildState.Confirm
       }
     }
   },
@@ -135,10 +140,10 @@ export default Vue.extend({
           )
         )
         .then(() => {
-          this.joinStatus = JoinGuildStatus.Success
+          this.joinStatus = JoinLeaveGuildState.Success
         })
         .catch(() => {
-          this.joinStatus = JoinGuildStatus.Failed
+          this.joinStatus = JoinLeaveGuildState.Failed
         })
         .finally(() => {
           this.status.setIdle()

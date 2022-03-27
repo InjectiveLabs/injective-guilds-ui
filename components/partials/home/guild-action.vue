@@ -217,7 +217,7 @@ export default Vue.extend({
     handelLeaveGuildClick() {
       const { guild } = this
 
-      this.$accessor.modal.openCustomModal(`${Modal.LeaveGuild}-${guild.id}`)
+      this.$root.$emit('leave-guild-button-clicked', guild)
     }
   }
 })

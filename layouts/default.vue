@@ -8,6 +8,7 @@
             <nuxt />
           </main>
           <v-modal-join-a-guild-warning />
+          <v-modal-leave-guild />
           <Footer />
         </div>
       </client-only>
@@ -21,12 +22,14 @@ import { Status, StatusType } from '@injectivelabs/utils'
 import TopBar from '~/components/elements/layout/topbar.vue'
 import Footer from '~/components/elements/layout/footer/index.vue'
 import VModalJoinAGuildWarning from '~/components/partials/modal/join-a-guild-warning.vue'
+import VModalLeaveGuild from '~/components/partials/modal/leave-guild.vue'
 
 export default Vue.extend({
   components: {
     TopBar,
     Footer,
-    VModalJoinAGuildWarning
+    VModalJoinAGuildWarning,
+    VModalLeaveGuild
   },
 
   data() {

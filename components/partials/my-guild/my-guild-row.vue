@@ -126,7 +126,7 @@ export default Vue.extend({
     handleLeaveGuildBtnClick() {
       const { guild } = this
 
-      this.$emit('leave', guild)
+      this.$root.$emit('leave-guild-button-clicked', guild)
     }
   }
 })

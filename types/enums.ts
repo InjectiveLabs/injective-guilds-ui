@@ -28,7 +28,7 @@ export enum WalletConnectStatus {
   connected = 'Connected'
 }
 
-export enum JoinGuildStatus {
+export enum JoinLeaveGuildState {
   Confirm = 'confirm',
   Failed = 'failed',
   Success = 'success'

@@ -14,21 +14,21 @@ export const state = () => ({
   profilePortfolio: initialState.profilePortfolio
 })
 
-export type GuildStoreState = ReturnType<typeof state>
+export type ProfileStoreState = ReturnType<typeof state>
 
 export const mutations = {
-  setProfile(state: GuildStoreState, profile: UiProfile) {
+  setProfile(state: ProfileStoreState, profile: UiProfile) {
     state.profile = profile
   },
 
   setProfilePortfolio(
-    state: GuildStoreState,
+    state: ProfileStoreState,
     profilePortfolio: UIProfilePortfolio
   ) {
     state.profilePortfolio = profilePortfolio
   },
 
-  reset(state: GuildStoreState) {
+  reset(state: ProfileStoreState) {
     const initialState = initialStateFactory()
 
     state.profile = initialState.profile
@@ -48,7 +48,12 @@ export const actions = actionTree(
       }
 
       try {
-        commit('setProfile', await memberService.fetchProfile(injectiveAddress))
+        commit(
+          'setProfile',
+          await memberService.fetchProfile(
+            'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
+          )
+        )
       } catch {
         // ensure profile is flushed on error
         commit('setProfile', undefined)
@@ -65,7 +70,9 @@ export const actions = actionTree(
 
       commit(
         'setProfilePortfolio',
-        await memberService.fetchProfilePortfolio(injectiveAddress)
+        await memberService.fetchProfilePortfolio(
+          'inj1dye2gg272p7hjqlsavdaacg8n55jsh8mk70hxt'
+        )
       )
     }
   }
