@@ -1,6 +1,7 @@
 import { actionTree } from 'typed-vuex'
 import { guildService, memberService } from '~/app/Services'
 import { UiGuildWithMeta, UiGuildMember, UiPortfolio } from '~/types'
+import { delayPromiseCall } from '~/app/utils/async'
 
 const initialStateFactory = () => ({
   guild: undefined as UiGuildWithMeta | undefined,
@@ -93,6 +94,50 @@ export const actions = actionTree(
       const portfolios = await guildService.fetchPortfolios(id)
 
       commit('setPortfolios', portfolios)
+    },
+
+    async joinGuild(_, id) {
+      const { injectiveAddress } = await this.app.$accessor.wallet
+      const { profile } = await this.app.$accessor.profile
+
+      if (!injectiveAddress || profile) {
+        return
+      }
+
+      await this.app.$accessor.wallet.validate()
+      await guildService.joinGuild(id, injectiveAddress)
+
+      await delayPromiseCall(
+        () =>
+          Promise.all([
+            this.app.$accessor.fetchGuild(id),
+            this.app.$accessor.fetchGuilds(id),
+            this.app.$accessor.wallet.initPage()
+          ]),
+        3 * 1000
+      )
+    },
+
+    async leaveGuild(_, id) {
+      const { injectiveAddress } = await this.app.$accessor.wallet
+      const { profile } = await this.app.$accessor.profile
+
+      if (!injectiveAddress || !profile) {
+        return
+      }
+
+      await this.app.$accessor.wallet.validate()
+      await guildService.leaveGuild(id, injectiveAddress)
+
+      await delayPromiseCall(
+        () =>
+          Promise.all([
+            this.app.$accessor.fetchGuild(id),
+            this.app.$accessor.fetchGuilds(id),
+            this.app.$accessor.wallet.initPage()
+          ]),
+        3 * 1000
+      )
     }
   }
 )

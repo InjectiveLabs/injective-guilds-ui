@@ -3,6 +3,8 @@ import wallet from './en/wallet'
 export default {
   ...wallet,
   common: {
+    alright: 'Alright',
+    awesome: 'Awesome',
     confirm: 'Confirm',
     leave: 'Leave',
     OK: 'OK',
@@ -71,18 +73,6 @@ export default {
     }
   },
 
-  guildModal: {
-    title: 'Confirmation',
-    joinDescription:
-      'I join {guild} from this moment forward, for better, for worse, for richer, for poorer.',
-    joinConfirmationDescription:
-      'Congratulations. You are part of the {guild} now, to share weal and woe.',
-    leaveDescription:
-      'I leave {guild} from this moment forward, for better, for worse, for richer, for poorer.',
-    grantAuthConfirmationDescription:
-      'You are granting the authorization to the guild master the access to trade on behalf of you using your wallet balance. The APY is reference only. Your balance might be lower than the initial amount.'
-  },
-
   tradingGuild: {
     title: 'Trading Guilds',
     description:
@@ -108,7 +98,24 @@ export default {
     requirement: 'Requirements'
   },
 
-  joinAGuild: {
+  joinGuildModal: {
+    title: 'Confirmation',
+    description:
+      'I join {name} from this moment forward, for better, for worse, for richer, for poorer.',
+    confirmationDescription:
+      'Congratulations. You are part of the {name} now, to share weal and woe.',
+    failedDescription: 'Failed to join Trading Guild: {name}.',
+    grantAuthConfirmationDescription:
+      'You are granting the authorization to the guild master the access to trade on behalf of you using your wallet balance. The APY is reference only. Your balance might be lower than the initial amount.'
+  },
+
+  leaveGuildModal: {
+    title: 'Confirmation',
+    leaveDescription:
+      'I leave {guild} from this moment forward, for better, for worse, for richer, for poorer.'
+  },
+
+  joinAGuildWarning: {
     title: 'Join guild',
     description: 'You have not joined a guild yet.'
   }

@@ -8,7 +8,7 @@ const hasJoinedGuild: Middleware = ({ redirect, route, app }: Context) => {
     requiredRouteNames.includes(route.name as string) &&
     !app.$accessor.profile.profile
   ) {
-    app.$accessor.modal.openModal(Modal.JoinAGuild)
+    app.$accessor.modal.openModal(Modal.JoinAGuildWarning)
 
     return redirect('/')
   }

@@ -106,4 +106,24 @@ export class GuildService {
       throw new HttpException(error.message)
     }
   }
+
+  async joinGuild(id: string, address: string) {
+    try {
+      await this.client.post(`guilds/${id}/member`, {
+        injective_address: address
+      })
+    } catch (error: any) {
+      throw new HttpException(error.message)
+    }
+  }
+
+  async leaveGuild(id: string, address: string) {
+    try {
+      await this.client.delete(`guilds/${id}/member`, {
+        injective_address: address
+      })
+    } catch (error: any) {
+      throw new HttpException(error.message)
+    }
+  }
 }

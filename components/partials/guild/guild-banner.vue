@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="guild"
-    :style="{ backgroundImage: `url(${guildImageMappings[guild.id].banner})` }"
+    :style="{ backgroundImage: `url(${guildAssets.banner})` }"
     class="py-16 bg-cover bg-center"
   >
     <div class="container flex h-full items-center">
@@ -38,7 +38,7 @@
 import Vue from 'vue'
 import VGuildCardAction from '../home/guild-action.vue'
 import { UiGuild } from '~/types'
-import { guildImageMappings } from '~/app/data/guild'
+import { guildImageMappings, GuildAsset } from '~/app/data/guild'
 
 export default Vue.extend({
   components: {
@@ -54,6 +54,16 @@ export default Vue.extend({
   computed: {
     guild(): UiGuild | undefined {
       return this.$accessor.guild.guild
+    },
+
+    guildAssets(): GuildAsset {
+      const { guild } = this
+
+      if (!guild) {
+        return guildImageMappings.default
+      }
+
+      return guildImageMappings[guild.id] || guildImageMappings.default
     }
   }
 })

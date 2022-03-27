@@ -2,7 +2,7 @@
   <div class="guild-card-image-container">
     <div
       class="w-full h-full bg-cover bg-center"
-      :style="{ backgroundImage: `url(${guildImageMappings[guild.id].card})` }"
+      :style="{ backgroundImage: `url(${guildAsset.card})` }"
     />
     <div
       class="w-full bg-black bg-opacity-70 h-24 absolute inset-x-0 bottom-0 border border-primary-500 px-10 pt-5 pb-6 text-white"
@@ -23,7 +23,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { UiGuildWithMeta } from '~/types'
-import { guildImageMappings } from '~/app/data/guild'
+import { guildImageMappings, GuildAsset } from '~/app/data/guild'
 
 export default Vue.extend({
   props: {
@@ -33,9 +33,11 @@ export default Vue.extend({
     }
   },
 
-  data() {
-    return {
-      guildImageMappings
+  computed: {
+    guildAsset(): GuildAsset {
+      const { guild } = this
+
+      return guildImageMappings[guild.id] || guildImageMappings.default
     }
   }
 })

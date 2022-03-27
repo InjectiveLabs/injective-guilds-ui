@@ -50,6 +50,7 @@ export const actions = actionTree(
       try {
         commit('setProfile', await memberService.fetchProfile(injectiveAddress))
       } catch {
+        // ensure profile is flushed on error
         commit('setProfile', undefined)
       }
     },

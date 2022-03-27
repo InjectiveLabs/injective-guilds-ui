@@ -17,7 +17,12 @@
     </div>
 
     <div class="flex items-start">
-      <v-button v-if="isPartOfGuild" accent :outline="!banner">
+      <v-button
+        v-if="isPartOfGuild"
+        accent
+        :outline="!banner"
+        @click="handelLeaveGuildClick"
+      >
         {{ $t('guildCard.leave') }}
       </v-button>
 
@@ -29,7 +34,7 @@
         {{ $t('guildCard.unqualified') }}
       </v-button>
 
-      <v-button v-else class="cursor-pointer">
+      <v-button v-else @click="handelJoinGuildClick">
         {{ $t('guildCard.joinNow') }}
       </v-button>
 
@@ -58,6 +63,10 @@
         </div>
       </div>
     </div>
+    <v-modal-join-guild
+      :guild="guild"
+      :requirements="outstandingRequirementsMinusSubaccountAvailableBalances"
+    />
   </div>
 </template>
 
@@ -73,9 +82,14 @@ import {
   BigNumberInBase,
   BigNumberInWei
 } from '@injectivelabs/utils'
-import { UiGuildWithMeta, UiGuildRequirement, UiProfile } from '~/types'
+import VModalJoinGuild from '~/components/partials/modal/join-guild.vue'
+import { Modal, UiGuildWithMeta, UiGuildRequirement, UiProfile } from '~/types'
 
 export default Vue.extend({
+  components: {
+    VModalJoinGuild
+  },
+
   props: {
     guild: {
       type: Object as PropType<UiGuildWithMeta>,
@@ -190,6 +204,20 @@ export default Vue.extend({
           ({ outstandingAmountInBase }) => outstandingAmountInBase.gt('0')
         ) !== undefined
       )
+    }
+  },
+
+  methods: {
+    handelJoinGuildClick() {
+      const { guild } = this
+
+      this.$accessor.modal.openCustomModal(`${Modal.JoinGuild}-${guild.id}`)
+    },
+
+    handelLeaveGuildClick() {
+      const { guild } = this
+
+      this.$accessor.modal.openCustomModal(`${Modal.LeaveGuild}-${guild.id}`)
     }
   }
 })

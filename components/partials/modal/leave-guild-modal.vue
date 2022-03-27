@@ -3,12 +3,12 @@
     :is-open="isModalOpen"
     accent
     sm
-    :title="$t('guildModal.title')"
+    :title="$t('leaveGuildModal.title')"
     @modal-closed="closeModal"
   >
     <section>
       <p class="text-2xl font-bold leading-8">
-        {{ $t('guildModal.leaveDescription', { guild: guild.name }) }}
+        {{ $t('leaveGuildModal.leaveDescription', { guild: guild.name }) }}
       </p>
 
       <v-button class="w-full mt-16" accent @click="handleConfirm">
@@ -23,7 +23,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import VModal from '~/components/partials/modal/modal.vue'
-import { Modal, MyGuild } from '~/types'
+import { Modal, UiGuild } from '~/types'
 
 export default Vue.extend({
   components: {
@@ -32,20 +32,24 @@ export default Vue.extend({
 
   props: {
     guild: {
-      type: Object as PropType<MyGuild>,
-      default: () => {}
+      type: Object as PropType<UiGuild>,
+      required: true
     }
   },
 
   computed: {
     isModalOpen(): boolean {
-      return this.$accessor.modal.modals[Modal.LeaveGuild]
+      const { guild } = this
+
+      return (
+        this.$accessor.modal.customModal === `${Modal.LeaveGuild}-${guild.id}`
+      )
     }
   },
 
   methods: {
     closeModal() {
-      this.$accessor.modal.closeModal(Modal.LeaveGuild)
+      this.$accessor.modal.closeCustomModal()
     },
 
     handleConfirm() {

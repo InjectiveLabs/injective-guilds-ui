@@ -7,7 +7,7 @@
           <main class="min-h-screen-excluding-header-footer text-primary-500">
             <nuxt />
           </main>
-          <v-modal-join-a-guild />
+          <v-modal-join-a-guild-warning />
           <Footer />
         </div>
       </client-only>
@@ -20,13 +20,13 @@ import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
 import TopBar from '~/components/elements/layout/topbar.vue'
 import Footer from '~/components/elements/layout/footer/index.vue'
-import VModalJoinAGuild from '~/components/partials/modal/join-a-guild.vue'
+import VModalJoinAGuildWarning from '~/components/partials/modal/join-a-guild-warning.vue'
 
 export default Vue.extend({
   components: {
     TopBar,
     Footer,
-    VModalJoinAGuild
+    VModalJoinAGuildWarning
   },
 
   data() {
