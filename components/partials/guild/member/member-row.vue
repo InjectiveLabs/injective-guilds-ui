@@ -24,7 +24,7 @@
       {{ $t('guild.member.percentage') }}
     </span>
     <div class="lg:col-span-2 text-right">
-      <span>{{ item.percentage }}</span>
+      <span>{{ allocationToFormat }}%</span>
     </div>
   </TableRow>
 </template>
@@ -32,9 +32,10 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { format } from 'date-fns'
-import { getExplorerUrl } from '@injectivelabs/ui-common'
-import { UIMember } from '~/types'
-import { NETWORK } from '~/app/utils/constants'
+import { getExplorerUrl, ZERO_IN_BASE } from '@injectivelabs/ui-common'
+import { BigNumberInBase } from '@injectivelabs/utils'
+import { UiGuildMemberWithPortfolio } from '~/types'
+import { NETWORK, UI_DEFAULT_PERCENTAGE_DECIMALS } from '~/app/utils/constants'
 import TableRow from '~/components/partials/grid-table/row.vue'
 
 export default Vue.extend({
@@ -44,12 +45,40 @@ export default Vue.extend({
 
   props: {
     item: {
-      type: Object as PropType<UIMember>,
+      type: Object as PropType<UiGuildMemberWithPortfolio>,
+      required: true
+    },
+
+    portfolioValue: {
+      type: Object as PropType<BigNumberInBase>,
       required: true
     }
   },
 
   computed: {
+    allocation(): BigNumberInBase {
+      const { portfolioValue, item } = this
+
+      if (
+        !portfolioValue ||
+        !item ||
+        !item.portfolio ||
+        !item.portfolio.portfolioValue
+      ) {
+        return ZERO_IN_BASE
+      }
+
+      return item.portfolio.portfolioValue
+        .dividedBy(portfolioValue)
+        .multipliedBy(100)
+    },
+
+    allocationToFormat(): string {
+      const { allocation } = this
+
+      return allocation.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
+    },
+
     explorerUrl(): string {
       const { item } = this
 

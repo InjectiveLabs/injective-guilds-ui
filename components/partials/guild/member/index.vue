@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="members.length > 0">
     <h3 class="tracking-tight font-bold text-2xl text-white">
       {{ $t('guild.member.title') }}
     </h3>
@@ -27,6 +27,7 @@
           :class="{
             'border-t border-primary-500 border-opacity-30': index !== 0
           }"
+          v-bind="$attrs"
         />
       </TableBody>
     </div>
@@ -38,7 +39,7 @@ import Vue from 'vue'
 import TableHeader from '~/components/partials/grid-table/header.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/guild/member/member-row.vue'
-import { portfolioMember as mockMember } from '~/app/data/mock'
+import { UiGuildMemberWithPortfolio } from '~/types'
 
 export default Vue.extend({
   components: {
@@ -47,16 +48,9 @@ export default Vue.extend({
     TableRow
   },
 
-  data() {
-    return {
-      members: [
-        mockMember,
-        mockMember,
-        mockMember,
-        mockMember,
-        mockMember,
-        mockMember
-      ]
+  computed: {
+    members(): UiGuildMemberWithPortfolio[] {
+      return this.$accessor.guild.members
     }
   }
 })

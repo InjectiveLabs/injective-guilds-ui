@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute left-0 top-0 h-full w-full">
+  <div class="absolute left-0 top-0 h-full w-full" :class="{ accent: accent }">
     <div class="h-full w-full flex flex-col items-center justify-center">
       <div class="loading-spinner">
         <div />
@@ -18,7 +18,7 @@ export default Vue.extend({
   components: {},
 
   props: {
-    logo: {
+    accent: {
       type: Boolean,
       default: false
     }
@@ -46,8 +46,8 @@ export default Vue.extend({
   border-color: theme('colors.primary.500') transparent transparent transparent;
 }
 
-.dark .loading-spinner div {
-  border-color: #00f2ff transparent transparent transparent;
+.accent .loading-spinner div {
+  border-color: theme('colors.accent.500') transparent transparent transparent;
 }
 
 .loading-spinner div:nth-child(1) {

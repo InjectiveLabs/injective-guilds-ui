@@ -5,8 +5,12 @@
         <p class="text-sm font-bold uppercase tracking-widest mt-1">
           {{ $t('guild.portfolioValue') }}
         </p>
-        <p class="text-3.5xl my-2 font-bold tracking-widest">$1,388,783</p>
-        <p class="text-xs">Jan 20, 2022</p>
+        <p class="text-3.5xl my-2 font-bold tracking-widest">
+          ${{ portfolioValueToFormat }}
+        </p>
+        <p v-if="portfolios.length > 0" class="text-xs">
+          {{ latestSnapShotDateToFormat }}
+        </p>
       </div>
       <div>
         <v-date-filter-item
@@ -20,19 +24,20 @@
     </div>
 
     <v-chart
-      :series="portfolioChartData"
-      v-bind="{ xMin: minDate, xMax: maxDate }"
+      :series="portfoliosChartData"
+      v-bind="{ xMin: minDate, xMax: latestSnapShotDate }"
     />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { subDays, subMonths } from 'date-fns'
+import Vue, { PropType } from 'vue'
+import { format, subDays, subMonths } from 'date-fns'
+import { BigNumberInBase } from '@injectivelabs/utils'
 import VChart from '~/components/partials/guild/chart.vue'
 import VDateFilterItem from '~/components/partials/guild/date-filter-item.vue'
-import { portfolioChartData } from '~/app/data/mock'
-import { ChartInterval } from '~/types'
+import { ChartInterval, UiPortfolio, UIGuildChartData } from '~/types'
+import { UI_DEFAULT_FIAT_DECIMALS } from '~/app/utils/constants'
 
 export default Vue.extend({
   components: {
@@ -40,26 +45,82 @@ export default Vue.extend({
     VDateFilterItem
   },
 
+  props: {
+    portfolioValue: {
+      type: Object as PropType<BigNumberInBase>,
+      required: true
+    }
+  },
+
   data() {
     return {
-      portfolioChartData,
       intervals: Object.values(ChartInterval),
       interval: ChartInterval.All
     }
   },
 
   computed: {
-    maxDate(): Date {
-      // todo, remove hardcoded value after syncing with API
+    portfolios(): UiPortfolio[] {
+      return this.$accessor.guild.portfolios
+    },
 
-      return new Date(1645866383702)
+    portfoliosChartData(): UIGuildChartData[] {
+      const { portfolios } = this
+
+      return [
+        {
+          name: 'Portfolio value',
+          type: 'area',
+          data: portfolios.map(({ updatedAt, portfolioValue }) => [
+            updatedAt,
+            portfolioValue.toNumber()
+          ])
+        }
+      ]
+    },
+
+    portfolioValueToFormat(): string {
+      const { portfolioValue } = this
+
+      return portfolioValue.toFormat(UI_DEFAULT_FIAT_DECIMALS)
+    },
+
+    firstSnapShotDate(): Date {
+      const { portfolios } = this
+
+      if (portfolios.length === 0) {
+        return new Date()
+      }
+
+      return new Date(portfolios[portfolios.length - 1].updatedAt)
+    },
+
+    latestSnapShotDate(): Date {
+      const { portfolios } = this
+
+      if (portfolios.length === 0) {
+        return new Date()
+      }
+
+      return new Date(portfolios[0].updatedAt)
+    },
+
+    latestSnapShotDateToFormat(): string {
+      const { latestSnapShotDate } = this
+
+      if (!latestSnapShotDate) {
+        return ''
+      }
+
+      return format(latestSnapShotDate, "MMM-dd-yyyy HH:mm:ss 'UTC'xxx")
     },
 
     minDate(): Date {
-      const { interval, maxDate } = this
-
-      // todo, remove hardcoded value after syncing with API
-      const minDate = new Date(1640151572879)
+      const {
+        interval,
+        firstSnapShotDate: minDate,
+        latestSnapShotDate: maxDate
+      } = this
 
       switch (interval) {
         case ChartInterval.Day:
