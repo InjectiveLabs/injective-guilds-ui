@@ -124,10 +124,12 @@ export default Vue.extend({
     },
 
     closeOrdersAndPositions(): Promise<void[]> {
+      const { guild } = this
+
       return Promise.all([
         this.$accessor.derivatives.batchCancelOrder(),
         this.$accessor.spot.batchCancelOrder(),
-        this.$accessor.positions.closeAllPosition()
+        this.$accessor.positions.closeAllPosition(guild)
       ])
     },
 

@@ -1,6 +1,8 @@
+import howItWorks from './en/how-it-works'
 import wallet from './en/wallet'
 
 export default {
+  ...howItWorks,
   ...wallet,
   common: {
     alright: 'Alright',

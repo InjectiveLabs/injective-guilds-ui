@@ -83,7 +83,19 @@ export default {
   },
 
   router: {
-    linkActiveClass: 'is-active'
+    linkActiveClass: 'is-active',
+    scrollBehavior(to) {
+      if (to.hash) {
+        const el = document.getElementById(to.hash.replace('#', ''))?.offsetTop
+
+        return window.scrollTo({
+          top: el ? el - 12 : 0,
+          behavior: 'smooth'
+        })
+      }
+
+      return window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   },
 
   toast: {

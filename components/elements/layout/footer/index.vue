@@ -1,64 +1,29 @@
 <template>
   <div
-    class="
-      h-full
-      lg:h-footer
-      w-full
-      shadow-md
-      flex flex-wrap
-      lg:justify-between
-      border-t border-primary-500
-      py-4
-      items-center
-    "
+    class="h-full lg:h-footer w-full shadow-md flex flex-wrap lg:justify-between border-t border-primary-500 py-4 items-center"
   >
     <div
-      class="
-        flex flex-col
-        sm:flex-row sm:ml-5
-        w-full
-        lg:w-auto
-        justify-between
-        sm:justify-around
-        lg:justify-start
-        items-center
-      "
+      class="flex flex-col sm:flex-row sm:ml-5 w-full lg:w-auto justify-between sm:justify-around lg:justify-start items-center"
     >
       <div
-        class="
-          flex
-          items-center
-          text-gray-400
-          lg:ml-6
-          xl:ml-7
-          text-base
-          h-auto
-          sm:h-full
-        "
+        class="flex items-center text-gray-400 lg:ml-6 xl:ml-7 text-base h-auto sm:h-full"
       >
         <span>&copy; {{ new Date().getFullYear() }} Open DeFi Foundation</span>
       </div>
     </div>
     <div
-      class="
-        justify-center
-        flex
-        lg:justify-end
-        flex-wrap
-        lg:flex-no-wrap
-        h-full
-        w-full
-        lg:w-auto
-      "
+      class="justify-center flex lg:justify-end flex-wrap lg:flex-no-wrap h-full w-full lg:w-auto"
     >
-      <!--
-      <feature-item class="uppercase" :feature="$t('footer.startAGuild')" />
-      <feature-item class="uppercase" :feature="$t('footer.item1')" />
-      <feature-item class="uppercase" :feature="$t('footer.item2')" />
-      -->
-      <div class="flex items-center text-gray-400">
+      <div class="flex items-center">
+        <nuxt-link
+          :to="{ name: 'how-it-works' }"
+          class="hover:text-primary-500 mr-8 uppercase text-white"
+        >
+          {{ $t('howItWorks.title') }}
+        </nuxt-link>
+
         <a
-          class="cursor-pointer"
+          class="cursor-pointer text-gray-400 hover:text-primary-500"
           href="https://injectivelabs.org/privacy-policy"
           target="_blank"
         >
@@ -68,33 +33,35 @@
     </div>
 
     <div
-      class="
-        justify-center
-        flex
-        lg:justify-end
-        flex-wrap
-        lg:flex-no-wrap
-        h-full
-        w-full
-        lg:w-auto lg:mr-8
-        items-center
-      "
+      class="justify-center flex lg:justify-end flex-wrap lg:flex-no-wrap h-full w-full lg:w-auto lg:mr-8 items-center"
     >
       <div class="flex items-center text-gray-400">
         <a
           href="https://twitter.com/InjectiveLabs"
           target="_blank"
-          class="mr-4"
+          class="mr-4 hover:text-primary-500"
         >
           <v-icon-twitter class="w-6 h-6" />
         </a>
-        <a href="https://discord.gg/injective" target="_blank" class="mr-4">
+        <a
+          href="https://discord.gg/injective"
+          target="_blank"
+          class="mr-4 hover:text-primary-500"
+        >
           <v-icon-discord class="w-6 h-6" />
         </a>
-        <a href="https://t.me/joininjective" target="_blank" class="mr-4">
+        <a
+          href="https://t.me/joininjective"
+          target="_blank"
+          class="mr-4 hover:text-primary-500"
+        >
           <v-icon-telegram class="w-6 h-6" />
         </a>
-        <a href="https://www.reddit.com/r/injective/" target="_blank">
+        <a
+          href="https://www.reddit.com/r/injective/"
+          target="_blank"
+          class="hover:text-primary-500"
+        >
           <v-icon-reddit class="w-6 h-6" />
         </a>
       </div>
