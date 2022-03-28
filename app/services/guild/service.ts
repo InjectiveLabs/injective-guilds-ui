@@ -23,9 +23,9 @@ export class GuildService {
         guilds: ApiGuild[]
       }>
 
-      return await Promise.all(
-        response.data.guilds.map(GuildTransformer.ApiGuildToUiGuild)
-      )
+      const guilds = response.data.guilds || []
+
+      return await Promise.all(guilds.map(GuildTransformer.ApiGuildToUiGuild))
     } catch (error: any) {
       throw new HttpException(error.message)
     }

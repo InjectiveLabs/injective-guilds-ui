@@ -16,7 +16,7 @@ export const mutations = {}
 export const actions = actionTree(
   { state, mutations },
   {
-    async closeAllPosition(_, guild: UiGuild) {
+    async closeAllPosition(_, guild: UiGuild | undefined) {
       const { subaccount } = this.app.$accessor.account
       const { markets } = this.app.$accessor.derivatives
       const { address, injectiveAddress, isUserWalletConnected } =

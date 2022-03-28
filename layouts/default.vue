@@ -34,7 +34,7 @@ export default Vue.extend({
 
   data() {
     return {
-      status: new Status(StatusType.Loading)
+      status: new Status(StatusType.Idle)
     }
   },
 

@@ -7,7 +7,7 @@ export interface GuildAsset {
 }
 
 export const guildImageMappings = {
-  '623e5d4817b0efe585f733d1': {
+  akukx: {
     card: '/guilds/one/card.png',
     banner: '/guilds/one/banner.png',
     thumbnail: '/guilds/one/thumbnail.png',
@@ -16,7 +16,7 @@ export const guildImageMappings = {
     strategy:
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
   },
-  '623e5d62d8c259bac38565d6': {
+  schneider: {
     card: '/guilds/two/card.png',
     banner: '/guilds/two/banner.png',
     thumbnail: '/guilds/two/thumbnail.png',
@@ -25,7 +25,7 @@ export const guildImageMappings = {
     strategy:
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
   },
-  '623ed3bd37f7e9a55c984aad': {
+  ethixx: {
     card: '/guilds/three/card.png',
     banner: '/guilds/three/banner.png',
     thumbnail: '/guilds/three/thumbnail.png',

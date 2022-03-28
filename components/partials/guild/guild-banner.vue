@@ -21,13 +21,13 @@
           <p class="font-bold text-sm tracking-wider uppercase mb-4">
             {{ $t('guild.backgroundStory') }}
           </p>
-          <p class="text-lg">{{ guildImageMappings[guild.id].story }}</p>
+          <p class="text-lg">{{ guildAssets.story }}</p>
 
           <p class="font-bold text-sm tracking-wider uppercase mt-8 mb-4">
             {{ $t('guild.tradingStrategy') }}
           </p>
 
-          <p class="text-lg">{{ guildImageMappings[guild.id].strategy }}</p>
+          <p class="text-lg">{{ guildAssets.strategy }}</p>
         </div>
       </div>
     </div>
@@ -63,7 +63,10 @@ export default Vue.extend({
         return guildImageMappings.default
       }
 
-      return guildImageMappings[guild.id] || guildImageMappings.default
+      return (
+        guildImageMappings[guild.name.toLowerCase()] ||
+        guildImageMappings.default
+      )
     }
   }
 })

@@ -33,3 +33,10 @@ export enum JoinLeaveGuildState {
   Failed = 'failed',
   Success = 'success'
 }
+
+export enum LeaderboardTableHeaderType {
+  // guilds
+  PortfolioValue = 'portfolio-value',
+  HistoricalReturns = 'historical-returns',
+  Member = 'member'
+}

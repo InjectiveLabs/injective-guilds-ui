@@ -37,7 +37,10 @@ export default Vue.extend({
     guildAsset(): GuildAsset {
       const { guild } = this
 
-      return guildImageMappings[guild.id] || guildImageMappings.default
+      return (
+        guildImageMappings[guild.name.toLowerCase()] ||
+        guildImageMappings.default
+      )
     }
   }
 })
