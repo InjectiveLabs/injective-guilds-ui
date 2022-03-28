@@ -12,10 +12,10 @@
       </v-banner>
       <section class="pt-16 container">
         <TableHeader class="text-sm font-bold px-4 py-2" dense>
-          <span class="col-span-1 text-base text-primary-500">
+          <span class="col-span-1">
             {{ $t('leaderboard.rank') }}
           </span>
-          <span class="col-span-4 text-base text-primary-500">
+          <span class="col-span-4">
             {{ $t('leaderboard.guild') }}
           </span>
           <div class="col-span-3 flex justify-end">
