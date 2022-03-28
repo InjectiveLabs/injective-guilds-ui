@@ -8,7 +8,7 @@ on:
 jobs:
   devnet:
     name: 'Deploy to devnet'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       SSH_USER: ${{ secrets.DEVNET_SSH_USER }}
       SSH_KEY: ${{ secrets.DEVNET_SSH_KEY }}
