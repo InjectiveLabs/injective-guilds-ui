@@ -32,3 +32,4 @@ export const APP_SENTRY_GRPC_ENDPOINT: string =
 
 export const UI_DEFAULT_FIAT_DECIMALS = 2
 export const UI_DEFAULT_ASSET_DECIMALS = 3
+export const UI_DEFAULT_PERCENTAGE_DECIMALS = 2

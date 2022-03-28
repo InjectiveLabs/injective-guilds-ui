@@ -39,7 +39,6 @@ import Vue from 'vue'
 import TableHeader from '~/components/partials/grid-table/header.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/guild/trade/trade-row.vue'
-import { portfolioTrades as mockTrades } from '~/app/data/mock'
 
 export default Vue.extend({
   components: {
@@ -50,7 +49,7 @@ export default Vue.extend({
 
   data() {
     return {
-      trades: mockTrades
+      trades: []
     }
   }
 })

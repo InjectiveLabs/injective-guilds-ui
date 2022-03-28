@@ -19,7 +19,7 @@
   "dependencies": {
     "@injectivelabs/networks": "0.5.1",
     "@injectivelabs/ts-types": "0.5.0",
-    "@injectivelabs/ui-common": "0.5.8",
+    "@injectivelabs/ui-common": "0.5.9",
     "@injectivelabs/utils": "0.5.0",
     "@injectivelabs/web3-strategy": "0.5.2",
     "@metamask/detect-provider": "^1.2.0",

@@ -5,10 +5,17 @@
       :value="value"
       :checked="!!value"
       class="checkbox"
+      :class="{ primary: primary }"
       type="checkbox"
       @change="handleChange"
     />
-    <label :for="uid" class="flex"><slot /></label>
+    <label
+      :for="uid"
+      class="flex"
+      :class="{ 'text-primary-500 text-opacity-50 leading-3': primary }"
+    >
+      <slot />
+    </label>
   </div>
 </template>
 
@@ -25,6 +32,11 @@ export default Vue.extend({
     value: {
       type: [Boolean, String],
       required: true
+    },
+
+    primary: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -59,7 +71,7 @@ export default Vue.extend({
     &::before {
       content: '';
 
-      @apply mr-2 inline-block align-top w-4 h-4 bg-transparent border border-white;
+      @apply mr-2 inline-block align-top w-6 h-6 min-w-6 min-h-6 bg-transparent border border-white;
     }
   }
 
@@ -77,14 +89,30 @@ export default Vue.extend({
   &:checked + label::after {
     content: '';
 
-    @apply absolute left-0 top-0;
+    @apply absolute;
 
-    width: 5px;
-    height: 10px;
-    border: 2px solid theme('colors.white');
+    left: 3px;
+    top: -2px;
+    width: 8px;
+    height: 19px;
+    border: 3px solid theme('colors.white');
     border-top-style: none;
     border-left-style: none;
     transform: translate(6px, 1.5px) rotate(45deg);
+  }
+}
+
+.checkbox.primary {
+  + label {
+    &::before {
+      @apply border-primary-500;
+    }
+  }
+
+  &:checked + label::after {
+    border: 2px solid theme('colors.primary.500');
+    border-top-style: none;
+    border-left-style: none;
   }
 }
 </style>

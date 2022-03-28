@@ -16,11 +16,9 @@ import {
 } from '~/app/services/region'
 import { app } from '~/app/singletons/App'
 import { todayInSeconds } from '~/app/utils/time'
-import { gasService } from '~/app/Services'
 
 export interface UserBasedState {
   vpnOrProxyUsageValidationTimestamp: number
-  auctionsViewed: number[]
   geoLocation: GeoLocation
 }
 
@@ -28,7 +26,6 @@ const initialState = {
   // App Settings
   locale: english,
   chainId: CHAIN_ID,
-  gasPrice: DEFAULT_GAS_PRICE.toString(),
 
   // Loading States
   state: AppState.Idle,
@@ -37,7 +34,6 @@ const initialState = {
   // User settings
   userState: {
     vpnOrProxyUsageValidationTimestamp: 0,
-    auctionsViewed: [],
     geoLocation: {
       continent: '',
       country: ''
@@ -48,7 +44,6 @@ const initialState = {
 export const state = () => ({
   locale: initialState.locale as Locale,
   chainId: initialState.chainId as ChainId,
-  gasPrice: initialState.gasPrice as string,
   state: initialState.state as AppState,
   marketsLoadingState: initialState.marketsLoadingState as StatusType,
   userState: initialState.userState as UserBasedState
@@ -70,10 +65,6 @@ export const mutations = {
     marketsLoadingState: StatusType
   ) {
     state.marketsLoadingState = marketsLoadingState
-  },
-
-  setGasPrice(state: AppStoreState, gasPrice: string) {
-    state.gasPrice = gasPrice
   },
 
   setUserState(state: AppStoreState, userState: UserBasedState) {
@@ -126,10 +117,6 @@ export const actions = actionTree(
       } else {
         commit('setAppState', AppState.Busy)
       }
-    },
-
-    async fetchGasPrice({ commit }) {
-      commit('setGasPrice', await gasService.fetchGasPrice())
     },
 
     async fetchGeoLocation({ state, commit }) {

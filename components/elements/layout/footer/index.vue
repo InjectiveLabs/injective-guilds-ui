@@ -51,9 +51,11 @@
         lg:w-auto
       "
     >
+      <!--
       <feature-item class="uppercase" :feature="$t('footer.startAGuild')" />
       <feature-item class="uppercase" :feature="$t('footer.item1')" />
       <feature-item class="uppercase" :feature="$t('footer.item2')" />
+      -->
       <div class="flex items-center text-gray-400">
         <a
           class="cursor-pointer"
@@ -102,11 +104,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import FeatureItem from './feature-item.vue'
+// import FeatureItem from './feature-item.vue'
 
 export default Vue.extend({
   components: {
-    FeatureItem
+    // FeatureItem
   }
 })
 </script>

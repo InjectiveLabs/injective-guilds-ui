@@ -5,6 +5,7 @@ import {
   IS_PRODUCTION,
   IS_TESTNET
 } from '~/app/utils/constants'
+import { isCustomException } from '~/app/exceptions'
 
 const isErrorExcludedFromToast = (error: any): boolean => {
   const disabledPatterns = [
@@ -27,6 +28,7 @@ const isErrorExcludedFromReporting = (error: any): boolean => {
     typeof error === 'object' && error !== null ? error.message : error || ''
 
   return (
+    isCustomException(error) ||
     errorMessage.startsWith('Metamask:') ||
     errorMessage.includes('MetaMask') ||
     errorMessage.includes('Metamask') ||

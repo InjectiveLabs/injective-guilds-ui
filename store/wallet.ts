@@ -96,6 +96,12 @@ export const actions = actionTree(
       await connect({ wallet })
     },
 
+    async initPage() {
+      await this.app.$accessor.bank.fetchBankBalances()
+      await this.app.$accessor.account.fetchSubaccounts()
+      await this.app.$accessor.profile.fetchProfile()
+    },
+
     async isMetamaskInstalled({ commit }) {
       commit('setMetamaskInstalled', await isMetamaskInstalled())
     },
@@ -130,6 +136,8 @@ export const actions = actionTree(
       commit('setAddresses', addresses)
       commit('setAddress', address)
       commit('setWalletConnectStatus', WalletConnectStatus.connected)
+
+      await this.app.$accessor.wallet.initPage()
     },
 
     async connectMetamask({ commit }) {
@@ -153,6 +161,8 @@ export const actions = actionTree(
       commit('setAddresses', addresses)
       commit('setAddressConfirmation', addressConfirmation)
       commit('setWalletConnectStatus', WalletConnectStatus.connected)
+
+      await this.app.$accessor.wallet.initPage()
     },
 
     async validate({ state }) {
@@ -163,7 +173,11 @@ export const actions = actionTree(
       }
     },
 
-    logout({ commit }) {
+    async logout({ commit }) {
+      await this.app.$accessor.bank.reset()
+      await this.app.$accessor.account.reset()
+      await this.app.$accessor.profile.reset()
+
       commit('reset')
       commit('setWalletConnectStatus', WalletConnectStatus.disconnected)
     }

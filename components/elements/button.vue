@@ -79,6 +79,8 @@ export default Vue.extend({
         return classes
       }
 
+      classes.push('cursor-pointer')
+
       if (this.text || this.outline) {
         classes.push('bg-transparent', 'font-medium')
         if (this.outline) {
