@@ -7,26 +7,15 @@
             {{ $t('leaderboard.leaderboard') }}
           </p>
         </div>
-        <div class="lg:ml-auto lg: self-start w-full max-w-xs self-end">
-          <v-select-custom
-            v-model="selected"
-            :options="
-              selectOptions.map((a) => ({
-                code: a.code,
-                label: a.label
-              }))
-            "
-            :clearable="false"
-            :searchable="false"
-            :transparent="true"
-          />
-        </div>
       </div>
     </v-banner>
     <section class="pt-16 container">
       <div class="w-full" />
-      <TableHeader class="text-sm font-bold px-6 py-2" dense>
-        <span class="col-span-5 text-base text-primary-500">
+      <TableHeader class="text-sm font-bold px-4 py-2" dense>
+        <span class="col-span-1 text-base text-primary-500">
+          {{ $t('leaderboard.rank') }}
+        </span>
+        <span class="col-span-4 text-base text-primary-500">
           {{ $t('leaderboard.guild') }}
         </span>
         <div class="col-span-3 flex justify-end">
@@ -77,10 +66,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { BigNumberInBase } from '@injectivelabs/utils'
+import { BigNumberInBase, Status, StatusType } from '@injectivelabs/utils'
 import VBanner from '~/layouts/child-page-banner.vue'
-import VSelectCustom from '~/components/inputs/select-custom.vue'
-import { TableHeaderType, UIGuildCard } from '~/types'
+import { TableHeaderType, UiGuildWithMeta } from '~/types'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/leaderboard/leader-board-row.vue'
 import TableHeader from '~/components/partials/grid-table/header.vue'
@@ -89,7 +77,6 @@ import SortableHeaderItem from '~/components/partials/grid-table/sortable-header
 export default Vue.extend({
   components: {
     VBanner,
-    VSelectCustom,
     TableBody,
     TableRow,
     TableHeader,
@@ -98,171 +85,85 @@ export default Vue.extend({
 
   data() {
     return {
-      selectOptions: [
-        {
-          code: 'all_time',
-          label: 'All time'
-        },
-        {
-          code: 'Apr',
-          label: 'Apr 15 - May 15'
-        },
-        {
-          code: 'Mar',
-          label: 'Mar 15 - Feb 15'
-        },
-        {
-          code: 'Feb',
-          label: 'Feb 15 - Jan 15'
-        }
-      ],
       ascending: false,
       sortBy: '',
-      selected: 'all_time',
       TableHeaderType,
-      guildData: [
-        {
-          name: 'Schneider',
-          image: '/svg/hero-1.svg',
-          memberAmount: new BigNumberInBase('13540'),
-          apy: 15,
-          totalAssetsAmount: new BigNumberInBase('1388783'),
-          assets: [
-            {
-              symbol: 'BNB',
-              logo: '/svg/icons/BNB.svg',
-              name: 'BNB'
-            },
-            {
-              symbol: 'USDT',
-              logo: '/svg/icons/USDT.svg',
-              name: 'USDT'
-            },
-            {
-              symbol: 'USDC',
-              logo: '/svg/icons/USDC.svg',
-              name: 'USDC'
-            }
-          ],
-          status: 'joined'
-        },
-        {
-          name: 'Ethixx',
-          image: '/svg/hero-1.svg',
-          memberAmount: new BigNumberInBase('1352'),
-          apy: 10,
-          totalAssetsAmount: new BigNumberInBase('123456789'),
-          assets: [
-            {
-              symbol: 'BNB',
-              logo: '/svg/icons/BNB.svg',
-              name: 'BNB'
-            },
-            {
-              symbol: 'USDT',
-              logo: '/svg/icons/USDT.svg',
-              name: 'USDT'
-            },
-            {
-              symbol: 'USDC',
-              logo: '/svg/icons/USDC.svg',
-              name: 'USDC'
-            }
-          ],
-          status: 'valid'
-        },
-        {
-          name: 'Akukx',
-          image: '/svg/hero-1.svg',
-          memberAmount: new BigNumberInBase('1552'),
-          apy: 10,
-          totalAssetsAmount: new BigNumberInBase('1234789'),
-          assets: [
-            {
-              symbol: 'BNB',
-              logo: '/svg/icons/BNB.svg',
-              name: 'BNB'
-            },
-            {
-              symbol: 'USDT',
-              logo: '/svg/icons/USDT.svg',
-              name: 'USDT'
-            },
-            {
-              symbol: 'USDC',
-              logo: '/svg/icons/USDC.svg',
-              name: 'USDC'
-            }
-          ],
-          status: 'full'
-        },
-        {
-          name: 'Asepoid',
-          image: '/svg/hero-1.svg',
-          memberAmount: new BigNumberInBase('1452'),
-          apy: 12,
-          totalAssetsAmount: new BigNumberInBase('126789'),
-          assets: [
-            {
-              symbol: 'BNB',
-              logo: '/svg/icons/BNB.svg',
-              name: 'BNB'
-            },
-            {
-              symbol: 'USDT',
-              logo: '/svg/icons/USDT.svg',
-              name: 'USDT'
-            },
-            {
-              symbol: 'USDC',
-              logo: '/svg/icons/USDC.svg',
-              name: 'USDC'
-            }
-          ],
-          status: 'unqualified',
-          additionalInfo: '1,000 USDT + 500 INJ stake'
-        }
-      ] as UIGuildCard[]
+      poll: undefined as any,
+      status: new Status(StatusType.Loading)
     }
   },
 
   computed: {
-    sortedGuildData(): UIGuildCard[] {
-      const { guildData, sortBy } = this
+    sortedGuildData(): UiGuildWithMeta[] {
+      const { sortBy } = this
+      const guildData = [...this.$accessor.guild.guilds]
 
       if (sortBy === TableHeaderType.TotalAssetsAmount) {
-        return [...guildData].sort((v1: UIGuildCard, v2: UIGuildCard) => {
-          return new BigNumberInBase(v2.totalAssetsAmount)
-            .minus(v1.totalAssetsAmount)
-            .toNumber()
-        })
+        return [...guildData].sort(
+          (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
+            return new BigNumberInBase(v2.portfolio.portfolioValue)
+              .minus(v1.portfolio.portfolioValue)
+              .toNumber()
+          }
+        )
       }
 
       if (sortBy === TableHeaderType.Member) {
-        return [...guildData].sort((v1: UIGuildCard, v2: UIGuildCard) => {
-          return new BigNumberInBase(v2.memberAmount)
-            .minus(v1.memberAmount)
-            .toNumber()
-        })
+        return [...guildData].sort(
+          (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
+            return v2.memberCount - v1.memberCount
+          }
+        )
       }
 
       if (sortBy === TableHeaderType.APY) {
-        return [...guildData].sort((v1: UIGuildCard, v2: UIGuildCard) => {
-          return v2.apy - v1.apy
-        })
+        return [...guildData].sort(
+          (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
+            return new BigNumberInBase(v2.historicalReturns)
+              .minus(v1.historicalReturns)
+              .toNumber()
+          }
+        )
       }
 
       return guildData
     },
 
-    sortedGuildDataWithDirection(): UIGuildCard[] {
+    sortedGuildDataWithDirection(): UiGuildWithMeta[] {
       const { ascending, sortedGuildData } = this
 
       return ascending ? sortedGuildData.reverse() : sortedGuildData
     }
   },
 
+  mounted() {
+    Promise.all([this.$accessor.guild.fetchGuilds()])
+      .catch(this.$onError)
+      .finally(() => {
+        this.status.setIdle()
+      })
+
+    this.setPolling()
+  },
+
+  beforeDestroy() {
+    clearInterval(this.poll)
+  },
+
   methods: {
+    logout() {
+      this.$accessor.wallet.logout()
+    },
+
+    setPolling() {
+      this.poll = setInterval(() => {
+        Promise.all([
+          this.$accessor.guild.fetchGuilds(),
+          this.$accessor.wallet.initPage()
+        ])
+      }, 30 * 1000)
+    },
+
     handleSort(type: TableHeaderType) {
       if (type !== this.sortBy) {
         this.sortBy = type

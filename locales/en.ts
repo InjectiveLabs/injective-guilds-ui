@@ -134,6 +134,7 @@ export default {
     member: 'MEMBER',
     apy: 'APY',
     totalAssets: 'TOTAL ASSSETS',
-    guild: 'GUILD'
+    guild: 'GUILD',
+    rank: 'RANK'
   }
 }

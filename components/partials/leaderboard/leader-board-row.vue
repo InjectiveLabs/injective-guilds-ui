@@ -1,45 +1,49 @@
 <template>
   <div>
     <TableRow dense>
+      <div class="hidden lg:col-span-1 lg:flex items-center">
+        <span class="text-lg sm:text-3.5xl">{{ index }}</span>
+      </div>
       <span class="text-lg sm:text-3.5xl lg:hidden">
         {{ $t('leaderboard.guild') }}
       </span>
-      <div class="lg:col-span-5 flex items-center justify-end lg:justify-start">
+      <div class="lg:col-span-4 flex items-center justify-end lg:justify-start">
         <img
-          :src="logoLink"
+          :src="guildAsset.thumbnail"
           :alt="guild.name"
           class="h-8 w-8 sm:h-20 sm:w-20 rounded-full"
         />
-        <div class="flex flex-col ml-4">
-          <a
-            href="/guild"
-            target="_blank"
+        <div class="flex flex-col ml-4 lg:text-left text-right">
+          <nuxt-link
+            :to="{ name: 'guild-guild', params: { guild: guild.id } }"
             class="hover:text-primary-500 flex text-white capitalize text-lg sm:text-2.5xl font-bold tracking-tight"
           >
             {{ guild.name }}
-          </a>
+          </nuxt-link>
         </div>
       </div>
 
       <span class="text-lg sm:text-3.5xl lg:hidden">
         {{ $t('leaderboard.totalAssets') }}
       </span>
-      <div class="lg:col-span-3 text-right">
+      <div class="lg:col-span-3 flex justify-end items-center">
         <span class="text-lg sm:text-3.5xl">${{ totalAssetsToFormat }}</span>
       </div>
 
       <span class="text-lg sm:text-3.5xl lg:hidden">
         {{ $t('leaderboard.apy') }}
       </span>
-      <div class="lg:col-span-2 text-right">
-        <span class="text-lg sm:text-3.5xl">${{ apyToString }}</span>
+      <div class="lg:col-span-2 flex justify-end items-center">
+        <span class="text-lg sm:text-3.5xl">{{
+          historicalReturnsToString
+        }}</span>
       </div>
 
       <span class="text-lg sm:text-3.5xl lg:hidden">
         {{ $t('leaderboard.member') }}
       </span>
-      <div class="lg:col-span-2 text-right">
-        <span class="text-lg sm:text-3.5xl">${{ membersToFormat }}</span>
+      <div class="lg:col-span-2 flex justify-end items-center">
+        <span class="text-lg sm:text-3.5xl">{{ membersToFormat }}</span>
       </div>
     </TableRow>
     <div class="border-t border-primary-500 w-full" />
@@ -48,8 +52,12 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
+import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
+import { BigNumberInBase } from '@injectivelabs/utils'
 import TableRow from '~/components/partials/grid-table/row.vue'
-import { UIGuildCard } from '~/types'
+import { UiGuildWithMeta } from '~/types'
+import { UI_DEFAULT_PERCENTAGE_DECIMALS } from '~/app/utils/constants'
+import { guildImageMappings, GuildAsset } from '~/app/data/guild'
 
 export default Vue.extend({
   components: {
@@ -58,7 +66,7 @@ export default Vue.extend({
 
   props: {
     guild: {
-      type: Object as PropType<UIGuildCard>,
+      type: Object as PropType<UiGuildWithMeta>,
       required: true
     },
     index: {
@@ -68,40 +76,50 @@ export default Vue.extend({
   },
 
   computed: {
-    logoLink(): string {
+    guildAsset(): GuildAsset {
       const { guild } = this
 
-      return '/guilds/schneider/sm.png'
+      return guildImageMappings[guild.id] || guildImageMappings.default
     },
 
     totalAssetsToFormat(): string {
       const { guild } = this
 
-      if (!guild.totalAssetsAmount) {
+      if (!guild.portfolio) {
         return '0.00'
       }
 
-      return guild.totalAssetsAmount.toFormat(2)
+      return guild.portfolio.portfolioValue.toFormat(2)
     },
 
     membersToFormat(): string {
       const { guild } = this
 
-      if (!guild.memberAmount) {
-        return '0.00'
+      if (!guild.memberCount) {
+        return '0'
       }
 
-      return guild.memberAmount.toFormat()
+      return guild.memberCount.toString()
     },
 
-    apyToString(): string {
+    historicalReturns(): BigNumberInBase {
       const { guild } = this
 
-      if (!guild.apy) {
-        return '0.00'
+      if (
+        !guild ||
+        !guild.historicalReturns ||
+        !guild.historicalReturns.isFinite()
+      ) {
+        return ZERO_IN_BASE
       }
 
-      return `${guild.apy}%`
+      return guild.historicalReturns
+    },
+
+    historicalReturnsToString(): string {
+      const { historicalReturns } = this
+
+      return `${historicalReturns.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)}%`
     }
   }
 })
