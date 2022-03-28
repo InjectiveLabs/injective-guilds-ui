@@ -5,10 +5,16 @@
     <div class="xs:container h-full">
       <div class="flex justify-between items-center h-full">
         <!-- left panel -->
-        <nuxt-link :to="{ name: 'index' }">
-          <TGLogo />
-        </nuxt-link>
-
+        <div class="flex gap-14">
+          <nuxt-link :to="{ name: 'index' }">
+            <TGLogo />
+          </nuxt-link>
+          <nuxt-link :to="{ name: 'leaderboard' }" class="flex items-center">
+            <span class="text-lg text-primary-500 uppercase font-bold">{{
+              $t('leaderboard.leaderboard')
+            }}</span>
+          </nuxt-link>
+        </div>
         <!-- right panel -->
         <v-wallet class="h-full" />
       </div>

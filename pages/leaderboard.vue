@@ -1,67 +1,69 @@
 <template>
-  <div>
-    <v-banner>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
-        <div class="text-white self-center lg:col-span-2 mx-auto w-full grid">
-          <p class="font-logo text-6xl md:text-9xl">
-            {{ $t('leaderboard.leaderboard') }}
-          </p>
+  <VHOCLoading :status="status">
+    <div>
+      <v-banner>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+          <div class="text-white self-center lg:col-span-2 mx-auto w-full grid">
+            <p class="font-logo text-6xl md:text-9xl">
+              {{ $t('leaderboard.leaderboard') }}
+            </p>
+          </div>
         </div>
-      </div>
-    </v-banner>
-    <section class="pt-16 container">
-      <div class="w-full" />
-      <TableHeader class="text-sm font-bold px-4 py-2" dense>
-        <span class="col-span-1 text-base text-primary-500">
-          {{ $t('leaderboard.rank') }}
-        </span>
-        <span class="col-span-4 text-base text-primary-500">
-          {{ $t('leaderboard.guild') }}
-        </span>
-        <div class="col-span-3 flex justify-end">
-          <SortableHeaderItem
-            :value="TableHeaderType.TotalAssetsAmount"
-            :sort-by="sortBy"
-            :ascending="ascending"
-            @sort="handleSort"
-          >
-            {{ $t('leaderboard.totalAssets') }}
-          </SortableHeaderItem>
-        </div>
+      </v-banner>
+      <section class="pt-16 container">
+        <div class="w-full" />
+        <TableHeader class="text-sm font-bold px-4 py-2" dense>
+          <span class="col-span-1 text-base text-primary-500">
+            {{ $t('leaderboard.rank') }}
+          </span>
+          <span class="col-span-4 text-base text-primary-500">
+            {{ $t('leaderboard.guild') }}
+          </span>
+          <div class="col-span-3 flex justify-end">
+            <SortableHeaderItem
+              :value="TableHeaderType.TotalAssetsAmount"
+              :sort-by="sortBy"
+              :ascending="ascending"
+              @sort="handleSort"
+            >
+              {{ $t('leaderboard.totalAssets') }}
+            </SortableHeaderItem>
+          </div>
 
-        <div class="col-span-2 flex justify-end">
-          <SortableHeaderItem
-            :value="TableHeaderType.APY"
-            :sort-by="sortBy"
-            :ascending="ascending"
-            @sort="handleSort"
+          <div class="col-span-2 flex justify-end">
+            <SortableHeaderItem
+              :value="TableHeaderType.APY"
+              :sort-by="sortBy"
+              :ascending="ascending"
+              @sort="handleSort"
+            >
+              {{ $t('leaderboard.apy') }}
+            </SortableHeaderItem>
+          </div>
+          <div class="col-span-2 flex justify-end">
+            <SortableHeaderItem
+              :value="TableHeaderType.Member"
+              :sort-by="sortBy"
+              :ascending="ascending"
+              @sort="handleSort"
+            >
+              {{ $t('leaderboard.member') }}
+            </SortableHeaderItem>
+          </div>
+        </TableHeader>
+        <TableBody>
+          <div class="border-t border-primary-500 w-full" />
+          <TableRow
+            v-for="(guild, index) in sortedGuildDataWithDirection"
+            :key="guild.name"
+            :guild="guild"
+            :index="index"
           >
-            {{ $t('leaderboard.apy') }}
-          </SortableHeaderItem>
-        </div>
-        <div class="col-span-2 flex justify-end">
-          <SortableHeaderItem
-            :value="TableHeaderType.Member"
-            :sort-by="sortBy"
-            :ascending="ascending"
-            @sort="handleSort"
-          >
-            {{ $t('leaderboard.member') }}
-          </SortableHeaderItem>
-        </div>
-      </TableHeader>
-      <TableBody>
-        <div class="border-t border-primary-500 w-full" />
-        <TableRow
-          v-for="(guild, index) in sortedGuildDataWithDirection"
-          :key="guild.name"
-          :guild="guild"
-          :index="index"
-        >
-        </TableRow>
-      </TableBody>
-    </section>
-  </div>
+          </TableRow>
+        </TableBody>
+      </section>
+    </div>
+  </VHOCLoading>
 </template>
 
 <script lang="ts">
