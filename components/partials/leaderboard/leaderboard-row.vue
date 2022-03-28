@@ -4,10 +4,7 @@
       <div class="hidden lg:col-span-1 lg:flex items-center">
         <span class="text-lg sm:text-3.5xl">{{ index }}</span>
       </div>
-      <span class="text-lg sm:text-3.5xl lg:hidden">
-        {{ $t('leaderboard.guild') }}
-      </span>
-      <div class="lg:col-span-4 flex items-center justify-end lg:justify-start">
+      <div class="col-span-2 lg:col-span-3 flex items-center justify-start">
         <img
           :src="guildAsset.thumbnail"
           :alt="guild.name"
@@ -23,23 +20,23 @@
         </div>
       </div>
 
-      <span class="text-lg sm:text-3.5xl lg:hidden">
-        {{ $t('leaderboard.totalAssets') }}
+      <span class="text-lg sm:text-2xl lg:hidden uppercase">
+        {{ $t('leaderboard.portfolioValue') }}
       </span>
       <div class="lg:col-span-3 flex justify-end items-center">
         <span class="text-lg sm:text-3.5xl">${{ totalAssetsToFormat }}</span>
       </div>
 
-      <span class="text-lg sm:text-3.5xl lg:hidden">
-        {{ $t('leaderboard.apy') }}
+      <span class="text-lg sm:text-2xl lg:hidden uppercase">
+        {{ $t('leaderboard.historicalReturns') }}
       </span>
-      <div class="lg:col-span-2 flex justify-end items-center">
+      <div class="lg:col-span-3 flex justify-end items-center">
         <span class="text-lg sm:text-3.5xl">{{
           historicalReturnsToString
         }}</span>
       </div>
 
-      <span class="text-lg sm:text-3.5xl lg:hidden">
+      <span class="text-lg sm:text-2xl lg:hidden uppercase">
         {{ $t('leaderboard.member') }}
       </span>
       <div class="lg:col-span-2 flex justify-end items-center">
@@ -79,7 +76,10 @@ export default Vue.extend({
     guildAsset(): GuildAsset {
       const { guild } = this
 
-      return guildImageMappings[guild.id] || guildImageMappings.default
+      return (
+        guildImageMappings[guild.name.toLowerCase()] ||
+        guildImageMappings.default
+      )
     },
 
     totalAssetsToFormat(): string {

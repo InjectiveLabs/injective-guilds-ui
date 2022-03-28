@@ -131,10 +131,10 @@ export default {
 
   leaderboard: {
     leaderboard: 'Leaderboard',
-    member: 'MEMBER',
-    apy: 'APY',
-    totalAssets: 'TOTAL ASSSETS',
-    guild: 'GUILD',
-    rank: 'RANK'
+    member: 'Member',
+    historicalReturns: 'Historical Returns',
+    portfolioValue: 'Portfolio Value',
+    guild: 'Guild',
+    rank: 'Rank'
   }
 }

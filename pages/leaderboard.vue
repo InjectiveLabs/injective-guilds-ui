@@ -10,38 +10,38 @@
           </div>
         </div>
       </v-banner>
-      <section class="pt-16 container">
-        <TableHeader class="text-sm font-bold px-4 py-2" dense>
+      <section class="py-16 container">
+        <TableHeader class="text-sm font-bold px-4 pb-4 uppercase" dense>
           <span class="col-span-1">
             {{ $t('leaderboard.rank') }}
           </span>
-          <span class="col-span-4">
+          <span class="col-span-3">
             {{ $t('leaderboard.guild') }}
           </span>
           <div class="col-span-3 flex justify-end">
             <SortableHeaderItem
-              :value="TableHeaderType.TotalAssetsAmount"
+              :value="LeaderboardTableHeaderType.PortfolioValue"
               :sort-by="sortBy"
               :ascending="ascending"
               @sort="handleSort"
             >
-              {{ $t('leaderboard.totalAssets') }}
+              {{ $t('leaderboard.portfolioValue') }}
             </SortableHeaderItem>
           </div>
 
-          <div class="col-span-2 flex justify-end">
+          <div class="col-span-3 flex justify-end">
             <SortableHeaderItem
-              :value="TableHeaderType.APY"
+              :value="LeaderboardTableHeaderType.HistoricalReturns"
               :sort-by="sortBy"
               :ascending="ascending"
               @sort="handleSort"
             >
-              {{ $t('leaderboard.apy') }}
+              {{ $t('leaderboard.historicalReturns') }}
             </SortableHeaderItem>
           </div>
           <div class="col-span-2 flex justify-end">
             <SortableHeaderItem
-              :value="TableHeaderType.Member"
+              :value="LeaderboardTableHeaderType.Member"
               :sort-by="sortBy"
               :ascending="ascending"
               @sort="handleSort"
@@ -50,13 +50,12 @@
             </SortableHeaderItem>
           </div>
         </TableHeader>
-        <TableBody>
-          <div class="border-t border-primary-500 w-full lg:hidden" />
+        <TableBody class="border-t border-primary-500 lg:border-t-transparent">
           <TableRow
             v-for="(guild, index) in sortedGuildDataWithDirection"
             :key="guild.name"
             :guild="guild"
-            :index="index"
+            :index="index + 1"
           >
           </TableRow>
         </TableBody>
@@ -69,9 +68,9 @@
 import Vue from 'vue'
 import { BigNumberInBase, Status, StatusType } from '@injectivelabs/utils'
 import VBanner from '~/layouts/child-page-banner.vue'
-import { TableHeaderType, UiGuildWithMeta } from '~/types'
+import { LeaderboardTableHeaderType, UiGuildWithMeta } from '~/types'
 import TableBody from '~/components/partials/grid-table/body.vue'
-import TableRow from '~/components/partials/leaderboard/leader-board-row.vue'
+import TableRow from '~/components/partials/leaderboard/leaderboard-row.vue'
 import TableHeader from '~/components/partials/grid-table/header.vue'
 import SortableHeaderItem from '~/components/partials/grid-table/sortable-header-item.vue'
 
@@ -88,7 +87,7 @@ export default Vue.extend({
     return {
       ascending: false,
       sortBy: '',
-      TableHeaderType,
+      LeaderboardTableHeaderType,
       poll: undefined as any,
       status: new Status(StatusType.Loading)
     }
@@ -99,7 +98,7 @@ export default Vue.extend({
       const { sortBy } = this
       const guildData = [...this.$accessor.guild.guilds]
 
-      if (sortBy === TableHeaderType.TotalAssetsAmount) {
+      if (sortBy === LeaderboardTableHeaderType.PortfolioValue) {
         return [...guildData].sort(
           (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
             return new BigNumberInBase(v2.portfolio.portfolioValue)
@@ -109,7 +108,7 @@ export default Vue.extend({
         )
       }
 
-      if (sortBy === TableHeaderType.Member) {
+      if (sortBy === LeaderboardTableHeaderType.Member) {
         return [...guildData].sort(
           (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
             return v2.memberCount - v1.memberCount
@@ -117,7 +116,7 @@ export default Vue.extend({
         )
       }
 
-      if (sortBy === TableHeaderType.APY) {
+      if (sortBy === LeaderboardTableHeaderType.HistoricalReturns) {
         return [...guildData].sort(
           (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
             return new BigNumberInBase(v2.historicalReturns)
@@ -152,10 +151,6 @@ export default Vue.extend({
   },
 
   methods: {
-    logout() {
-      this.$accessor.wallet.logout()
-    },
-
     setPolling() {
       this.poll = setInterval(() => {
         Promise.all([
@@ -165,7 +160,7 @@ export default Vue.extend({
       }, 30 * 1000)
     },
 
-    handleSort(type: TableHeaderType) {
+    handleSort(type: LeaderboardTableHeaderType) {
       if (type !== this.sortBy) {
         this.sortBy = type
         this.ascending = false

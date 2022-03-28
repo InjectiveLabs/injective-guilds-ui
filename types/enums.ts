@@ -34,9 +34,9 @@ export enum JoinLeaveGuildState {
   Success = 'success'
 }
 
-export enum TableHeaderType {
+export enum LeaderboardTableHeaderType {
   // guilds
-  TotalAssetsAmount = 'totalAssetsAmount',
-  APY = 'apy',
+  PortfolioValue = 'portfolio-value',
+  HistoricalReturns = 'historical-returns',
   Member = 'member'
 }
