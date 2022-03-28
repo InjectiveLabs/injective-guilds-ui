@@ -20,6 +20,10 @@
           :key="`guild-card-${index}`"
           :guild="guild"
         />
+        <v-modal-join-guild
+          v-if="currentGuildToJoin"
+          :guild="currentGuildToJoin"
+        />
       </div>
     </div>
   </VHOCLoading>
@@ -28,12 +32,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
-import GuildCard from '~/components/partials/common/guild-card.vue'
-import { UiGuildWithMeta } from '~/types'
+import GuildCard from '~/components/partials/guild-card/index.vue'
+import VModalJoinGuild from '~/components/partials/modals/join-guild.vue'
+import { UiGuildToJoinModal, UiGuildWithMeta } from '~/types'
 
 export default Vue.extend({
   components: {
-    GuildCard
+    GuildCard,
+    VModalJoinGuild
   },
 
   data() {
@@ -46,6 +52,10 @@ export default Vue.extend({
   computed: {
     guilds(): UiGuildWithMeta[] {
       return this.$accessor.guild.guilds
+    },
+
+    currentGuildToJoin(): UiGuildToJoinModal {
+      return this.$accessor.guild.currentGuildToJoin
     }
   },
 

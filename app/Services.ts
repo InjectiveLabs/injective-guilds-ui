@@ -17,8 +17,8 @@ import {
   APP_EXCHANGE_API_ENDPOINT,
   APP_SENTRY_GRPC_ENDPOINT
 } from './utils/constants'
-import { GuildService } from './services/guild/service'
-import { MemberService } from './services/member/service'
+import { GuildActionService, GuildService } from './services/guild'
+import { MemberService } from './services/member'
 import { web3Strategy } from './web3'
 import { app } from '~/app/singletons/App'
 
@@ -62,6 +62,10 @@ export const derivativeActionService = new DerivativeActionService(
   web3Strategy
 )
 export const spotActionService = new SpotActionService(
+  commonServiceOptions,
+  web3Strategy
+)
+export const guildActionService = new GuildActionService(
   commonServiceOptions,
   web3Strategy
 )

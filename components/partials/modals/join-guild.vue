@@ -6,13 +6,13 @@
     :title="$t('joinGuildModal.title')"
     @modal-closed="closeModal"
   >
-    <section class="h-64">
+    <section v-if="guild" class="h-64">
       <div
         v-if="joinStatus === JoinLeaveGuildState.Confirm"
         class="flex flex-col h-full"
       >
         <p class="text-xl font-bold xs:text-2xl xs:leading-8">
-          {{ $t('joinGuildModal.description', { name: guild.name }) }}
+          {{ $t('joinGuildModal.description', { name: guild.guild.name }) }}
         </p>
 
         <div class="flex-grow flex items-center">
@@ -39,7 +39,9 @@
       >
         <p class="text-2xl font-bold leading-8">
           {{
-            $t('joinGuildModal.confirmationDescription', { name: guild.name })
+            $t('joinGuildModal.confirmationDescription', {
+              name: guild.guild.name
+            })
           }}
         </p>
 
@@ -52,7 +54,9 @@
 
       <div v-else class="flex flex-col justify-between h-full">
         <p class="text-2xl font-bold leading-8">
-          {{ $t('joinGuildModal.failedDescription', { name: guild.name }) }}
+          {{
+            $t('joinGuildModal.failedDescription', { name: guild.guild.name })
+          }}
         </p>
 
         <v-button class="w-full" accent @click="closeModal">
@@ -68,14 +72,8 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
-import VModal from '~/components/partials/modal/modal.vue'
-import {
-  JoinLeaveGuildState,
-  Modal,
-  UiGuild,
-  UiGuildRequirement
-} from '~/types'
-import { delayPromiseCall } from '~/app/utils/async'
+import VModal from '~/components/partials/common/modal.vue'
+import { JoinLeaveGuildState, Modal, UiGuildToJoinModal } from '~/types'
 
 export default Vue.extend({
   components: {
@@ -84,12 +82,7 @@ export default Vue.extend({
 
   props: {
     guild: {
-      type: Object as PropType<UiGuild>,
-      required: true
-    },
-
-    requirements: {
-      type: Array as PropType<UiGuildRequirement[]>,
+      type: Object as PropType<UiGuildToJoinModal>,
       required: true
     }
   },
@@ -105,11 +98,7 @@ export default Vue.extend({
 
   computed: {
     isModalOpen(): boolean {
-      const { guild } = this
-
-      return (
-        this.$accessor.modal.customModal === `${Modal.JoinGuild}-${guild.id}`
-      )
+      return this.$accessor.modal.modals[Modal.JoinGuild]
     }
   },
 
@@ -124,42 +113,31 @@ export default Vue.extend({
 
   methods: {
     closeModal() {
-      this.$accessor.modal.closeCustomModal()
+      this.$accessor.guild.setCurrentGuildToJoin(undefined)
+      this.$accessor.modal.closeModal(Modal.JoinGuild)
     },
 
     joinGuild() {
       const { guild } = this
 
+      if (!guild) {
+        return
+      }
+
       this.status.setLoading()
 
-      this.grantAuthAndTransferFunds()
-        .then(() =>
-          delayPromiseCall(
-            () => this.$accessor.guild.joinGuild(guild.id),
-            3 * 1000
-          )
-        )
+      this.$accessor.guild
+        .joinGuild(guild)
         .then(() => {
           this.joinStatus = JoinLeaveGuildState.Success
         })
-        .catch(() => {
+        .catch((e) => {
           this.joinStatus = JoinLeaveGuildState.Failed
+          this.$onError(e)
         })
         .finally(() => {
           this.status.setIdle()
         })
-    },
-
-    grantAuthAndTransferFunds() {
-      // const { requirements } = this
-
-      // const assetsToTransferFromBankToSubaccount = requirements.filter(
-      //   ({ outstandingAmountInBase }) => outstandingAmountInBase.gt('0')
-      // )
-
-      // console.log(assetsToTransferFromBankToSubaccount)
-
-      return new Promise((resolve) => setTimeout(resolve, 3 * 1000))
     }
   }
 })

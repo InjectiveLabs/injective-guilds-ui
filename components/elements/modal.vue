@@ -4,16 +4,7 @@
     class="fixed inset-0 overflow-y-auto py-4 z-50"
   >
     <div
-      class="
-        flex
-        items-center
-        justify-center
-        min-h-screen
-        pt-4
-        px-4
-        pb-20
-        sm:p-0
-      "
+      class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0"
     >
       <transition
         enter-active-class="ease-out duration-300"

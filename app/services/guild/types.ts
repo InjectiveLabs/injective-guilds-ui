@@ -88,6 +88,7 @@ export interface UiGuildRequirement {
   outstandingAmountInBase: BigNumberInBase
   token: Token
 }
+
 export interface UiGuild {
   id: string
   capacity: number
@@ -114,4 +115,9 @@ export interface UIGuildChartData {
   name: string
   type: string
   data: number[][]
+}
+
+export enum GuildMetrics {
+  Grant = 'MsgGrant',
+  Revoke = 'MsgRevoke'
 }

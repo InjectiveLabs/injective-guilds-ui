@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ModalWrapper from './modal-wrapper.vue'
+import ModalWrapper from '~/components/elements/modal.vue'
 
 export default Vue.extend({
   components: {

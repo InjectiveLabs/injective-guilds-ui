@@ -50,7 +50,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { formatWalletAddress } from '@injectivelabs/utils'
-import VModalConnectWallet from '~/components/partials/modal/connect-wallet.vue'
+import VModalConnectWallet from '~/components/partials/modals/connect-wallet.vue'
 import VWalletDropdown from '~/components/partials/wallet/dropdown.vue'
 
 export default Vue.extend({

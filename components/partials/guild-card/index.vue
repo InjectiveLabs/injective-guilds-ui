@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <v-guild-card-action class="mt-6 relative z-20" :guild="guild" />
+      <v-guild-card-action class="mt-6 relative z-10" :guild="guild" />
     </div>
   </div>
 </template>
@@ -31,8 +31,8 @@
 import Vue, { PropType } from 'vue'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
-import VGuildCardImage from '../home/guild-card-image.vue'
-import VGuildCardAction from '../home/guild-action.vue'
+import VGuildCardImage from './image.vue'
+import VGuildCardAction from './action.vue'
 import { UiGuildWithMeta } from '~/types'
 import {
   UI_DEFAULT_FIAT_DECIMALS,

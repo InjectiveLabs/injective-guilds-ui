@@ -60,7 +60,6 @@ import { format } from 'date-fns'
 import { TradeDirection } from '@injectivelabs/ts-types'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
-import { UITrade } from '~/types'
 import TableRow from '~/components/partials/grid-table/row.vue'
 import {
   UI_DEFAULT_ASSET_DECIMALS,
@@ -74,7 +73,7 @@ export default Vue.extend({
 
   props: {
     item: {
-      type: Object as PropType<UITrade>,
+      type: Object as PropType<any>,
       required: true
     }
   },

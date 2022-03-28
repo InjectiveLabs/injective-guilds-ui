@@ -21,8 +21,8 @@ import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
 import TopBar from '~/components/elements/layout/topbar.vue'
 import Footer from '~/components/elements/layout/footer/index.vue'
-import VModalJoinAGuildWarning from '~/components/partials/modal/join-a-guild-warning.vue'
-import VModalLeaveGuild from '~/components/partials/modal/leave-guild.vue'
+import VModalJoinAGuildWarning from '~/components/partials/modals/join-a-guild-warning.vue'
+import VModalLeaveGuild from '~/components/partials/modals/leave-guild.vue'
 
 export default Vue.extend({
   components: {

@@ -1,6 +1,4 @@
-import { Token } from '@injectivelabs/ui-common'
-import { BigNumberInBase } from '@injectivelabs/utils'
-import { TradeDirection } from '@injectivelabs/ts-types'
+import { UiGuild, UiGuildRequirement } from '~/app/services/guild'
 
 export interface ApiResponse<T> {
   data: T
@@ -16,15 +14,12 @@ export interface GeoLocation {
   country: string
 }
 
-// Todo: remove UiTrade
-export interface UITrade {
-  market: string
-  amount: BigNumberInBase
-  price: BigNumberInBase
-  side: TradeDirection
-  date: number
-  token: Token
-}
+export type UiGuildToJoinModal =
+  | {
+      guild: UiGuild
+      requirements: UiGuildRequirement[]
+    }
+  | undefined
 
 export * from './enums'
 export * from '~/app/services/guild/types'

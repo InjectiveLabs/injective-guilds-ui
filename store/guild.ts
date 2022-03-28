@@ -1,17 +1,22 @@
 import { actionTree } from 'typed-vuex'
-import { guildService, memberService } from '~/app/Services'
+import { sleep } from '@injectivelabs/utils'
+import { guildActionService, guildService, memberService } from '~/app/Services'
 import {
   UiGuildWithMeta,
   UiGuildMemberWithPortfolio,
-  UiPortfolio
+  UiPortfolio,
+  UiGuild,
+  UiGuildRequirement,
+  UiGuildToJoinModal
 } from '~/types'
-import { delayPromiseCall } from '~/app/utils/async'
 
 const initialStateFactory = () => ({
   guild: undefined as UiGuildWithMeta | undefined,
   guilds: [] as UiGuildWithMeta[],
   members: [] as UiGuildMemberWithPortfolio[],
-  portfolios: [] as UiPortfolio[]
+  portfolios: [] as UiPortfolio[],
+
+  currentGuildToJoin: undefined as UiGuildToJoinModal
 })
 
 const initialState = initialStateFactory()
@@ -20,7 +25,8 @@ export const state = () => ({
   members: initialState.members,
   guild: initialState.guild,
   guilds: initialState.guilds,
-  portfolios: initialState.portfolios
+  portfolios: initialState.portfolios,
+  currentGuildToJoin: initialState.currentGuildToJoin
 })
 
 export type GuildStoreState = ReturnType<typeof state>
@@ -32,6 +38,10 @@ export const mutations = {
 
   setGuild(state: GuildStoreState, guild: UiGuildWithMeta) {
     state.guild = guild
+  },
+
+  setCurrentGuildToJoin(state: GuildStoreState, payload: UiGuildToJoinModal) {
+    state.currentGuildToJoin = payload
   },
 
   setGuilds(state: GuildStoreState, guilds: UiGuildWithMeta[]) {
@@ -110,48 +120,64 @@ export const actions = actionTree(
       commit('setPortfolios', await guildService.fetchPortfolios(guildId))
     },
 
-    async joinGuild(_, guildId: string) {
-      const { injectiveAddress } = this.app.$accessor.wallet
-      const { profile } = this.app.$accessor.profile
+    async refreshGuild(_, guild: UiGuild) {
+      await this.app.$accessor.fetchGuild(guild.id)
+      await this.app.$accessor.fetchGuilds(guild.id)
 
-      if (!injectiveAddress || profile) {
-        return
+      if (this.app.context.route.name === 'my-guild') {
+        await this.app.$accessor.wallet.initPage()
       }
-
-      await this.app.$accessor.wallet.validate()
-      await guildService.joinGuild(guildId, injectiveAddress)
-
-      await delayPromiseCall(
-        () =>
-          Promise.all([
-            this.app.$accessor.fetchGuild(guildId),
-            this.app.$accessor.fetchGuilds(guildId),
-            this.app.$accessor.wallet.initPage()
-          ]),
-        3 * 1000
-      )
     },
 
-    async leaveGuild(_, guildId: string) {
-      const { injectiveAddress } = await this.app.$accessor.wallet
-      const { profile } = await this.app.$accessor.profile
+    async joinGuild(
+      _,
+      {
+        guild,
+        requirements
+      }: { guild: UiGuild; requirements: UiGuildRequirement[] }
+    ) {
+      const { address, injectiveAddress, isUserWalletConnected } =
+        this.app.$accessor.wallet
 
-      if (!injectiveAddress || !profile) {
+      if (!injectiveAddress || !isUserWalletConnected) {
         return
       }
 
       await this.app.$accessor.wallet.validate()
-      await guildService.leaveGuild(guildId, injectiveAddress)
 
-      await delayPromiseCall(
-        () =>
-          Promise.all([
-            this.app.$accessor.fetchGuild(guildId),
-            this.app.$accessor.fetchGuilds(guildId),
-            this.app.$accessor.wallet.initPage()
-          ]),
-        3 * 1000
-      )
+      await guildActionService.grant({
+        address,
+        injectiveAddress,
+        guildMasterAddress: guild.masterAddress
+      })
+      await guildService.joinGuild(guild.id, injectiveAddress)
+
+      await sleep(3000)
+      await this.app.$accessor.guild.refreshGuild(guild)
+    },
+
+    async leaveGuild(_, guild: UiGuild) {
+      const { address, injectiveAddress, isUserWalletConnected } =
+        this.app.$accessor.wallet
+
+      if (!injectiveAddress || !isUserWalletConnected) {
+        return
+      }
+
+      await this.app.$accessor.wallet.validate()
+
+      await this.app.$accessor.derivatives.batchCancelOrder()
+      await this.app.$accessor.spot.batchCancelOrder()
+      await this.app.$accessor.positions.closeAllPosition(guild)
+      await guildActionService.revoke({
+        injectiveAddress,
+        address,
+        guildMasterAddress: guild.masterAddress
+      })
+      await guildService.leaveGuild(guild.id, injectiveAddress)
+
+      await sleep(3000)
+      await this.app.$accessor.guild.refreshGuild(guild)
     }
   }
 )

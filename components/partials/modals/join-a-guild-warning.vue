@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import VModal from '~/components/partials/modal/modal.vue'
+import VModal from '~/components/partials/common/modal.vue'
 import { Modal } from '~/types'
 
 export default Vue.extend({

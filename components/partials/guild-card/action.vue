@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-wrap gap-4 mb-6">
+    <div class="flex flex-wrap gap-4 mb-6 h-8">
       <div
         v-for="(market, index) in guild.markets"
         :key="`guild-card-market-${index}`"
@@ -63,10 +63,6 @@
         </div>
       </div>
     </div>
-    <v-modal-join-guild
-      :guild="guild"
-      :requirements="outstandingRequirementsMinusSubaccountAvailableBalances"
-    />
   </div>
 </template>
 
@@ -82,12 +78,11 @@ import {
   BigNumberInBase,
   BigNumberInWei
 } from '@injectivelabs/utils'
-import VModalJoinGuild from '~/components/partials/modal/join-guild.vue'
 import { Modal, UiGuildWithMeta, UiGuildRequirement, UiProfile } from '~/types'
 
 export default Vue.extend({
   components: {
-    VModalJoinGuild
+    //
   },
 
   props: {
@@ -209,9 +204,14 @@ export default Vue.extend({
 
   methods: {
     handelJoinGuildClick() {
-      const { guild } = this
+      const { guild, outstandingRequirementsMinusSubaccountAvailableBalances } =
+        this
 
-      this.$accessor.modal.openCustomModal(`${Modal.JoinGuild}-${guild.id}`)
+      this.$accessor.guild.setCurrentGuildToJoin({
+        guild,
+        requirements: outstandingRequirementsMinusSubaccountAvailableBalances
+      })
+      this.$accessor.modal.openModal(Modal.JoinGuild)
     },
 
     handelLeaveGuildClick() {

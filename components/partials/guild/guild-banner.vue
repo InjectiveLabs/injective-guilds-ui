@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import VGuildCardAction from '../home/guild-action.vue'
+import VGuildCardAction from '../guild-card/action.vue'
 import { UiGuild } from '~/types'
 import { guildImageMappings, GuildAsset } from '~/app/data/guild'
 

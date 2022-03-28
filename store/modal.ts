@@ -28,14 +28,6 @@ export const getters = getterTree(state, {
 })
 
 export const mutations = {
-  openCustomModal(state: ModalStoreState, customModal: string) {
-    state.customModal = customModal
-  },
-
-  closeCustomModal(state: ModalStoreState) {
-    state.customModal = undefined
-  },
-
   closeModal(state: ModalStoreState, modal: Modal) {
     if (modalExists(modal) && state.modals[modal]) {
       state.modals = { ...state.modals, [modal]: false }

@@ -78,7 +78,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
-import VModal from '~/components/partials/modal/modal.vue'
+import VModal from '~/components/partials/common/modal.vue'
 import { JoinLeaveGuildState, Modal, UiGuild } from '~/types'
 import { delayPromiseCall } from '~/app/utils/async'
 
@@ -123,14 +123,6 @@ export default Vue.extend({
       })
     },
 
-    closeOrdersAndPositions(): Promise<void[]> {
-      return Promise.all([
-        this.$accessor.derivatives.batchCancelOrder(),
-        this.$accessor.spot.batchCancelOrder(),
-        this.$accessor.positions.closeAllPosition()
-      ])
-    },
-
     closeModal() {
       this.$accessor.modal.closeModal(Modal.LeaveGuild)
     },
@@ -138,26 +130,24 @@ export default Vue.extend({
     leaveGuild() {
       const { guild } = this
 
-      if (guild) {
-        this.status.setLoading()
-
-        this.closeOrdersAndPositions()
-          .then(() =>
-            delayPromiseCall(
-              () => this.$accessor.guild.leaveGuild(guild.id),
-              3 * 1000
-            )
-          )
-          .then(() => {
-            this.joinState = JoinLeaveGuildState.Success
-          })
-          .catch(() => {
-            this.joinState = JoinLeaveGuildState.Failed
-          })
-          .finally(() => {
-            this.status.setIdle()
-          })
+      if (!guild) {
+        return
       }
+
+      this.status.setLoading()
+
+      this.$accessor.guild
+        .leaveGuild(guild)
+        .then(() => {
+          this.joinState = JoinLeaveGuildState.Success
+        })
+        .catch((e) => {
+          this.joinState = JoinLeaveGuildState.Failed
+          this.$onError(e)
+        })
+        .finally(() => {
+          this.status.setIdle()
+        })
     }
   }
 })
