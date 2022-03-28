@@ -127,5 +127,14 @@ export default {
   joinAGuildWarning: {
     title: 'Join guild',
     description: 'You have not joined a guild yet.'
+  },
+
+  leaderboard: {
+    leaderboard: 'Leaderboard',
+    member: 'Member',
+    historicalReturns: 'Historical Returns',
+    portfolioValue: 'Portfolio Value',
+    guild: 'Guild',
+    rank: 'Rank'
   }
 }

@@ -20,7 +20,7 @@
       <v-select
         :id="`input-select-${uid}`"
         v-bind="$attrs"
-        :class="{ 'is-empty': !value }"
+        :class="{ 'is-empty': !value, transparent: transparent }"
         :options="options"
         :value="value"
         :reduce="(option) => option.code"
@@ -90,6 +90,11 @@ export default Vue.extend({
 
     valid: {
       required: false,
+      type: Boolean,
+      default: false
+    },
+
+    transparent: {
       type: Boolean,
       default: false
     }
