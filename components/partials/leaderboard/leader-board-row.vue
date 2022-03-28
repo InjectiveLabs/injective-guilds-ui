@@ -1,42 +1,45 @@
 <template>
   <div>
-    <TableRow>
-      <div class="col-span-2 xl:col-span-12 grid grid-cols-2 lg:grid-cols-3">
-        <div class="col-span-2 sm:col-span-1 flex">
-          <img
-            :src="logoLink"
-            :alt="guild.name"
-            class="h-20 w-20 rounded-full"
-          />
-          <div class="flex flex-col ml-4">
-            <p
-              class="text-white capitalize text-2.5xl font-bold tracking-tight"
-            >
-              {{ guild.name }}
-            </p>
-          </div>
+    <TableRow dense>
+      <span class="text-lg sm:text-3.5xl lg:hidden">
+        {{ $t('leaderboard.guild') }}
+      </span>
+      <div class="lg:col-span-5 flex items-center justify-end lg:justify-start">
+        <img
+          :src="logoLink"
+          :alt="guild.name"
+          class="h-8 w-8 sm:h-20 sm:w-20 rounded-full"
+        />
+        <div class="flex flex-col ml-4">
+          <a
+            href="/guild"
+            target="_blank"
+            class="hover:text-primary-500 flex text-white capitalize text-lg sm:text-2.5xl font-bold tracking-tight"
+          >
+            {{ guild.name }}
+          </a>
         </div>
-        <div class="col-span-2 sm:col-span-1 lg:col-span-2 grid lg:grid-cols-3">
-          <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
-            <span class="text-3.5xl">${{ totalAssetsToFormat }}</span>
-            <span class="text-sm xl:hidden">{{
-              $t('leaderboard.totalAssets')
-            }}</span>
-          </div>
+      </div>
 
-          <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
-            <span class="text-3.5xl">{{ apyToString }}</span>
-            <span class="text-sm xl:hidden">
-              {{ $t('leaderboard.apy') }}
-            </span>
-          </div>
-          <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
-            <span class="text-3.5xl">{{ membersToFormat }}</span>
-            <span class="text-sm xl:hidden">{{
-              $t('leaderboard.member')
-            }}</span>
-          </div>
-        </div>
+      <span class="text-lg sm:text-3.5xl lg:hidden">
+        {{ $t('leaderboard.totalAssets') }}
+      </span>
+      <div class="lg:col-span-3 text-right">
+        <span class="text-lg sm:text-3.5xl">${{ totalAssetsToFormat }}</span>
+      </div>
+
+      <span class="text-lg sm:text-3.5xl lg:hidden">
+        {{ $t('leaderboard.apy') }}
+      </span>
+      <div class="lg:col-span-2 text-right">
+        <span class="text-lg sm:text-3.5xl">${{ apyToString }}</span>
+      </div>
+
+      <span class="text-lg sm:text-3.5xl lg:hidden">
+        {{ $t('leaderboard.member') }}
+      </span>
+      <div class="lg:col-span-2 text-right">
+        <span class="text-lg sm:text-3.5xl">${{ membersToFormat }}</span>
       </div>
     </TableRow>
     <div class="border-t border-primary-500 w-full" />

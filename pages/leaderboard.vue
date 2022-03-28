@@ -18,60 +18,47 @@
             "
             :clearable="false"
             :searchable="false"
+            :transparent="true"
           />
         </div>
       </div>
     </v-banner>
     <section class="pt-16 container">
       <div class="w-full" />
-      <TableHeader>
-        <div
-          class="col-span-2 xl:col-span-12 grid grid-cols-2 lg:grid-cols-3 mb-2"
-        >
-          <span class="col-span-2 sm:col-span-1 text-base text-primary-500">
-            {{ $t('leaderboard.guild') }}
-          </span>
-          <div
-            class="col-span-2 sm:col-span-1 lg:col-span-2 grid lg:grid-cols-3"
+      <TableHeader class="text-sm font-bold px-6 py-2" dense>
+        <span class="col-span-5 text-base text-primary-500">
+          {{ $t('leaderboard.guild') }}
+        </span>
+        <div class="col-span-3 flex justify-end">
+          <SortableHeaderItem
+            :value="TableHeaderType.TotalAssetsAmount"
+            :sort-by="sortBy"
+            :ascending="ascending"
+            @sort="handleSort"
           >
-            <div class="flex flex-col items-start sm:items-end">
-              <span class="text-base text-primary-500">
-                <SortableHeaderItem
-                  :value="TableHeaderType.TotalAssetsAmount"
-                  :sort-by="sortBy"
-                  :ascending="ascending"
-                  @sort="handleSort"
-                >
-                  {{ $t('leaderboard.totalAssets') }}
-                </SortableHeaderItem>
-              </span>
-            </div>
+            {{ $t('leaderboard.totalAssets') }}
+          </SortableHeaderItem>
+        </div>
 
-            <div class="flex flex-col items-start sm:items-end">
-              <span class="text-base text-primary-500">
-                <SortableHeaderItem
-                  :value="TableHeaderType.APY"
-                  :sort-by="sortBy"
-                  :ascending="ascending"
-                  @sort="handleSort"
-                >
-                  {{ $t('leaderboard.apy') }}
-                </SortableHeaderItem>
-              </span>
-            </div>
-            <div class="flex flex-col items-start sm:items-end">
-              <span class="text-base text-primary-500">
-                <SortableHeaderItem
-                  :value="TableHeaderType.Member"
-                  :sort-by="sortBy"
-                  :ascending="ascending"
-                  @sort="handleSort"
-                >
-                  {{ $t('leaderboard.member') }}
-                </SortableHeaderItem>
-              </span>
-            </div>
-          </div>
+        <div class="col-span-2 flex justify-end">
+          <SortableHeaderItem
+            :value="TableHeaderType.APY"
+            :sort-by="sortBy"
+            :ascending="ascending"
+            @sort="handleSort"
+          >
+            {{ $t('leaderboard.apy') }}
+          </SortableHeaderItem>
+        </div>
+        <div class="col-span-2 flex justify-end">
+          <SortableHeaderItem
+            :value="TableHeaderType.Member"
+            :sort-by="sortBy"
+            :ascending="ascending"
+            @sort="handleSort"
+          >
+            {{ $t('leaderboard.member') }}
+          </SortableHeaderItem>
         </div>
       </TableHeader>
       <TableBody>
@@ -108,16 +95,30 @@ export default Vue.extend({
     TableHeader,
     SortableHeaderItem
   },
+
   data() {
     return {
       selectOptions: [
         {
           code: 'all_time',
           label: 'All time'
+        },
+        {
+          code: 'Apr',
+          label: 'Apr 15 - May 15'
+        },
+        {
+          code: 'Mar',
+          label: 'Mar 15 - Feb 15'
+        },
+        {
+          code: 'Feb',
+          label: 'Feb 15 - Jan 15'
         }
       ],
       ascending: false,
       sortBy: '',
+      selected: 'all_time',
       TableHeaderType,
       guildData: [
         {
@@ -224,6 +225,7 @@ export default Vue.extend({
       ] as UIGuildCard[]
     }
   },
+
   computed: {
     sortedGuildData(): UIGuildCard[] {
       const { guildData, sortBy } = this
@@ -250,7 +252,7 @@ export default Vue.extend({
         })
       }
 
-      return [...guildData]
+      return guildData
     },
 
     sortedGuildDataWithDirection(): UIGuildCard[] {
@@ -259,6 +261,7 @@ export default Vue.extend({
       return ascending ? sortedGuildData.reverse() : sortedGuildData
     }
   },
+
   methods: {
     handleSort(type: TableHeaderType) {
       if (type !== this.sortBy) {
