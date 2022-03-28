@@ -11,7 +11,6 @@
         </div>
       </v-banner>
       <section class="pt-16 container">
-        <div class="w-full" />
         <TableHeader class="text-sm font-bold px-4 py-2" dense>
           <span class="col-span-1 text-base text-primary-500">
             {{ $t('leaderboard.rank') }}
@@ -52,7 +51,7 @@
           </div>
         </TableHeader>
         <TableBody>
-          <div class="border-t border-primary-500 w-full" />
+          <div class="border-t border-primary-500 w-full lg:hidden" />
           <TableRow
             v-for="(guild, index) in sortedGuildDataWithDirection"
             :key="guild.name"
