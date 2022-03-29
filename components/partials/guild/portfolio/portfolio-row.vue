@@ -39,7 +39,7 @@
       {{ $t('guild.portfolio.allocation') }}
     </span>
     <div class="lg:col-span-2 text-right">
-      <span>{{ allocation }}%</span>
+      <span>{{ allocationToFormat }}%</span>
     </div>
   </TableRow>
 </template>
@@ -91,13 +91,20 @@ export default Vue.extend({
       )
     },
 
-    allocation(): string {
+    allocation(): BigNumberInBase {
       const { item, portfolioValue } = this
 
-      return item.totalValueInUsd
-        .dividedBy(portfolioValue)
-        .multipliedBy(100)
-        .toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
+      return item.totalValueInUsd.dividedBy(portfolioValue).multipliedBy(100)
+    },
+
+    allocationToFormat(): string {
+      const { allocation } = this
+
+      if (allocation.isNaN()) {
+        return '0.00'
+      }
+
+      return allocation.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
     }
   }
 })
