@@ -1,23 +1,16 @@
 <template>
-  <div
-    class="h-full lg:h-footer w-full shadow-md flex flex-wrap lg:justify-between border-t border-primary-500 py-4 items-center"
-  >
+  <div class="lg:h-footer w-full shadow-md border-t border-primary-500 py-6">
     <div
-      class="flex flex-col sm:flex-row sm:ml-5 w-full lg:w-auto justify-between sm:justify-around lg:justify-start items-center"
+      class="container grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4"
     >
-      <div
-        class="flex items-center text-gray-400 lg:ml-6 xl:ml-7 text-base h-auto sm:h-full"
-      >
+      <div class="text-gray-400 text-center sm:text-left">
         <span>&copy; {{ new Date().getFullYear() }} Open DeFi Foundation</span>
       </div>
-    </div>
-    <div
-      class="justify-center flex lg:justify-end flex-wrap lg:flex-no-wrap h-full w-full lg:w-auto"
-    >
-      <div class="flex items-center">
+
+      <div class="flex gap-8 justify-center sm:justify-end lg:justify-start">
         <nuxt-link
           :to="{ name: 'how-it-works' }"
-          class="hover:text-primary-500 mr-8 uppercase text-white"
+          class="hover:text-primary-500 uppercase text-white"
         >
           {{ $t('howItWorks.title') }}
         </nuxt-link>
@@ -30,12 +23,10 @@
           {{ $t('footer.privacyPolicy') }}
         </a>
       </div>
-    </div>
 
-    <div
-      class="justify-center flex lg:justify-end flex-wrap lg:flex-no-wrap h-full w-full lg:w-auto lg:mr-8 items-center"
-    >
-      <div class="flex items-center text-gray-400">
+      <div
+        class="sm:col-span-2 lg:col-span-1 flex items-center text-gray-400 justify-center lg:justify-end"
+      >
         <a
           href="https://twitter.com/InjectiveLabs"
           target="_blank"
@@ -71,11 +62,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// import FeatureItem from './feature-item.vue'
 
-export default Vue.extend({
-  components: {
-    // FeatureItem
-  }
-})
+export default Vue.extend({})
 </script>

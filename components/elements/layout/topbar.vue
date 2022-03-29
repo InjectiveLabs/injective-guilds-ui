@@ -2,7 +2,7 @@
   <div
     class="h-16 bg-black w-full border-b border-primary-500 overflow-x-hidden"
   >
-    <div class="xs:container h-full">
+    <div class="xs:container h-full mx-auto">
       <div class="flex justify-between items-center h-full">
         <!-- left panel -->
         <div class="flex gap-14">
