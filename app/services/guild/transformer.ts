@@ -115,25 +115,43 @@ export const ApiPortfolioToUiPortfolio = async (
 
 export const ApiMarketToUiMarket = async (market: ApiMarket) => {
   if (market.is_perpetual) {
-    const derivativeMarket = await derivativeService.fetchMarket(
-      market.market_id
-    )
-    const token = (await tokenService.getTokenMetaDataBySymbol(
-      derivativeMarket.oracleBase
-    )) as TokenMeta
+    try {
+      const derivativeMarket = await derivativeService.fetchMarket(
+        market.market_id
+      )
 
-    return {
-      token: TokenTransformer.tokenMetaToToken(token, token.address),
-      ticker: derivativeMarket.ticker
+      if (!derivativeMarket) {
+        return
+      }
+
+      const token = (await tokenService.getTokenMetaDataBySymbol(
+        derivativeMarket.oracleBase
+      )) as TokenMeta
+
+      return {
+        token: TokenTransformer.tokenMetaToToken(token, token.address),
+        ticker: derivativeMarket.ticker
+      }
+    } catch (e: any) {
+      return undefined
     }
   }
 
-  const spotMarket = await spotService.fetchMarket(market.market_id)
-  const token = await tokenService.getDenomToken(spotMarket.baseDenom)
+  try {
+    const spotMarket = await spotService.fetchMarket(market.market_id)
 
-  return {
-    token,
-    ticker: `${spotMarket.ticker} SPOT`
+    if (!spotMarket) {
+      return
+    }
+
+    const token = await tokenService.getDenomToken(spotMarket.baseDenom)
+
+    return {
+      token,
+      ticker: `${spotMarket.ticker} SPOT`
+    }
+  } catch (e: any) {
+    return undefined
   }
 }
 

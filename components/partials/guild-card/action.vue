@@ -21,7 +21,7 @@
         v-if="isPartOfGuild"
         accent
         :outline="!banner"
-        @click="handelLeaveGuildClick"
+        @click="handleLeaveGuildClick"
       >
         {{ $t('guildCard.leave') }}
       </v-button>
@@ -34,7 +34,7 @@
         {{ $t('guildCard.unqualified') }}
       </v-button>
 
-      <v-button v-else @click="handelJoinGuildClick">
+      <v-button v-else @click="handleJoinGuildClick">
         {{ $t('guildCard.joinNow') }}
       </v-button>
 
@@ -203,7 +203,7 @@ export default Vue.extend({
   },
 
   methods: {
-    handelJoinGuildClick() {
+    handleJoinGuildClick() {
       const { guild, outstandingRequirementsMinusSubaccountAvailableBalances } =
         this
 
@@ -214,7 +214,7 @@ export default Vue.extend({
       this.$accessor.modal.openModal(Modal.JoinGuild)
     },
 
-    handelLeaveGuildClick() {
+    handleLeaveGuildClick() {
       const { guild } = this
 
       this.$root.$emit('leave-guild-button-clicked', guild)

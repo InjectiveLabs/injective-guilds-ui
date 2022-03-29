@@ -57,13 +57,11 @@ export class GuildService {
         markets: ApiMarket[]
       }>
 
-      try {
-        return await Promise.all(
-          response.data.markets.map(GuildTransformer.ApiMarketToUiMarket)
-        )
-      } catch (error: any) {
-        //
-      }
+      const markets = await Promise.all(
+        response.data.markets.map(GuildTransformer.ApiMarketToUiMarket)
+      )
+
+      return markets.filter((m) => m !== undefined)
     } catch (error: any) {
       if ([404].includes(error.response.status)) {
         throw new GuildNotFoundException(error.message)
@@ -119,17 +117,19 @@ export class GuildService {
         injective_address: address
       })
     } catch (error: any) {
-      throw new HttpException(error.message)
+      throw new HttpException(
+        error.response ? error.response.data.message : error.message
+      )
     }
   }
 
   async leaveGuild(guildId: string, address: string) {
     try {
-      await this.client.delete(`guilds/${guildId}/member`, {
-        injective_address: address
-      })
+      await this.client.delete(`guilds/${guildId}/member/${address}`)
     } catch (error: any) {
-      throw new HttpException(error.message)
+      throw new HttpException(
+        error.response ? error.response.data.message : error.message
+      )
     }
   }
 }

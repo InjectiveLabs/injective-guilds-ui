@@ -49,9 +49,11 @@ export const tokenCoinGeckoService = new TokenCoinGeckoService(
 
 export const bankService = new BankService(commonServiceOptions)
 export const derivativeService = new DerivativeService(commonServiceOptions)
-export const guildService = new GuildService('https://devnet.api.injective.dev')
+export const guildService = new GuildService(
+  ' https://devnet.guilds.injective.dev/'
+)
 export const memberService = new MemberService(
-  'https://devnet.api.injective.dev'
+  ' https://devnet.guilds.injective.dev/'
 )
 export const spotService = new SpotService(commonServiceOptions)
 export const subaccountService = new SubaccountService(commonServiceOptions)

@@ -32,6 +32,10 @@ export const actions = actionTree(
         subaccountId: subaccount.subaccountId
       })
 
+      if (positions.length === 0) {
+        return
+      }
+
       const formattedPositions = positions
         .map((position) => {
           const market = markets.find(

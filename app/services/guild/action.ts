@@ -27,7 +27,7 @@ export class GuildActionService extends BaseActionService {
     try {
       return await this.txProvider.broadcast({
         bucket: GuildMetrics.Grant,
-        message: messages[0],
+        message: mappedMessages,
         address
       })
     } catch (error) {
@@ -55,7 +55,7 @@ export class GuildActionService extends BaseActionService {
 
     try {
       return await this.txProvider.broadcast({
-        bucket: GuildMetrics.Grant,
+        bucket: GuildMetrics.Revoke,
         message: mappedMessages,
         address
       })

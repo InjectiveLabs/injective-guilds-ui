@@ -1,0 +1,44 @@
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: theme('colors.black') theme('colors.primary.500');
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: theme('colors.primary.500');
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: theme('colors.black');
+  border-radius: 20px;
+  border: 3px solid theme('colors.primary.500');
+}
+
+
+body {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+body ::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.scroll {
+  &::-webkit-scrollbar {
+    display: initial !important;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: theme('colors.black');
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply border border-gray-400 rounded-none bg-gray-400;
+  }
+}

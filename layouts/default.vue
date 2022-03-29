@@ -38,6 +38,12 @@ export default Vue.extend({
     }
   },
 
+  head: {
+    bodyAttrs: {
+      class: 'overflow-fix'
+    }
+  },
+
   mounted() {
     Promise.all([
       this.$accessor.wallet.init(),

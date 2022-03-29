@@ -63,6 +63,10 @@ export const actions = actionTree(
         subaccountId: subaccount.subaccountId
       })
 
+      if (orders.length === 0) {
+        return
+      }
+
       await this.app.$accessor.wallet.validate()
 
       await derivativeActionService.batchCancelOrders({

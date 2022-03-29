@@ -20,7 +20,7 @@ module.exports = {
     class: 'font-sans'
   },
   bodyAttrs: {
-    class: ''
+    class: 'overflow-fix'
   },
   link: [
     { rel: 'icon', type: 'image/png', href: '/favicon.png' },
