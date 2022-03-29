@@ -200,7 +200,6 @@ export const actions = actionTree(
       })
       await guildService.joinGuild(guild.id, injectiveAddress)
 
-      await sleep(3000)
       await this.app.$accessor.guild.refreshGuilds(guild)
     },
 
@@ -223,7 +222,6 @@ export const actions = actionTree(
       })
       await guildService.leaveGuild(guild.id, injectiveAddress)
 
-      await sleep(3000)
       await this.app.$accessor.guild.refreshGuilds(guild)
     }
   }
