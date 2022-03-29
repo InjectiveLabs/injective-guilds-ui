@@ -1,7 +1,7 @@
 import { differenceInHours } from 'date-fns'
 import { HttpException } from '@injectivelabs/exceptions'
 import { HttpClient } from '@injectivelabs/utils'
-import { ApiResponse, ApiPortfolio, ApiProfile, UiPortfolio } from '~/types'
+import { ApiResponse, ApiPortfolio, ApiMember, UiPortfolio } from '~/types'
 import { MemberTransformer } from '~/app/services/member/transformer'
 import { GuildTransformer } from '~/app/services/guild/transformer'
 import { MemberNotFoundException } from '~/app/exceptions'
@@ -49,7 +49,7 @@ export class MemberService {
     }
   }
 
-  async fetchProfilePortfolio(address: string) {
+  async fetchMemberPortfolio(address: string) {
     try {
       const response = (await this.client.get(
         `members/${address}/portfolios`
@@ -81,13 +81,13 @@ export class MemberService {
     }
   }
 
-  async fetchProfile(address: string) {
+  async fetchMember(address: string) {
     try {
       const response = (await this.client.get(
         `members/${address}`
-      )) as ApiResponse<{ data: ApiProfile }>
+      )) as ApiResponse<{ data: ApiMember }>
 
-      return MemberTransformer.ApiProfileToUiProfile(response.data.data)
+      return MemberTransformer.ApiMemberToUiMember(response.data.data)
     } catch (error: any) {
       if ([404].includes(error.response.status)) {
         throw new MemberNotFoundException(error.message)

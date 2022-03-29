@@ -6,7 +6,7 @@ const requiredRouteNames = ['my-guild']
 const hasJoinedGuild: Middleware = ({ redirect, route, app }: Context) => {
   if (
     requiredRouteNames.includes(route.name as string) &&
-    !app.$accessor.profile.profile
+    !app.$accessor.member.member
   ) {
     app.$accessor.modal.openModal(Modal.JoinAGuildWarning)
 

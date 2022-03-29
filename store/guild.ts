@@ -1,11 +1,13 @@
 import { actionTree } from 'typed-vuex'
 import { sleep } from '@injectivelabs/utils'
+import { DerivativeTransformer } from '@injectivelabs/ui-common'
 import {
   derivativeService,
   guildActionService,
   guildService,
   memberService,
-  spotService
+  spotService,
+  tokenService
 } from '~/app/Services'
 import {
   UiGuildWithMeta,
@@ -16,7 +18,6 @@ import {
   UiGuildToJoinModal,
   UiGuildToLeaveModal
 } from '~/types'
-import { delayPromiseCall } from '~/app/utils/async'
 
 const initialStateFactory = () => ({
   guild: undefined as UiGuildWithMeta | undefined,
@@ -178,7 +179,7 @@ export const actions = actionTree(
       await this.app.$accessor.guild.fetchGuilds()
       await this.app.$accessor.guild.fetchGuild(guild.id)
       await this.app.$accessor.guild.fetchMembers(guild.id)
-      await this.app.$accessor.profile.fetchProfile()
+      await this.app.$accessor.member.fetchMember()
 
       if (this.app.context.route.name === 'my-guild') {
         await this.app.$accessor.wallet.initPage()
@@ -202,10 +203,42 @@ export const actions = actionTree(
 
       await this.app.$accessor.wallet.validate()
       await this.app.$accessor.guild.validateJoin()
+      await this.app.$accessor.exchange.depositToTradingAccount(requirements)
 
       await guildActionService.grant({
         address,
         injectiveAddress,
+        guildMasterAddress: guild.masterAddress
+      })
+      await guildService.joinGuild(guild.id, injectiveAddress)
+
+      await sleep(3000)
+      await this.app.$accessor.guild.refreshGuilds(guild)
+    },
+
+    async joinGuildInBatch(
+      _,
+      {
+        guild,
+        requirements
+      }: { guild: UiGuild; requirements: UiGuildRequirement[] }
+    ) {
+      const { subaccount } = this.app.$accessor.account
+      const { address, injectiveAddress, isUserWalletConnected } =
+        this.app.$accessor.wallet
+
+      if (!injectiveAddress || !isUserWalletConnected || !subaccount) {
+        return
+      }
+
+      await this.app.$accessor.wallet.validate()
+      await this.app.$accessor.guild.validateJoin()
+
+      await guildActionService.grantInBatch({
+        address,
+        injectiveAddress,
+        requirements,
+        subaccountId: subaccount.subaccountId,
         guildMasterAddress: guild.masterAddress
       })
       await guildService.joinGuild(guild.id, injectiveAddress)
@@ -223,12 +256,58 @@ export const actions = actionTree(
       }
 
       await this.app.$accessor.wallet.validate()
-      await this.app.$accessor.derivatives.batchCancelOrder()
-      await this.app.$accessor.spot.batchCancelOrder()
-      await this.app.$accessor.positions.closeAllPosition(guild)
+
+      await this.app.$accessor.exchange.batchCancelDerivativeOrder()
+      await this.app.$accessor.exchange.batchCancelSpotOrder()
+      await this.app.$accessor.exchange.closeAllPosition(guild)
+
       await guildActionService.revoke({
         injectiveAddress,
         address,
+        guildMasterAddress: guild.masterAddress
+      })
+      await guildService.leaveGuild(guild.id, injectiveAddress)
+
+      await sleep(3000)
+      await this.app.$accessor.guild.refreshGuilds(guild)
+    },
+
+    async leaveGuildInBatch(_, guild: UiGuild) {
+      const { subaccount } = this.app.$accessor.account
+      const { address, injectiveAddress, isUserWalletConnected } =
+        this.app.$accessor.wallet
+
+      if (!injectiveAddress || !isUserWalletConnected) {
+        return
+      }
+
+      await this.app.$accessor.wallet.validate()
+
+      const derivativeMarkets = await derivativeService.fetchMarkets()
+      const derivativeMarketsWithToken =
+        await tokenService.getDerivativeMarketsWithToken(derivativeMarkets)
+      const uiDerivativeMarkets =
+        DerivativeTransformer.derivativeMarketsToUiSpotMarkets(
+          derivativeMarketsWithToken
+        )
+      const derivativeOrders = await derivativeService.fetchOrders({
+        subaccountId: subaccount.subaccountId
+      })
+      const derivativePositions = await derivativeService.fetchPositions({
+        subaccountId: subaccount.subaccountId
+      })
+      const spotOrders = await spotService.fetchOrders({
+        subaccountId: subaccount.subaccountId
+      })
+
+      await guildActionService.revokeInBatch({
+        injectiveAddress,
+        address,
+        derivativeMarkets: uiDerivativeMarkets,
+        positions: derivativePositions,
+        derivativeOrders,
+        spotOrders,
+        subaccountId: subaccount.subaccountId,
         guildMasterAddress: guild.masterAddress
       })
       await guildService.leaveGuild(guild.id, injectiveAddress)

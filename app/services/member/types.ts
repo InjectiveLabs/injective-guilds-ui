@@ -2,21 +2,21 @@
 import { BigNumberInBase } from '@injectivelabs/utils'
 import { UiPortfolio } from '../guild/types'
 
-export interface ApiProfile {
+export interface ApiMember {
   injective_address: string
   is_default_guild_member: boolean
   since: number
   guild_id: string
 }
 
-export interface UiProfile {
+export interface UiMember {
   injectiveAddress: string
   isDefaultGuildMember: boolean
   since: number
   guildId: string
 }
 
-export interface UIProfilePortfolio {
+export interface UiMemberPortfolio {
   firstSnapshot: UiPortfolio
   lastSnapshot: UiPortfolio
   historicalReturns: BigNumberInBase

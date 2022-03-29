@@ -14,8 +14,8 @@
 
           <div class="mx-auto md:ml-auto w-full">
             <v-overview
-              v-if="profilePortfolio"
-              :portfolio="profilePortfolio.firstSnapshot"
+              v-if="memberPortfolio"
+              :portfolio="memberPortfolio.firstSnapshot"
             />
 
             <v-card transparent class="mt-2">
@@ -61,7 +61,7 @@ import VBanner from '~/layouts/child-page-banner.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/my-guild/my-guild-row.vue'
 import VOverview from '~/components/partials/my-guild/overview.vue'
-import { UiGuild, UiProfile, UIProfilePortfolio } from '~/types'
+import { UiGuild, UiMember, UiMemberPortfolio } from '~/types'
 import {
   GuildNotFoundException,
   MemberNotFoundException
@@ -93,23 +93,23 @@ export default Vue.extend({
       return this.$accessor.guild.guild
     },
 
-    profile(): UiProfile {
-      return this.$accessor.profile.profile as UiProfile
+    member(): UiMember | undefined {
+      return this.$accessor.member.member
     },
 
-    profilePortfolio(): UIProfilePortfolio {
-      return this.$accessor.profile.profilePortfolio as UIProfilePortfolio
+    memberPortfolio(): UiMemberPortfolio | undefined {
+      return this.$accessor.member.memberPortfolio
     },
 
     myEarnings(): BigNumberInBase {
-      const { profilePortfolio } = this
+      const { memberPortfolio } = this
 
-      if (!profilePortfolio) {
+      if (!memberPortfolio) {
         return ZERO_IN_BASE
       }
 
-      return profilePortfolio.lastSnapshot.portfolioValue.minus(
-        profilePortfolio.firstSnapshot.portfolioValue
+      return memberPortfolio.lastSnapshot.portfolioValue.minus(
+        memberPortfolio.firstSnapshot.portfolioValue
       )
     },
 
@@ -120,13 +120,13 @@ export default Vue.extend({
     },
 
     historicalReturns(): BigNumberInBase {
-      const { profilePortfolio } = this
+      const { memberPortfolio } = this
 
-      if (!profilePortfolio || !profilePortfolio.historicalReturns) {
+      if (!memberPortfolio || !memberPortfolio.historicalReturns) {
         return ZERO_IN_BASE
       }
 
-      return profilePortfolio.historicalReturns
+      return memberPortfolio.historicalReturns
     },
 
     historicalReturnsToFormat(): string {
@@ -166,12 +166,18 @@ export default Vue.extend({
 
   methods: {
     fetchGuildAndProfile(): Promise<void[]> {
-      const { guildId } = this.profile
+      const { member } = this
+
+      if (!member) {
+        return Promise.resolve([])
+      }
+
+      const { guildId } = member
 
       return Promise.all([
         this.$accessor.guild.fetchGuild(guildId),
-        this.$accessor.profile.fetchProfile(),
-        this.$accessor.profile.fetchProfilePortfolio()
+        this.$accessor.member.fetchMember(),
+        this.$accessor.member.fetchMemberPortfolio()
       ])
     },
 

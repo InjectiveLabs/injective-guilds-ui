@@ -4,7 +4,7 @@ import { localStorage } from '~/app/singletons/Storage'
 import { AppState } from '~/types/enums'
 
 const mutationsToPersist = [
-  'profile/setProfile',
+  'member/setMember',
   'wallet/reset',
   'wallet/logout',
   'wallet/setAddress',
@@ -25,8 +25,8 @@ const store: Plugin = ({ store, app }) => {
   store.subscribe(({ type }) => {
     if (mutationsToPersist.includes(type)) {
       const stateToPersist = {
-        profile: {
-          profile: app.$accessor.profile.profile
+        member: {
+          member: app.$accessor.member.member
         },
         wallet: {
           wallet: app.$accessor.wallet.wallet,

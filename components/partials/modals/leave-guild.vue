@@ -80,7 +80,6 @@ import Vue, { PropType } from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
 import VModal from '~/components/partials/common/modal.vue'
 import { JoinLeaveGuildState, Modal, UiGuild } from '~/types'
-import { delayPromiseCall } from '~/app/utils/async'
 
 export default Vue.extend({
   components: {
@@ -99,7 +98,7 @@ export default Vue.extend({
       JoinLeaveGuildState,
       joinState: JoinLeaveGuildState.Confirm,
       status: new Status(StatusType.Idle),
-      fetchStatus: new Status(StatusType.Loading)
+      fetchStatus: new Status(StatusType.Idle)
     }
   },
 
@@ -109,21 +108,7 @@ export default Vue.extend({
     }
   },
 
-  mounted() {
-    this.openModal()
-  },
-
   methods: {
-    openModal() {
-      this.fetchStatus.setLoading()
-      this.joinState = JoinLeaveGuildState.Confirm
-      this.$accessor.modal.openModal(Modal.LeaveGuild)
-
-      Promise.all([this.$accessor.derivatives.fetchMarkets()]).finally(() => {
-        this.fetchStatus.setIdle()
-      })
-    },
-
     closeModal() {
       this.$accessor.modal.closeModal(Modal.LeaveGuild)
     },

@@ -1,14 +1,14 @@
-import { ApiProfile, UiProfile } from './types'
+import { ApiMember, UiMember } from './types'
 
-export const ApiProfileToUiProfile = (apiProfile: ApiProfile): UiProfile => {
+export const ApiMemberToUiMember = (apiMember: ApiMember): UiMember => {
   return {
-    injectiveAddress: apiProfile.injective_address,
-    isDefaultGuildMember: apiProfile.is_default_guild_member,
-    since: apiProfile.since,
-    guildId: apiProfile.guild_id
+    injectiveAddress: apiMember.injective_address,
+    isDefaultGuildMember: apiMember.is_default_guild_member,
+    since: apiMember.since,
+    guildId: apiMember.guild_id
   }
 }
 
 export class MemberTransformer {
-  static ApiProfileToUiProfile = ApiProfileToUiProfile
+  static ApiMemberToUiMember = ApiMemberToUiMember
 }

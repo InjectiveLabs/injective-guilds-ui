@@ -21,7 +21,7 @@ export default {
   },
 
   toast: {
-    myGuildFetchProfileError: "Can't fetch profile, please try again later",
+    myGuildFetchProfileError: "Can't fetch member, please try again later",
     guildNotFoundErrorToast: 'Guild {name} not found.'
   },
 

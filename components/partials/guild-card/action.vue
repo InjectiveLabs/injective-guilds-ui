@@ -40,7 +40,7 @@
 
       <v-button
         v-else
-        :disabled="profile !== undefined"
+        :disabled="member !== undefined"
         @click="handleJoinGuildClick"
       >
         {{ $t('guildCard.joinNow') }}
@@ -89,7 +89,7 @@ import {
   BigNumberInBase,
   BigNumberInWei
 } from '@injectivelabs/utils'
-import { Modal, UiGuildWithMeta, UiGuildRequirement, UiProfile } from '~/types'
+import { Modal, UiGuildWithMeta, UiGuildRequirement, UiMember } from '~/types'
 
 export default Vue.extend({
   components: {
@@ -113,8 +113,8 @@ export default Vue.extend({
       return this.$accessor.wallet.isUserWalletConnected
     },
 
-    profile(): UiProfile | undefined {
-      return this.$accessor.profile.profile
+    member(): UiMember | undefined {
+      return this.$accessor.member.member
     },
 
     subaccountBalances(): UiSubaccountBalance[] {
@@ -191,13 +191,13 @@ export default Vue.extend({
     },
 
     isPartOfGuild(): boolean {
-      const { guild, profile } = this
+      const { guild, member } = this
 
-      if (!guild || !profile) {
+      if (!guild || !member) {
         return false
       }
 
-      return guild.id === profile.guildId
+      return guild.id === member.guildId
     },
 
     isMaxCapacity(): boolean {
