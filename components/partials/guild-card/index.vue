@@ -5,18 +5,18 @@
     </nuxt-link>
 
     <div class="guild-card-info-container flex-grow m-0">
-      <div class="flex justify-between">
+      <div class="xs:flex justify-between">
         <div class="flex-grow">
           <p class="text-3xl text-primary-500">${{ portfolioValueToFormat }}</p>
-          <p class="text-base text-primary-500 mt-2.5">
+          <p class="text-base text-primary-500 xs:mt-2.5">
             {{ $t('guildCard.portfolioValue') }}
           </p>
         </div>
-        <div class="flex-grow">
+        <div class="flex-grow mt-2.5 xs:mt-0">
           <p class="text-3xl text-primary-500">
             {{ historicalReturnsToFormat }}%
           </p>
-          <p class="text-base text-primary-500 mt-2.5">
+          <p class="text-base text-primary-500 xs:mt-2.5">
             {{ $t('guildCard.historicalReturns') }}
           </p>
         </div>
