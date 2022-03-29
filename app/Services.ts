@@ -37,7 +37,7 @@ const commonServiceOptions = {
 } as ServiceOptions
 
 const guildServiceEndpoint = IS_DEVNET
-  ? 'https://devnet.api.injective.dev'
+  ? 'https://devnet.guilds.injective.dev'
   : 'https://testnet.guilds.injective.dev/'
 
 const coinGeckoOptions = {
