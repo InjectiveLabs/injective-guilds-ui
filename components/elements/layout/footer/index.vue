@@ -8,12 +8,13 @@
       </div>
 
       <div class="flex gap-8 justify-center sm:justify-end lg:justify-start">
-        <nuxt-link
-          :to="{ name: 'how-it-works' }"
-          class="hover:text-primary-500 uppercase text-white"
+        <a
+          class="cursor-pointer text-primary-500 hover:text-primary-600 uppercase"
+          href="https://injectivelabs.org/privacy-policy"
+          target="_blank"
         >
-          {{ $t('howItWorks.title') }}
-        </nuxt-link>
+          {{ $t('footer.startAGuild') }}
+        </a>
 
         <a
           class="cursor-pointer text-gray-400 hover:text-primary-500"

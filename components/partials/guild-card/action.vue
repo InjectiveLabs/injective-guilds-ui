@@ -38,7 +38,11 @@
         {{ $t('guildCard.unqualified') }}
       </v-button>
 
-      <v-button v-else :disabled="profile" @click="handelJoinGuildClick">
+      <v-button
+        v-else
+        :disabled="profile !== undefined"
+        @click="handelJoinGuildClick"
+      >
         {{ $t('guildCard.joinNow') }}
       </v-button>
 
