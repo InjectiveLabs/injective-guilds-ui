@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-wrap gap-4 mb-6 h-8">
+    <div class="flex flex-wrap gap-4 mb-6 lg:h-8">
       <div
         v-for="(market, index) in guild.markets"
         :key="`guild-card-market-${index}`"
@@ -17,8 +17,12 @@
     </div>
 
     <div class="flex items-start">
+      <v-button v-if="!isUserWalletConnected" @click="handleConnectClick">
+        {{ $t('connect.connect') }}
+      </v-button>
+
       <v-button
-        v-if="isPartOfGuild"
+        v-else-if="isPartOfGuild"
         accent
         :outline="!banner"
         @click="handleLeaveGuildClick"
@@ -34,11 +38,18 @@
         {{ $t('guildCard.unqualified') }}
       </v-button>
 
-      <v-button v-else @click="handleJoinGuildClick">
+      <v-button
+        v-else
+        :disabled="profile !== undefined"
+        @click="handleJoinGuildClick"
+      >
         {{ $t('guildCard.joinNow') }}
       </v-button>
 
-      <div v-if="!isMaxCapacity && !isPartOfGuild" class="text-sm ml-4">
+      <div
+        v-if="!isMaxCapacity && !isPartOfGuild && isUserWalletConnected"
+        class="text-sm ml-4"
+      >
         <p>{{ $t('guildCard.requirement') }}:</p>
         <div class="grid xs:grid-cols-2 xs:min-w-[220px]">
           <span
@@ -98,6 +109,10 @@ export default Vue.extend({
   },
 
   computed: {
+    isUserWalletConnected(): boolean {
+      return this.$accessor.wallet.isUserWalletConnected
+    },
+
     profile(): UiProfile | undefined {
       return this.$accessor.profile.profile
     },
@@ -218,6 +233,10 @@ export default Vue.extend({
       const { guild } = this
 
       this.$root.$emit('leave-guild-button-clicked', guild)
+    },
+
+    handleConnectClick() {
+      this.$root.$emit('connect-wallet-clicked')
     }
   }
 })

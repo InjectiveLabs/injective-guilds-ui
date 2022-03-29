@@ -11,10 +11,22 @@
             <p class="text-lg mt-8 max-w-lg">
               {{ $t('tradingGuild.description') }}
             </p>
+
+            <div class="flex items-center mt-8 gap-6">
+              <nuxt-link
+                :to="{ name: 'how-it-works' }"
+                class="text-sm bg-primary-500 text-primary-500 hover:text-white bg-opacity-50 lg:bg-opacity-20 hover:bg-opacity-80 lg:hover:bg-opacity-50 rounded flex items-center p-2"
+              >
+                <span>{{ $t('howItWorks.title') }}</span>
+                <v-icon-arrow class="transform w-2 h-2 ml-2" />
+              </nuxt-link>
+            </div>
           </div>
         </div>
       </section>
-      <div class="container grid md:grid-cols-1 lg:grid-cols-2 gap-6 my-6">
+      <div
+        class="container grid md:grid-cols-1 lg:grid-cols-2 gap-8 my-8 lg:gap-16 lg:my-16"
+      >
         <GuildCard
           v-for="(guild, index) in guilds"
           :key="`guild-card-${index}`"

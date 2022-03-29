@@ -29,7 +29,7 @@
                   >
                     {{ $t('connect.download') }}
                   </a>
-                  <v-icon-arrow class="transform rotate-180 w-3 h-3 ml-1" />
+                  <v-icon-arrow class="transform w-3 h-3 ml-1" />
                 </div>
                 <p v-else class="text-sm">
                   {{ $t('connect.connectUsingBrowser') }}

@@ -12,8 +12,9 @@ import {
 } from '@injectivelabs/ui-common'
 import {
   CHAIN_ID,
-  NETWORK,
+  IS_DEVNET,
   METRICS_ENABLED,
+  NETWORK,
   APP_EXCHANGE_API_ENDPOINT,
   APP_SENTRY_GRPC_ENDPOINT
 } from './utils/constants'
@@ -35,6 +36,10 @@ const commonServiceOptions = {
   metricsRegion: app.regionForMetrics
 } as ServiceOptions
 
+const guildServiceEndpoint = IS_DEVNET
+  ? 'https://devnet.guilds.injective.dev'
+  : 'https://testnet.guilds.injective.dev/'
+
 const coinGeckoOptions = {
   apiKey: process.env.APP_COINGECKO_KEY as string,
   baseUrl: process.env.APP_COINGECKO_KEY
@@ -49,12 +54,8 @@ export const tokenCoinGeckoService = new TokenCoinGeckoService(
 
 export const bankService = new BankService(commonServiceOptions)
 export const derivativeService = new DerivativeService(commonServiceOptions)
-export const guildService = new GuildService(
-  ' https://devnet.guilds.injective.dev/'
-)
-export const memberService = new MemberService(
-  ' https://devnet.guilds.injective.dev/'
-)
+export const guildService = new GuildService(guildServiceEndpoint)
+export const memberService = new MemberService(guildServiceEndpoint)
 export const spotService = new SpotService(commonServiceOptions)
 export const subaccountService = new SubaccountService(commonServiceOptions)
 export const tokenService = new TokenService(commonServiceOptions)

@@ -76,6 +76,10 @@ export default Vue.extend({
     allocationToFormat(): string {
       const { allocation } = this
 
+      if (allocation.isNaN()) {
+        return '0.00'
+      }
+
       return allocation.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
     },
 
