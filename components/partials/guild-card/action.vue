@@ -232,7 +232,8 @@ export default Vue.extend({
     handleLeaveGuildClick() {
       const { guild } = this
 
-      this.$root.$emit('leave-guild-button-clicked', guild)
+      this.$accessor.guild.setCurrentGuildToLeave(guild)
+      this.$accessor.modal.openModal(Modal.LeaveGuild)
     },
 
     handleConnectClick() {

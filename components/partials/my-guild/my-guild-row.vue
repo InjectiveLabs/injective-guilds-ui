@@ -15,7 +15,7 @@
               {{ guild.name }}
             </p>
             <div class="flex items-center text-lg mt-4">
-              <v-button accent outline @click="handleLeaveGuildBtnClick">
+              <v-button accent outline @click="handleLeaveGuildClick">
                 <span>{{ $t('common.leave') }}</span>
               </v-button>
               <nuxt-link
@@ -59,7 +59,7 @@ import Vue, { PropType } from 'vue'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
 import TableRow from '~/components/partials/grid-table/row.vue'
-import { UiGuildWithMeta } from '~/types'
+import { Modal, UiGuildWithMeta } from '~/types'
 import {
   UI_DEFAULT_FIAT_DECIMALS,
   UI_DEFAULT_PERCENTAGE_DECIMALS
@@ -130,10 +130,11 @@ export default Vue.extend({
   },
 
   methods: {
-    handleLeaveGuildBtnClick() {
+    handleLeaveGuildClick() {
       const { guild } = this
 
-      this.$root.$emit('leave-guild-button-clicked', guild)
+      this.$accessor.guild.setCurrentGuildToLeave(guild)
+      this.$accessor.modal.openModal(Modal.LeaveGuild)
     }
   }
 })

@@ -9,6 +9,7 @@
 
       <div class="flex gap-8 justify-center sm:justify-end lg:justify-start">
         <a
+          v-if="false"
           class="cursor-pointer text-primary-500 hover:text-primary-600 uppercase"
           href="https://injectivelabs.org/privacy-policy"
           target="_blank"

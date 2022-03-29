@@ -30,10 +30,6 @@
         <v-portfolio class="mt-16" :portfolio-value="portfolioValue" />
         <v-member class="mt-10" :portfolio-value="portfolioValue" />
       </div>
-      <v-modal-join-guild
-        v-if="currentGuildToJoin"
-        :guild="currentGuildToJoin"
-      />
     </div>
   </VHOCLoading>
 </template>
@@ -49,18 +45,12 @@ import VGuildMaster from '~/components/partials/guild/guild-master.vue'
 import VHistoricalReturns from '~/components/partials/guild/historical-returns.vue'
 import VPortfolio from '~/components/partials/guild/portfolio/index.vue'
 import VMember from '~/components/partials/guild/member/index.vue'
-import {
-  UiPortfolioBalanceWithToken,
-  UiGuildToJoinModal,
-  UiGuildWithMeta
-} from '~/types'
-import VModalJoinGuild from '~/components/partials/modals/join-guild.vue'
+import { UiPortfolioBalanceWithToken, UiGuildWithMeta } from '~/types'
 
 export default Vue.extend({
   components: {
     VBanner,
     VChart,
-    VModalJoinGuild,
     VGuildMaster,
     VHistoricalReturns,
     VMember,
@@ -77,10 +67,6 @@ export default Vue.extend({
   computed: {
     guild(): UiGuildWithMeta {
       return this.$accessor.guild.guild as UiGuildWithMeta
-    },
-
-    currentGuildToJoin(): UiGuildToJoinModal {
-      return this.$accessor.guild.currentGuildToJoin
     },
 
     balances(): UiPortfolioBalanceWithToken[] {

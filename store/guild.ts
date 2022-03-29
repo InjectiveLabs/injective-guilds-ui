@@ -13,8 +13,10 @@ import {
   UiPortfolio,
   UiGuild,
   UiGuildRequirement,
-  UiGuildToJoinModal
+  UiGuildToJoinModal,
+  UiGuildToLeaveModal
 } from '~/types'
+import { delayPromiseCall } from '~/app/utils/async'
 
 const initialStateFactory = () => ({
   guild: undefined as UiGuildWithMeta | undefined,
@@ -22,7 +24,8 @@ const initialStateFactory = () => ({
   members: [] as UiGuildMemberWithPortfolio[],
   portfolios: [] as UiPortfolio[],
 
-  currentGuildToJoin: undefined as UiGuildToJoinModal
+  currentGuildToJoin: undefined as UiGuildToJoinModal,
+  currentGuildToLeave: undefined as UiGuildToLeaveModal
 })
 
 const initialState = initialStateFactory()
@@ -32,7 +35,8 @@ export const state = () => ({
   guild: initialState.guild,
   guilds: initialState.guilds,
   portfolios: initialState.portfolios,
-  currentGuildToJoin: initialState.currentGuildToJoin
+  currentGuildToJoin: initialState.currentGuildToJoin,
+  currentGuildToLeave: initialState.currentGuildToLeave
 })
 
 export type GuildStoreState = ReturnType<typeof state>
@@ -48,6 +52,10 @@ export const mutations = {
 
   setCurrentGuildToJoin(state: GuildStoreState, payload: UiGuildToJoinModal) {
     state.currentGuildToJoin = payload
+  },
+
+  setCurrentGuildToLeave(state: GuildStoreState, payload: UiGuildToLeaveModal) {
+    state.currentGuildToLeave = payload
   },
 
   setGuilds(state: GuildStoreState, guilds: UiGuildWithMeta[]) {
@@ -169,6 +177,8 @@ export const actions = actionTree(
     async refreshGuilds(_, guild: UiGuild) {
       await this.app.$accessor.guild.fetchGuilds()
       await this.app.$accessor.guild.fetchGuild(guild.id)
+      await this.app.$accessor.guild.fetchMembers(guild.id)
+      await this.app.$accessor.profile.fetchProfile()
 
       if (this.app.context.route.name === 'my-guild') {
         await this.app.$accessor.wallet.initPage()
@@ -200,6 +210,7 @@ export const actions = actionTree(
       })
       await guildService.joinGuild(guild.id, injectiveAddress)
 
+      await sleep(3000)
       await this.app.$accessor.guild.refreshGuilds(guild)
     },
 
@@ -222,6 +233,7 @@ export const actions = actionTree(
       })
       await guildService.leaveGuild(guild.id, injectiveAddress)
 
+      await sleep(3000)
       await this.app.$accessor.guild.refreshGuilds(guild)
     }
   }

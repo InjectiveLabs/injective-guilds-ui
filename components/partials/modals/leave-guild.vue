@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
 import VModal from '~/components/partials/common/modal.vue'
 import { JoinLeaveGuildState, Modal, UiGuild } from '~/types'
@@ -87,9 +87,15 @@ export default Vue.extend({
     VModal
   },
 
+  props: {
+    guild: {
+      required: true,
+      type: Object as PropType<UiGuild>
+    }
+  },
+
   data() {
     return {
-      guild: undefined as UiGuild | undefined,
       JoinLeaveGuildState,
       joinState: JoinLeaveGuildState.Confirm,
       status: new Status(StatusType.Idle),
@@ -104,16 +110,11 @@ export default Vue.extend({
   },
 
   mounted() {
-    this.$root.$on('leave-guild-button-clicked', this.openModal)
-  },
-
-  beforeDestroy() {
-    this.$root.$off('leave-guild-button-clicked', this.openModal)
+    this.openModal()
   },
 
   methods: {
-    openModal(guild: UiGuild) {
-      this.guild = guild
+    openModal() {
       this.fetchStatus.setLoading()
       this.joinState = JoinLeaveGuildState.Confirm
       this.$accessor.modal.openModal(Modal.LeaveGuild)

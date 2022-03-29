@@ -21,6 +21,8 @@ export type UiGuildToJoinModal =
     }
   | undefined
 
+export type UiGuildToLeaveModal = UiGuild | undefined
+
 export * from './enums'
 export * from '~/app/services/guild/types'
 export * from '~/app/services/member/types'
