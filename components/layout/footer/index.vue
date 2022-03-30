@@ -4,17 +4,16 @@
       class="container grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4"
     >
       <div class="text-gray-400 text-center sm:text-left">
-        <span>&copy; {{ new Date().getFullYear() }} Open DeFi Foundation</span>
+        <span>&copy; {{ new Date().getFullYear() }} Injective Labs</span>
       </div>
 
       <div class="flex gap-8 justify-center sm:justify-end lg:justify-center">
         <a
-          v-if="false"
           class="cursor-pointer text-primary-500 hover:text-primary-600 uppercase"
-          href="https://injectivelabs.org/privacy-policy"
+          href="https://injective.typeform.com/to/oXmYUpfO"
           target="_blank"
         >
-          {{ $t('footer.startAGuild') }}
+          {{ $t('footer.createAGuild') }}
         </a>
 
         <a

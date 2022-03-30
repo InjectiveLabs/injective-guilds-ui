@@ -35,8 +35,7 @@ export enum JoinLeaveGuildState {
 }
 
 export enum LeaderboardTableHeaderType {
-  // guilds
-  PortfolioValue = 'portfolio-value',
-  HistoricalReturns = 'historical-returns',
+  Value = 'value',
+  Returns = 'returns',
   Member = 'member'
 }

@@ -12,31 +12,28 @@
       </v-banner>
       <section class="py-16 container">
         <TableHeader class="text-sm font-bold px-4 pb-4 uppercase" dense>
-          <span class="col-span-1">
-            {{ $t('leaderboard.rank') }}
-          </span>
-          <span class="col-span-3">
+          <span class="col-span-4">
             {{ $t('leaderboard.guild') }}
           </span>
           <div class="col-span-3 flex justify-end">
             <SortableHeaderItem
-              :value="LeaderboardTableHeaderType.PortfolioValue"
+              :value="LeaderboardTableHeaderType.Value"
               :sort-by="sortBy"
               :ascending="ascending"
               @sort="handleSort"
             >
-              {{ $t('leaderboard.portfolioValue') }}
+              {{ $t('leaderboard.value') }}
             </SortableHeaderItem>
           </div>
 
           <div class="col-span-3 flex justify-end">
             <SortableHeaderItem
-              :value="LeaderboardTableHeaderType.HistoricalReturns"
+              :value="LeaderboardTableHeaderType.Returns"
               :sort-by="sortBy"
               :ascending="ascending"
               @sort="handleSort"
             >
-              {{ $t('leaderboard.historicalReturns') }}
+              {{ $t('leaderboard.returns') }}
             </SortableHeaderItem>
           </div>
           <div class="col-span-2 flex justify-end">
@@ -86,7 +83,7 @@ export default Vue.extend({
   data() {
     return {
       ascending: false,
-      sortBy: '',
+      sortBy: LeaderboardTableHeaderType.Value,
       LeaderboardTableHeaderType,
       poll: undefined as any,
       status: new Status(StatusType.Loading)
@@ -98,7 +95,7 @@ export default Vue.extend({
       const { sortBy } = this
       const guildData = [...this.$accessor.guild.guilds]
 
-      if (sortBy === LeaderboardTableHeaderType.PortfolioValue) {
+      if (sortBy === LeaderboardTableHeaderType.Value) {
         return [...guildData].sort(
           (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
             return new BigNumberInBase(v2.portfolio.portfolioValue)
@@ -116,7 +113,7 @@ export default Vue.extend({
         )
       }
 
-      if (sortBy === LeaderboardTableHeaderType.HistoricalReturns) {
+      if (sortBy === LeaderboardTableHeaderType.Returns) {
         return [...guildData].sort(
           (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
             return new BigNumberInBase(v2.historicalReturns)
@@ -166,7 +163,7 @@ export default Vue.extend({
         this.ascending = false
       } else if (this.ascending) {
         this.ascending = false
-        this.sortBy = ''
+        this.sortBy = '' as LeaderboardTableHeaderType
       } else {
         this.ascending = true
       }

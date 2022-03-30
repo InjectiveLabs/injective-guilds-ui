@@ -9,7 +9,7 @@
         <div class="flex-grow">
           <p class="text-3xl text-primary-500">${{ portfolioValueToFormat }}</p>
           <p class="text-base text-primary-500 xs:mt-2.5">
-            {{ $t('guildCard.portfolioValue') }}
+            {{ $t('guildCard.value') }}
           </p>
         </div>
         <div class="flex-grow mt-2.5 xs:mt-0">
@@ -17,7 +17,7 @@
             {{ historicalReturnsToFormat }}%
           </p>
           <p class="text-base text-primary-500 xs:mt-2.5">
-            {{ $t('guildCard.historicalReturns') }}
+            {{ $t('guildCard.returns') }}
           </p>
         </div>
       </div>

@@ -3,7 +3,7 @@
     <div class="flex items-start justify-between">
       <div>
         <p class="text-sm font-bold uppercase tracking-widest mt-1">
-          {{ $t('guild.portfolioValue') }}
+          {{ $t('guild.value') }}
         </p>
         <p class="text-3.5xl my-2 font-bold tracking-widest">
           ${{ portfolioValueToFormat }}

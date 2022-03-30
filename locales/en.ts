@@ -13,13 +13,6 @@ export default {
     viewDetails: 'View details'
   },
 
-  guilds: {
-    asepoid: 'Asepoid',
-    akukx: 'Akukx',
-    ethixx: 'Ethixx',
-    schneider: 'Schneider'
-  },
-
   toast: {
     myGuildFetchProfileError: "Can't fetch member, please try again later",
     guildNotFoundErrorToast: 'Guild {name} not found.'
@@ -34,8 +27,8 @@ export default {
     unrealisedPnL: 'Unrealised P&L',
     openPositionMargin: 'Open Position Margin',
     myEarnings: 'My Earnings',
-    historicalReturns: 'Historical Returns',
-    portfolioValue: 'Portfolio Value',
+    returns: 'Returns',
+    value: 'Value',
     members: 'Members'
   },
 
@@ -45,8 +38,8 @@ export default {
     backgroundStory: 'Background Story',
     tradingStrategy: 'Trading Strategy',
     members: 'Members',
-    historicalReturns: 'Historical Returns',
-    portfolioValue: 'Portfolio Value',
+    returns: 'Returns',
+    value: 'Value',
     portfolio: {
       title: 'Guild Portfolio',
       asset: 'Asset',
@@ -78,20 +71,20 @@ export default {
   tradingGuild: {
     title: 'Trading Guilds',
     description:
-      'Pick your guild wisely, you can only join 1 guild per address. And the guild will use all of your qualified funds in your wallet. Create a new wallet and fund it with the exact amount you wish to join.'
+      'Welcome to Trading Guilds, where you have to pick a guild to help you navigate the tradingverse. /n Each guild has its own story and trading strategy. Pick your guild wisely and pledge your allegiance.'
   },
 
   footer: {
     privacyPolicy: 'Privacy Policy',
-    startAGuild: 'Start a guild',
+    createAGuild: 'Create a guild',
     item1: 'Item 1',
     item2: 'Item 2'
   },
 
   guildCard: {
     member: 'members',
-    portfolioValue: 'Portfolio Value',
-    historicalReturns: 'Historical Returns',
+    value: 'Value',
+    returns: 'Returns',
     joinNow: 'Join now',
     leave: 'Leave',
     maxCapacity: 'Max capacity',
@@ -132,8 +125,8 @@ export default {
   leaderboard: {
     leaderboard: 'Leaderboard',
     member: 'Member',
-    historicalReturns: 'Historical Returns',
-    portfolioValue: 'Portfolio Value',
+    returns: 'Returns',
+    value: 'Value',
     guild: 'Guild',
     rank: 'Rank'
   }

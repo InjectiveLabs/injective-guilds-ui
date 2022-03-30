@@ -32,7 +32,7 @@
             <v-card transparent class="mt-2">
               <div class="flex items-start justify-between">
                 <span class="text-sm font-bold uppercase tracking-widest mt-1">
-                  {{ $t('myGuild.historicalReturns') }}
+                  {{ $t('myGuild.returns') }}
                 </span>
                 <span class="text-3.5xl font-bold">
                   {{ historicalReturnsToFormat }}%

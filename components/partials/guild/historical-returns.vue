@@ -2,7 +2,7 @@
   <v-card v-if="guild">
     <div class="flex items-start justify-between">
       <span class="text-sm font-bold uppercase tracking-widest mt-1">
-        {{ $t('guild.historicalReturns') }}
+        {{ $t('guild.returns') }}
       </span>
       <span class="text-3.5xl font-bold">{{ historicalReturnsToFormat }}%</span>
     </div>

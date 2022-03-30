@@ -9,14 +9,8 @@
         <div class="col-span-4">
           <span>{{ $t('guild.portfolio.asset') }}</span>
         </div>
-        <div class="col-span-4">
-          <div class="flex items-center justify-end">
-            <span>{{ $t('guild.portfolio.unrealizedPNL') }}</span>
-            <v-icon-info-tooltip
-              class="ml-2"
-              :tooltip="$t('guild.portfolio.unrealizedPNLTooltip')"
-            />
-          </div>
+        <div class="col-span-4 text-right">
+          <span>{{ $t('guild.portfolio.unrealizedPNL') }}</span>
         </div>
         <div class="col-span-2 text-right">
           <span>{{ $t('guild.portfolio.value') }}</span>
