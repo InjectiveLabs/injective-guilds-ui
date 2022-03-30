@@ -56,7 +56,7 @@
           <h3 class="font-bold text-3.5xl tracking-tight mb-6">
             {{ $t('howItWorks.headerTwo') }}
           </h3>
-          <p class="text-lg leading-7">{{ $t('howItWorks.descriptionOne') }}</p>
+          <p class="text-lg leading-7">{{ $t('howItWorks.descriptionTwo') }}</p>
         </div>
         <div id="are-there-any-fees" class="scroll-item mt-12">
           <h3 class="font-bold text-3.5xl tracking-tight mb-6">

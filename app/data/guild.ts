@@ -7,23 +7,21 @@ export interface GuildAsset {
 }
 
 export const guildImageMappings = {
-  akukx: {
-    card: '/guilds/one/card.png',
-    banner: '/guilds/one/banner.png',
+  'the kuja': {
+    card: '/guilds/one/card.jpg',
+    banner: '/guilds/one/banner.jpg',
     thumbnail: '/guilds/one/thumbnail.png',
     story:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    strategy:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      'Famous for viewing strength and courage as true beauty, The Kuja is a guild for the brave. Previously content being isolated in its planet since The Great War, the Kuja is now active again and has set its sight to be the best Trading Guild. The reason behind its motive remains unknown.',
+    strategy: 'Coming soon.'
   },
-  schneider: {
-    card: '/guilds/two/card.png',
-    banner: '/guilds/two/banner.png',
+  'hades raiders': {
+    card: '/guilds/two/card.jpg',
+    banner: '/guilds/two/banner.jpg',
     thumbnail: '/guilds/two/thumbnail.png',
     story:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    strategy:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      'Agile, cunning and deadly, Hades Raiders will do anything to win. They are very good at disguise and for have a wide network of spies, giving them the edge to learn about information before most people and nothing comes as a surprise to them. Followed The Kuja into the Tradingverse, it is anyone’s guess what are they scheming now.',
+    strategy: 'Coming soon.'
   },
   ethixx: {
     card: '/guilds/three/card.png',

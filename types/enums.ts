@@ -15,6 +15,7 @@ export enum ChartInterval {
 }
 
 export enum Modal {
+  AccountRestricted = 'account-restricted',
   ConnectWallet = 'connect-wallet',
   LeaveGuild = 'leave-guild',
   JoinGuild = 'join-guild',

@@ -2,6 +2,7 @@ import { HttpClient } from '@injectivelabs/utils'
 import { restrictedCountries } from '../data/geoip'
 import { GEO_IP_RESTRICTIONS_ENABLED } from '../utils/constants'
 import { GeoLocation } from '~/types'
+import { GeoRestrictedAccessException } from '~/app/exceptions'
 
 export const fetchGeoLocation = async (): Promise<GeoLocation> => {
   const httpClient = new HttpClient('https://geoip.injective.dev/')
@@ -22,7 +23,9 @@ export const fetchGeoLocation = async (): Promise<GeoLocation> => {
 
 export const validateGeoLocation = (geoLocation: GeoLocation) => {
   if (restrictedCountries.includes(geoLocation.country)) {
-    throw new Error('Your country is restricted from trading on this relayer')
+    throw new GeoRestrictedAccessException(
+      'Application not available in your country.'
+    )
   }
 }
 
@@ -58,7 +61,7 @@ export const validateIpAddressForVPN = async (ipAddress: string) => {
     const { privacy } = response.data
 
     if (privacy.proxy) {
-      throw new Error(
+      throw new GeoRestrictedAccessException(
         'Your IP address is detected as a proxy or you are using a VPN provider.'
       )
     }

@@ -74,16 +74,14 @@ export default {
   tradingGuild: {
     title: 'Trading Guilds',
     description:
-      'Welcome to Trading Guilds, where you have to pick a guild to help you navigate the tradingverse.',
+      'Welcome to Trading Guilds, where you have to pick a guild to help you navigate the Tradingverse.',
     subDescription:
       'Each guild has its own story and trading strategy. Pick your guild wisely and pledge your allegiance.'
   },
 
   footer: {
     privacyPolicy: 'Privacy Policy',
-    createAGuild: 'Create a guild',
-    item1: 'Item 1',
-    item2: 'Item 2'
+    createAGuild: 'Create a guild'
   },
 
   guildCard: {
@@ -93,7 +91,7 @@ export default {
     joinNow: 'Join now',
     leave: 'Leave',
     maxCapacity: 'Max capacity',
-    unqualified: 'Unqualified',
+    insufficientBalance: 'Insufficient Balance',
     youAreInThisGuild: 'You are in this guild',
     requirement: 'Requirements'
   },
@@ -125,6 +123,11 @@ export default {
   joinAGuildWarning: {
     title: 'Join guild',
     description: 'You have not joined a guild yet.'
+  },
+
+  accountRestrictedWarning: {
+    title: 'Restricted Access',
+    description: 'Application not available in your country.'
   },
 
   leaderboard: {

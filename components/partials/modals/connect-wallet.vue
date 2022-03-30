@@ -126,6 +126,7 @@ export default Vue.extend({
 
   mounted() {
     this.$root.$on('connect-wallet-clicked', this.handleWalletConnectClicked)
+    this.$root.$on('close-connect-wallet', this.handleModalClosed)
 
     Promise.all([this.$accessor.wallet.isMetamaskInstalled()])
       .then(() => {
@@ -136,6 +137,7 @@ export default Vue.extend({
 
   beforeDestroy() {
     this.$root.$off('connect-wallet-clicked', this.handleWalletConnectClicked)
+    this.$root.$off('close-connect-wallet', this.handleModalClosed)
   },
 
   methods: {

@@ -34,8 +34,10 @@
         {{ $t('guildCard.maxCapacity') }}
       </v-button>
 
-      <v-button v-else-if="isUnqualified" disabled>
-        {{ $t('guildCard.unqualified') }}
+      <v-button v-else-if="insufficientBalance" class="h-10" disabled>
+        <div class="leading-4">
+          {{ $t('guildCard.insufficientBalance') }}
+        </div>
       </v-button>
 
       <v-button
@@ -206,7 +208,7 @@ export default Vue.extend({
       return guild.memberCount >= guild.capacity
     },
 
-    isUnqualified(): boolean {
+    insufficientBalance(): boolean {
       const { outstandingRequirementsMinusBankBalances } = this
 
       return (

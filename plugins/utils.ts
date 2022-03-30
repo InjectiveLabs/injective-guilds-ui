@@ -5,7 +5,11 @@ import {
   IS_PRODUCTION,
   IS_TESTNET
 } from '~/app/utils/constants'
-import { isCustomException } from '~/app/exceptions'
+import {
+  isAccountRestrictedException,
+  isCustomException
+} from '~/app/exceptions'
+import { Modal } from '~/types'
 
 const isErrorExcludedFromToast = (error: any): boolean => {
   const disabledPatterns = [
@@ -15,7 +19,11 @@ const isErrorExcludedFromToast = (error: any): boolean => {
   const errorMessage =
     typeof error === 'object' && error !== null ? error.message : error || ''
 
-  return disabledPatterns.some((pattern) => pattern.test(errorMessage))
+  return (
+    isCustomException(error) ||
+    isAccountRestrictedException(error) ||
+    disabledPatterns.some((pattern) => pattern.test(errorMessage))
+  )
 }
 
 const isErrorExcludedFromReporting = (error: any): boolean => {
@@ -29,6 +37,7 @@ const isErrorExcludedFromReporting = (error: any): boolean => {
 
   return (
     isCustomException(error) ||
+    isAccountRestrictedException(error) ||
     errorMessage.startsWith('Metamask:') ||
     errorMessage.includes('MetaMask') ||
     errorMessage.includes('Metamask') ||
@@ -57,6 +66,10 @@ export default ({ app }: Context, inject: any) => {
   const bugsnag = app.$bugsnag
 
   inject('onRejected', (error: Error) => {
+    if (isAccountRestrictedException(error)) {
+      app.$accessor.modal.openModal(Modal.AccountRestricted)
+    }
+
     if (!isErrorExcludedFromToast(error)) {
       app.$toast.error(parseMessage(error))
     }
@@ -71,6 +84,10 @@ export default ({ app }: Context, inject: any) => {
   })
 
   inject('onError', (error: Error) => {
+    if (isAccountRestrictedException(error)) {
+      app.$accessor.modal.openModal(Modal.AccountRestricted)
+    }
+
     if (!isErrorExcludedFromToast(error)) {
       app.$toast.error(parseMessage(error))
     }
