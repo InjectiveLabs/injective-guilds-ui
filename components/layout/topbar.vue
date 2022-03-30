@@ -6,7 +6,7 @@
       class="px-4 border-r border-primary-500 text-white md:hidden hover:text-primary-500"
       @click.stop="handleClickOnSidebarToggle"
     >
-      <span class="sr-only">{{ $t('open') }}</span>
+      <span class="sr-only">{{ $t('common.open') }}</span>
       <v-icon-menu class="w-6 h-6" />
     </button>
     <div class="xs:container h-full ml-auto md:mx-auto">
