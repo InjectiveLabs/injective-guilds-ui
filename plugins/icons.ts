@@ -14,6 +14,7 @@ import Reddit from '~/components/icons/reddit.vue'
 import Telegram from '~/components/icons/telegram.vue'
 import Triangle from '~/components/icons/triangle.vue'
 import Twitter from '~/components/icons/twitter.vue'
+import Menu from '~/components/icons/menu.vue'
 
 Vue.component('VIconArrow', Arrow)
 Vue.component('VIconArrowCircle', ArrowCircle)
@@ -30,3 +31,4 @@ Vue.component('VIconReddit', Reddit)
 Vue.component('VIconTelegram', Telegram)
 Vue.component('VIconTriangle', Triangle)
 Vue.component('VIconTwitter', Twitter)
+Vue.component('VIconMenu', Menu)

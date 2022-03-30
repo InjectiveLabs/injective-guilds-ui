@@ -3,20 +3,26 @@
     <VHOCLoading :status="status">
       <client-only>
         <div>
-          <TopBar />
-          <main class="min-h-screen-excluding-header-footer text-primary-500">
-            <nuxt />
-          </main>
-          <v-modal-join-a-guild-warning />
-          <v-modal-leave-guild
-            v-if="currentGuildToLeave"
-            :guild="currentGuildToLeave"
+          <SidebarMobile
+            :is-sidebar-open="isOpenSidebar"
+            @sidebar-closed="closeSideBar"
           />
-          <v-modal-join-guild
-            v-if="currentGuildToJoin"
-            :guild="currentGuildToJoin"
-          />
-          <Footer />
+          <div class="flex flex-col">
+            <TopBar @sidebar-opened="isOpenSidebar = true" />
+            <main class="min-h-screen-excluding-header-footer text-primary-500">
+              <nuxt />
+            </main>
+            <v-modal-join-a-guild-warning />
+            <v-modal-leave-guild
+              v-if="currentGuildToLeave"
+              :guild="currentGuildToLeave"
+            />
+            <v-modal-join-guild
+              v-if="currentGuildToJoin"
+              :guild="currentGuildToJoin"
+            />
+            <Footer />
+          </div>
         </div>
       </client-only>
     </VHOCLoading>
@@ -32,6 +38,7 @@ import VModalJoinAGuildWarning from '~/components/partials/modals/join-a-guild-w
 import VModalLeaveGuild from '~/components/partials/modals/leave-guild.vue'
 import VModalJoinGuild from '~/components/partials/modals/join-guild.vue'
 import { UiGuildToJoinModal, UiGuildToLeaveModal } from '~/types'
+import SidebarMobile from '~/components/layout/sidebar-mobile.vue'
 
 export default Vue.extend({
   components: {
@@ -39,12 +46,14 @@ export default Vue.extend({
     Footer,
     VModalJoinGuild,
     VModalJoinAGuildWarning,
-    VModalLeaveGuild
+    VModalLeaveGuild,
+    SidebarMobile
   },
 
   data() {
     return {
-      status: new Status(StatusType.Idle)
+      status: new Status(StatusType.Idle),
+      isOpenSidebar: false
     }
   },
 
@@ -65,6 +74,8 @@ export default Vue.extend({
   },
 
   mounted() {
+    this.$root.$on('nav-link-clicked', this.closeSideBar)
+
     Promise.all([
       this.$accessor.wallet.init(),
       this.$accessor.wallet.initPage()
@@ -84,6 +95,9 @@ export default Vue.extend({
 
   methods: {
     //
+    closeSideBar() {
+      this.isOpenSidebar = false
+    }
   }
 })
 </script>

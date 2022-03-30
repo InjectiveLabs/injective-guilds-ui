@@ -41,3 +41,11 @@ body ::-webkit-scrollbar {
     @apply border border-primary-500 rounded-none bg-primary-500;
   }
 }
+
+nav a.is-active {
+  @apply bg-gray-900 border-primary-500;
+
+  span {
+    @apply text-white font-semibold;
+  }
+}

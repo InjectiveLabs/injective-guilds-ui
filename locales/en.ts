@@ -10,7 +10,9 @@ export default {
     confirm: 'Confirm',
     leave: 'Leave',
     OK: 'OK',
-    viewDetails: 'View details'
+    viewDetails: 'View details',
+    open: 'open',
+    close: 'close'
   },
 
   toast: {

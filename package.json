@@ -42,7 +42,8 @@
     "vee-validate": "^3.4.5",
     "vue-i18n": "^8.27.0",
     "vue-select": "^3.12.2",
-    "vue-toasted": "^1.1.28"
+    "vue-toasted": "^1.1.28",
+    "vue2-touch-events": "^3.2.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
