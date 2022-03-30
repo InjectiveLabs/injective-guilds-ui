@@ -24,7 +24,8 @@ export default {
 
     { src: '~/plugins/clipboard', ssr: false },
     { src: '~/plugins/tooltip', ssr: false },
-    { src: '~/plugins/veevalidate', ssr: false }
+    { src: '~/plugins/veevalidate', ssr: false },
+    { src: './plugins/touch-events.ts', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
