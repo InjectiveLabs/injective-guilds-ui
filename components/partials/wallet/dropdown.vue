@@ -64,10 +64,7 @@
 
               <span
                 v-clipboard="
-                  () =>
-                    isInjectiveAddress
-                      ? formattedInjectiveAddress
-                      : formattedAddress
+                  () => (isInjectiveAddress ? injectiveAddress : address)
                 "
                 v-clipboard:success="
                   () => $toast.success($t('connect.copiedAddress'))

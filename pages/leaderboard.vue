@@ -28,22 +28,23 @@
 
           <div class="col-span-3 flex justify-end">
             <SortableHeaderItem
-              :value="LeaderboardTableHeaderType.Returns"
-              :sort-by="sortBy"
-              :ascending="ascending"
-              @sort="handleSort"
-            >
-              {{ $t('leaderboard.returns') }}
-            </SortableHeaderItem>
-          </div>
-          <div class="col-span-2 flex justify-end">
-            <SortableHeaderItem
               :value="LeaderboardTableHeaderType.Member"
               :sort-by="sortBy"
               :ascending="ascending"
               @sort="handleSort"
             >
               {{ $t('leaderboard.member') }}
+            </SortableHeaderItem>
+          </div>
+
+          <div class="col-span-2 flex justify-end">
+            <SortableHeaderItem
+              :value="LeaderboardTableHeaderType.Returns"
+              :sort-by="sortBy"
+              :ascending="ascending"
+              @sort="handleSort"
+            >
+              {{ $t('leaderboard.returns') }}
             </SortableHeaderItem>
           </div>
         </TableHeader>

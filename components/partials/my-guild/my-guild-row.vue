@@ -42,7 +42,9 @@
           </div>
 
           <div class="flex flex-col items-start sm:items-end mt-2 lg:mt-0">
-            <span class="text-3.5xl">{{ guild.memberCount }}</span>
+            <span class="text-3.5xl">
+              {{ guild.memberCount }} / {{ guild.capacity }}
+            </span>
             <span class="text-sm lg:mt-2.5">
               {{ $t('myGuild.members') }}
             </span>

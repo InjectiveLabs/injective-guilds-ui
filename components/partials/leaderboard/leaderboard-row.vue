@@ -25,19 +25,21 @@
       </div>
 
       <span class="text-lg sm:text-2xl lg:hidden uppercase">
-        {{ $t('leaderboard.returns') }}
+        {{ $t('leaderboard.member') }}
       </span>
       <div class="lg:col-span-3 flex justify-end items-center">
-        <span class="text-lg sm:text-3.5xl">{{
-          historicalReturnsToString
-        }}</span>
+        <span class="text-lg sm:text-3.5xl">
+          {{ guild.memberCount }} / {{ guild.capacity }}
+        </span>
       </div>
 
       <span class="text-lg sm:text-2xl lg:hidden uppercase">
-        {{ $t('leaderboard.member') }}
+        {{ $t('leaderboard.returns') }}
       </span>
       <div class="lg:col-span-2 flex justify-end items-center">
-        <span class="text-lg sm:text-3.5xl">{{ membersToFormat }}</span>
+        <span class="text-lg sm:text-3.5xl">{{
+          historicalReturnsToString
+        }}</span>
       </div>
     </TableRow>
     <div class="border-t border-primary-500 w-full" />
@@ -87,16 +89,6 @@ export default Vue.extend({
       }
 
       return guild.portfolio.portfolioValue.toFormat(2)
-    },
-
-    membersToFormat(): string {
-      const { guild } = this
-
-      if (!guild.memberCount) {
-        return '0'
-      }
-
-      return guild.memberCount.toString()
     },
 
     historicalReturns(): BigNumberInBase {

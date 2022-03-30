@@ -9,7 +9,8 @@
       class="w-full bg-black bg-opacity-70 h-24 absolute inset-x-0 bottom-0 border border-primary-500 px-10 pt-5 pb-6 text-white"
     >
       <p class="text-sm">
-        {{ guild ? guild.memberCount : '0' }} / {{ guild.capacity }} {{ $t('guildCard.member') }}
+        {{ guild ? guild.memberCount : '0' }} / {{ guild.capacity }}
+        {{ $t('guildCard.member') }}
       </p>
       <p class="text-3.5xl overflow-ellipsis overflow-hidden whitespace-nowrap">
         {{ guild.name }}
@@ -26,7 +27,8 @@
       <div class="flex items-center justify-between">
         <div class="text-black">
           <p class="text-sm">
-            {{ guild ? guild.memberCount : '0' }} {{ $t('guildCard.member') }}
+            {{ guild ? guild.memberCount : '0' }} / {{ guild.capacity }}
+            {{ $t('guildCard.member') }}
           </p>
           <p
             class="text-3.5xl overflow-ellipsis overflow-hidden whitespace-nowrap"

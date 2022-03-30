@@ -203,7 +203,7 @@ export default Vue.extend({
     isMaxCapacity(): boolean {
       const { guild } = this
 
-      return guild.memberCount > guild.capacity
+      return guild.memberCount >= guild.capacity
     },
 
     isUnqualified(): boolean {
