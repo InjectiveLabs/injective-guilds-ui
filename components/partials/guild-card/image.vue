@@ -9,7 +9,7 @@
       class="w-full bg-black bg-opacity-70 h-24 absolute inset-x-0 bottom-0 border border-primary-500 px-10 pt-5 pb-6 text-white"
     >
       <p class="text-sm">
-        {{ guild ? guild.memberCount : '0' }} {{ $t('guildCard.member') }}
+        {{ guild ? guild.memberCount : '0' }} / {{ guild.capacity }} {{ $t('guildCard.member') }}
       </p>
       <p class="text-3.5xl overflow-ellipsis overflow-hidden whitespace-nowrap">
         {{ guild.name }}
@@ -21,11 +21,20 @@
     </div>
     <div
       v-else
-      class="h-24 bg-primary-500 bg-opacity-50 w-full p-6 absolute inset-x-0 bottom-0"
+      class="h-24 bg-primary-500 bg-opacity-70 w-full pl-10 pr-8 py-5 absolute inset-x-0 bottom-0 border border-primary-500"
     >
       <div class="flex items-center justify-between">
-        <span class="text-3.5xl font-bold text-white">View details</span>
-        <v-icon-chevron class="text-white w-12 h-12 transform -rotate-90" />
+        <div class="text-black">
+          <p class="text-sm">
+            {{ guild ? guild.memberCount : '0' }} {{ $t('guildCard.member') }}
+          </p>
+          <p
+            class="text-3.5xl overflow-ellipsis overflow-hidden whitespace-nowrap"
+          >
+            {{ guild.name }}
+          </p>
+        </div>
+        <v-icon-chevron class="text-black w-12 h-12 transform -rotate-90" />
       </div>
     </div>
   </div>

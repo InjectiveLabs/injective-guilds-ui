@@ -121,10 +121,6 @@ export default Vue.extend({
     historicalReturnsToFormat(): string {
       const { historicalReturns } = this
 
-      if (historicalReturns.isNaN()) {
-        return '0.00'
-      }
-
       return historicalReturns.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
     }
   },

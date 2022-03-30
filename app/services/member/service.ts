@@ -1,6 +1,7 @@
 import { differenceInHours } from 'date-fns'
 import { HttpException } from '@injectivelabs/exceptions'
 import { HttpClient } from '@injectivelabs/utils'
+import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { ApiResponse, ApiPortfolio, ApiMember, UiPortfolio } from '~/types'
 import { MemberTransformer } from '~/app/services/member/transformer'
 import { GuildTransformer } from '~/app/services/guild/transformer'
@@ -10,11 +11,13 @@ const calculateHistoricalReturns = (first: UiPortfolio, last: UiPortfolio) => {
   // round up to the nearest day
   const difference = differenceInHours(last.updatedAt, first.updatedAt)
 
-  return last.portfolioValue
+  const historicalReturns = last.portfolioValue
     .minus(first.portfolioValue)
     .dividedBy(first.portfolioValue)
     .dividedBy(difference)
     .multipliedBy(365)
+
+  return historicalReturns.isNaN() ? ZERO_IN_BASE : historicalReturns
 }
 
 export class MemberService {

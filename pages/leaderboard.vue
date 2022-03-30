@@ -116,9 +116,7 @@ export default Vue.extend({
       if (sortBy === LeaderboardTableHeaderType.Returns) {
         return [...guildData].sort(
           (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
-            return new BigNumberInBase(v2.historicalReturns)
-              .minus(v1.historicalReturns)
-              .toNumber()
+            return v2.historicalReturns.minus(v1.historicalReturns).toNumber()
           }
         )
       }

@@ -14,7 +14,7 @@
                   {{ $t('guild.members') }}
                 </span>
                 <span class="text-3.5xl font-bold">
-                  {{ guild.memberCount }}
+                  {{ guild.memberCount }} / {{ guild.capacity }}
                 </span>
               </div>
             </v-card>
