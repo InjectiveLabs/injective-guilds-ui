@@ -9,12 +9,13 @@ import Copy from '~/components/icons/copy.vue'
 import Discord from '~/components/icons/discord.vue'
 import Eye from '~/components/icons/eye.vue'
 import Info from '~/components/icons/info.vue'
+import Menu from '~/components/icons/menu.vue'
 import Person from '~/components/icons/person.vue'
 import Reddit from '~/components/icons/reddit.vue'
+import Rotate from '~/components/icons/rotate.vue'
 import Telegram from '~/components/icons/telegram.vue'
 import Triangle from '~/components/icons/triangle.vue'
 import Twitter from '~/components/icons/twitter.vue'
-import Menu from '~/components/icons/menu.vue'
 
 Vue.component('VIconArrow', Arrow)
 Vue.component('VIconArrowCircle', ArrowCircle)
@@ -26,9 +27,10 @@ Vue.component('VIconCopy', Copy)
 Vue.component('VIconDiscord', Discord)
 Vue.component('VIconEye', Eye)
 Vue.component('VIconInfo', Info)
+Vue.component('VIconMenu', Menu)
 Vue.component('VIconPerson', Person)
 Vue.component('VIconReddit', Reddit)
+Vue.component('VIconRotate', Rotate)
 Vue.component('VIconTelegram', Telegram)
 Vue.component('VIconTriangle', Triangle)
 Vue.component('VIconTwitter', Twitter)
-Vue.component('VIconMenu', Menu)

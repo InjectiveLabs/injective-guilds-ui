@@ -1,21 +1,30 @@
 import {
   ZERO_TO_STRING,
   UiSubaccount,
-  UiSubaccountBalance
+  UiSubaccountBalance,
+  SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance
 } from '@injectivelabs/ui-common'
 import { actionTree, getterTree } from 'typed-vuex'
-import { subaccountService } from '~/app/Services'
+import {
+  subaccountService,
+  tokenCoinGeckoService,
+  tokenService
+} from '~/app/Services'
 
 const initialStateFactory = () => ({
   subaccountIds: [] as string[],
-  subaccount: undefined as UiSubaccount | undefined
+  subaccount: undefined as UiSubaccount | undefined,
+  subaccountBalancesWithTokenAndPrice:
+    [] as SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance[]
 })
 
 const initialState = initialStateFactory()
 
 export const state = () => ({
-  subaccountIds: initialState.subaccountIds as string[],
-  subaccount: initialState.subaccount as UiSubaccount | undefined
+  subaccountIds: initialState.subaccountIds,
+  subaccount: initialState.subaccount,
+  subaccountBalancesWithTokenAndPrice:
+    initialState.subaccountBalancesWithTokenAndPrice
 })
 
 export type AccountStoreState = ReturnType<typeof state>
@@ -31,7 +40,7 @@ export const getters = getterTree(state, {
 })
 
 export const mutations = {
-  setSubacccountIds(state: AccountStoreState, subaccountIds: string[]) {
+  setSubaccountIds(state: AccountStoreState, subaccountIds: string[]) {
     state.subaccountIds = subaccountIds
   },
 
@@ -66,6 +75,13 @@ export const mutations = {
     }
   },
 
+  setSubaccountBalancesWithTokenAndPrice(
+    state: AccountStoreState,
+    balance: SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance[]
+  ) {
+    state.subaccountBalancesWithTokenAndPrice = balance
+  },
+
   reset(state: AccountStoreState) {
     const initialState = initialStateFactory()
 
@@ -98,10 +114,42 @@ export const actions = actionTree(
 
       const [subaccountId] = subaccountIds
 
-      commit('setSubacccountIds', subaccountIds)
+      commit('setSubaccountIds', subaccountIds)
       commit(
         'setSubaccount',
         await subaccountService.fetchSubaccount(subaccountId)
+      )
+    },
+
+    async fetchSubaccountsBalancesWithPrices({ commit, state }) {
+      await this.app.$accessor.account.fetchSubaccounts()
+
+      const { subaccount } = this.app.$accessor.account
+
+      if (!subaccount || !subaccount.balances) {
+        return
+      }
+
+      const subaccountBalancesWithToken =
+        await tokenService.getSubaccountBalancesWithToken(subaccount.balances)
+
+      const subaccountBalancesWithTokenAndPrice = await Promise.all(
+        subaccountBalancesWithToken.map(async (balance) => {
+          return {
+            ...balance,
+            token: {
+              ...balance.token,
+              usdPrice: await tokenCoinGeckoService.fetchUsdTokenPrice(
+                balance.token.coinGeckoId
+              )
+            }
+          } as SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance
+        })
+      )
+
+      commit(
+        'setSubaccountBalancesWithTokenAndPrice',
+        subaccountBalancesWithTokenAndPrice
       )
     }
   }

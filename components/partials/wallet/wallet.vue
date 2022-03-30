@@ -14,18 +14,16 @@
       @blur="handleHideDropdown"
     >
       <div class="h-full px-4 xs:px-8 transform xs:skew-x-45">
-        <nuxt-link
+        <div
           v-if="isUserConnectedProcessCompleted && isUserWalletConnected"
           class="flex items-center h-full"
-          :to="{ name: 'my-guild' }"
-          @click.native="handleHideDropdown"
         >
           <v-icon-person class="mr-2" />
           <span class="font-bold uppercase mr-4">
             {{ $t('myGuild.title') }}
           </span>
           <span>{{ formattedAddress }}</span>
-        </nuxt-link>
+        </div>
 
         <div
           v-else

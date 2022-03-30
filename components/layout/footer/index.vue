@@ -4,12 +4,14 @@
       class="container grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4"
     >
       <div class="text-gray-400 text-center sm:text-left">
-        <span>&copy; {{ new Date().getFullYear() }} Injective Labs</span>
+        <span>&copy; {{ new Date().getFullYear() }} All rights reserved</span>
       </div>
 
-      <div class="flex gap-8 justify-center sm:justify-end lg:justify-center">
+      <div
+        class="flex gap-8 justify-center sm:justify-end lg:justify-center text-gray-400 uppercase"
+      >
         <a
-          class="cursor-pointer text-primary-500 hover:text-primary-600 uppercase"
+          class="cursor-pointer hover:text-primary-500"
           href="https://injective.typeform.com/to/oXmYUpfO"
           target="_blank"
         >
@@ -17,7 +19,8 @@
         </a>
 
         <a
-          class="cursor-pointer text-gray-400 hover:text-primary-500"
+          v-if="false"
+          class="cursor-pointer hover:text-primary-500"
           href="https://injectivelabs.org/privacy-policy"
           target="_blank"
         >
@@ -31,30 +34,9 @@
         <a
           href="https://twitter.com/InjectiveLabs"
           target="_blank"
-          class="mr-4 hover:text-primary-500"
-        >
-          <v-icon-twitter class="w-6 h-6" />
-        </a>
-        <a
-          href="https://discord.gg/injective"
-          target="_blank"
-          class="mr-4 hover:text-primary-500"
-        >
-          <v-icon-discord class="w-6 h-6" />
-        </a>
-        <a
-          href="https://t.me/joininjective"
-          target="_blank"
-          class="mr-4 hover:text-primary-500"
-        >
-          <v-icon-telegram class="w-6 h-6" />
-        </a>
-        <a
-          href="https://www.reddit.com/r/injective/"
-          target="_blank"
           class="hover:text-primary-500"
         >
-          <v-icon-reddit class="w-6 h-6" />
+          <v-icon-twitter class="w-6 h-6" />
         </a>
       </div>
     </div>

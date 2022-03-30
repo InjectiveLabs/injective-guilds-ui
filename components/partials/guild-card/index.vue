@@ -1,7 +1,13 @@
 <template>
-  <div class="flex flex-col">
+  <div
+    v-on-clickaway="handleOnHoverLeave"
+    class="flex flex-col max-w-xl mx-auto w-full"
+    @click="handleOnHoverEnter"
+    @mouseenter="handleOnHoverEnter"
+    @mouseleave="handleOnHoverLeave"
+  >
     <nuxt-link :to="{ name: 'guild-guild', params: { guild: guild.id } }">
-      <v-guild-card-image :guild="guild" />
+      <v-guild-card-image :guild="guild" :on-hover="onHover" />
     </nuxt-link>
 
     <div class="guild-card-info-container flex-grow m-0">
@@ -31,6 +37,7 @@
 import Vue, { PropType } from 'vue'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
+import { directive as onClickaway } from 'vue-clickaway'
 import VGuildCardImage from './image.vue'
 import VGuildCardAction from './action.vue'
 import { UiGuildWithMeta } from '~/types'
@@ -40,6 +47,10 @@ import {
 } from '~/app/utils/constants'
 
 export default Vue.extend({
+  directives: {
+    onClickaway
+  },
+
   components: {
     VGuildCardAction,
     VGuildCardImage
@@ -49,6 +60,12 @@ export default Vue.extend({
     guild: {
       required: true,
       type: Object as PropType<UiGuildWithMeta>
+    }
+  },
+
+  data() {
+    return {
+      onHover: false
     }
   },
 
@@ -87,6 +104,16 @@ export default Vue.extend({
       const { portfolioValue } = this
 
       return portfolioValue.toFormat(UI_DEFAULT_FIAT_DECIMALS)
+    }
+  },
+
+  methods: {
+    handleOnHoverEnter() {
+      this.onHover = true
+    },
+
+    handleOnHoverLeave() {
+      this.onHover = false
     }
   }
 })

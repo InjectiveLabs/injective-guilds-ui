@@ -5,6 +5,7 @@ export default {
   ...howItWorks,
   ...wallet,
   common: {
+    home: 'Home',
     alright: 'Alright',
     awesome: 'Awesome',
     confirm: 'Confirm',
@@ -73,7 +74,9 @@ export default {
   tradingGuild: {
     title: 'Trading Guilds',
     description:
-      'Welcome to Trading Guilds, where you have to pick a guild to help you navigate the tradingverse. /n Each guild has its own story and trading strategy. Pick your guild wisely and pledge your allegiance.'
+      'Welcome to Trading Guilds, where you have to pick a guild to help you navigate the tradingverse.',
+    subDescription:
+      'Each guild has its own story and trading strategy. Pick your guild wisely and pledge your allegiance.'
   },
 
   footer: {

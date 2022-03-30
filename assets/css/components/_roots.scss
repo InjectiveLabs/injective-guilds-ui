@@ -42,7 +42,7 @@ body ::-webkit-scrollbar {
   }
 }
 
-nav a.is-active {
+nav a.nuxt-link-exact-active {
   @apply bg-gray-900 border-primary-500;
 
   span {

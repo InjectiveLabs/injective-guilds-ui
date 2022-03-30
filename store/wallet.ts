@@ -98,7 +98,7 @@ export const actions = actionTree(
 
     async initPage() {
       await this.app.$accessor.bank.fetchBankBalances()
-      await this.app.$accessor.account.fetchSubaccounts()
+      await this.app.$accessor.account.fetchSubaccountsBalancesWithPrices()
       await this.app.$accessor.member.fetchMember()
     },
 

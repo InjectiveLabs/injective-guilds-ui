@@ -1,3 +1,6 @@
+
+import { SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance } from '@injectivelabs/ui-common'
+import { BigNumberInBase } from '@injectivelabs/utils'
 import { UiGuild, UiGuildRequirement } from '~/app/services/guild'
 
 export interface ApiResponse<T> {
@@ -22,6 +25,11 @@ export type UiGuildToJoinModal =
   | undefined
 
 export type UiGuildToLeaveModal = UiGuild | undefined
+
+export interface subaccountAvailableBalanceInUsd extends SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance {
+  availableTokenBalanceInBase: BigNumberInBase
+  availableBalanceInUsd: BigNumberInBase
+}
 
 export * from './enums'
 export * from '~/app/services/guild/types'

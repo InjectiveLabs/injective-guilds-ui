@@ -30,6 +30,13 @@ export default {
     highlyExperimental: 'Highly Experimental!'
   },
 
+  subaccount: {
+    balance: {
+      title: 'Account Balance',
+      moreTokens: 'more tokens'
+    }
+  },
+
   ledger: {
     address: 'Address',
     derivationPath: 'Derivation Path',

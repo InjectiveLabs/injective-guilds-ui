@@ -3,7 +3,7 @@
     class="h-16 bg-black w-full border-b border-primary-500 overflow-x-hidden flex"
   >
     <button
-      class="px-4 border-r border-primary-500 text-white md:hidden hover:text-primary-500"
+      class="px-4 text-white md:hidden hover:text-primary-500"
       @click.stop="handleClickOnSidebarToggle"
     >
       <span class="sr-only">{{ $t('common.open') }}</span>

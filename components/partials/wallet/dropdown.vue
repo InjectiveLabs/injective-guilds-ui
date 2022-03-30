@@ -19,49 +19,74 @@
           {{ $t('connect.logout') }}
         </span>
       </div>
-      <div class="mt-4 flex items-center px-4">
+      <div class="mt-4 mb-4 flex items-center px-4">
         <div
-          class="h-12 w-12 flex items-center justify-center rounded-full bg-primary-500 bg-opacity-20 mr-4 min-w-12"
+          :class="{
+            'h-12 w-12 flex items-center justify-center bg-opacity-20 mr-4 min-w-12 rounded-full bg-primary-500':
+              !isInjectiveAddress
+          }"
         >
-          <v-metamask-logo v-if="wallet === Wallet.Metamask" class="h-8 w-8" />
+          <v-logo-mini
+            v-if="isInjectiveAddress"
+            class="min-w-12 w-12 h-12 mr-4"
+          />
+          <v-metamask-logo
+            v-else-if="wallet === Wallet.Metamask"
+            class="h-8 w-8"
+          />
           <v-ledger-logo v-else class="h-8 w-8" />
         </div>
+
         <div class="w-full">
           <div class="flex items-center justify-between">
-            <span>{{ formattedAddress }}</span>
-            <span
-              v-clipboard="() => address"
-              v-clipboard:success="
-                () => $toast.success($t('connect.copiedAddress'))
-              "
-              class="cursor-pointer hover:text-primary-600"
-            >
-              <v-icon-copy class="w-4 h-4" />
+            <span>
+              {{
+                isInjectiveAddress
+                  ? formattedInjectiveAddress
+                  : formattedAddress
+              }}
             </span>
+
+            <div class="flex items-center">
+              <span
+                class="mr-2 cursor-pointer"
+                @click="handleClickOnSwitchIcon"
+              >
+                <v-icon-ethereum
+                  v-if="isInjectiveAddress"
+                  class="w-6 h-6 hover:text-primary-600"
+                />
+                <v-icon-injective
+                  v-else
+                  class="w-5 h-5 hover:text-primary-600"
+                />
+              </span>
+
+              <span
+                v-clipboard="
+                  () =>
+                    isInjectiveAddress
+                      ? formattedInjectiveAddress
+                      : formattedAddress
+                "
+                v-clipboard:success="
+                  () => $toast.success($t('connect.copiedAddress'))
+                "
+                class="cursor-pointer hover:text-primary-600"
+              >
+                <v-icon-copy class="w-4 h-4" />
+              </span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="my-4 flex items-center px-4">
-        <v-logo-mini class="min-w-12 w-12 h-12 mr-4" />
-        <div class="w-full">
-          <div class="flex items-center justify-between">
-            <span>{{ formattedInjectiveAddress }}</span>
-            <span
-              v-clipboard="() => injectiveAddress"
-              v-clipboard:success="
-                () => $toast.success($t('connect.copiedAddress'))
-              "
-              class="cursor-pointer hover:text-primary-600"
-            >
-              <v-icon-copy class="w-4 h-4" />
-            </span>
-          </div>
-        </div>
-      </div>
+
+      <v-subaccount-balance />
+
       <div class="p-4 border-t border-primary-500">
         <nuxt-link
           :to="{ name: 'my-guild' }"
-          class="uppercase font-bold tracking-wider"
+          class="uppercase tracking-wider hover:text-primary-600"
           @click.native="hideDropdown"
         >
           {{ $t('myGuild.title') }}
@@ -75,16 +100,22 @@
 import Vue from 'vue'
 import { formatWalletAddress } from '@injectivelabs/utils'
 import { Wallet } from '@injectivelabs/web3-strategy'
+import VSubaccountBalance from './subaccount-balance.vue'
 import VPopperBox from '~/components/elements/popper-box.vue'
-import VMetamaskLogo from '~/components/icons/metamask.vue'
+import VIconEthereum from '~/components/icons/ethereum.vue'
+import VIconInjective from '~/components/icons/injective.vue'
 import VLedgerLogo from '~/components/icons/ledger.vue'
 import VLogoMini from '~/components/svg/logo-mini.vue'
+import VMetamaskLogo from '~/components/icons/metamask.vue'
 
 export default Vue.extend({
   components: {
+    VIconEthereum,
+    VIconInjective,
+    VLedgerLogo,
     VLogoMini,
     VMetamaskLogo,
-    VLedgerLogo,
+    VSubaccountBalance,
     VPopperBox
   },
 
@@ -139,6 +170,10 @@ export default Vue.extend({
   methods: {
     hideDropdown() {
       this.$emit('hide')
+    },
+
+    handleClickOnSwitchIcon() {
+      this.isInjectiveAddress = !this.isInjectiveAddress
     },
 
     handleClickOnLogout() {

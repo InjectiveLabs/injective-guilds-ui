@@ -64,7 +64,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { BigNumberInBase, Status, StatusType } from '@injectivelabs/utils'
-import VBanner from '~/layouts/child-page-banner.vue'
+import VBanner from '~/components/partials/common/subpage-banner.vue'
 import { LeaderboardTableHeaderType, UiGuildWithMeta } from '~/types'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/leaderboard/leaderboard-row.vue'

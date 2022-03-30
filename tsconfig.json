@@ -35,6 +35,7 @@
       "@nuxt/types",
       "@nuxtjs/toast",
       "vue-toasted",
+      "vue-clickaway"
     ]
   },
   "exclude": [

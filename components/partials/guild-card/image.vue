@@ -5,6 +5,7 @@
       :style="{ backgroundImage: `url(${guildAsset.card})` }"
     />
     <div
+      v-if="!onHover"
       class="w-full bg-black bg-opacity-70 h-24 absolute inset-x-0 bottom-0 border border-primary-500 px-10 pt-5 pb-6 text-white"
     >
       <p class="text-sm">
@@ -13,10 +14,20 @@
       <p class="text-3.5xl overflow-ellipsis overflow-hidden whitespace-nowrap">
         {{ guild.name }}
       </p>
+
+      <div class="triangle-1" />
+      <div class="triangle-2" />
+      <div class="triangle-3" />
     </div>
-    <div class="triangle-1" />
-    <div class="triangle-2" />
-    <div class="triangle-3" />
+    <div
+      v-else
+      class="h-24 bg-primary-500 bg-opacity-50 w-full p-6 absolute inset-x-0 bottom-0"
+    >
+      <div class="flex items-center justify-between">
+        <span class="text-3.5xl font-bold text-white">View details</span>
+        <v-icon-chevron class="text-white w-12 h-12 transform -rotate-90" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +41,11 @@ export default Vue.extend({
     guild: {
       required: true,
       type: Object as PropType<UiGuildWithMeta>
+    },
+
+    onHover: {
+      type: Boolean,
+      default: false
     }
   },
 

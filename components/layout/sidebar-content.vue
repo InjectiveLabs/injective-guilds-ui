@@ -9,6 +9,16 @@
     </nuxt-link>
     <nav>
       <nuxt-link
+        :to="{ name: 'index' }"
+        class="text-white hover:bg-gray-900 border-l-4 border-transparent hover:text-primary-500 flex items-center px-8 tracking-widest py-4 uppercase text-xs"
+        @click.native="handleClickEvent"
+      >
+        <span class="text-lg uppercase">
+          {{ $t('common.home') }}
+        </span>
+      </nuxt-link>
+
+      <nuxt-link
         :to="{ name: 'leaderboard' }"
         class="text-white hover:bg-gray-900 border-l-4 border-transparent hover:text-primary-500 flex items-center px-8 tracking-widest py-4 uppercase text-xs"
         @click.native="handleClickEvent"

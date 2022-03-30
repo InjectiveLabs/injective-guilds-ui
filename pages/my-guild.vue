@@ -57,7 +57,7 @@
 import Vue from 'vue'
 import { BigNumberInBase, Status, StatusType } from '@injectivelabs/utils'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
-import VBanner from '~/layouts/child-page-banner.vue'
+import VBanner from '~/components/partials/common/subpage-banner.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/my-guild/my-guild-row.vue'
 import VOverview from '~/components/partials/my-guild/overview.vue'
