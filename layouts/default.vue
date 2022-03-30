@@ -7,7 +7,7 @@
             :is-sidebar-open="isOpenSidebar"
             @sidebar-closed="closeSideBar"
           />
-          <div class="flex flex-col flex-1">
+          <div class="flex flex-col">
             <TopBar @sidebar-opened="isOpenSidebar = true" />
             <main class="min-h-screen-excluding-header-footer text-primary-500">
               <nuxt />

@@ -9,7 +9,7 @@
       <span class="sr-only">{{ $t('open') }}</span>
       <v-icon-menu class="w-6 h-6" />
     </button>
-    <div class="xs:container h-full mx-auto">
+    <div class="xs:container h-full ml-auto md:mx-auto">
       <div class="flex justify-between items-center h-full">
         <!-- left panel -->
         <div class="flex gap-14">
