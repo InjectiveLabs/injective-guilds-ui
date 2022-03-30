@@ -108,6 +108,14 @@ export default Vue.extend({
     }
   },
 
+  watch: {
+    isModalOpen(isOpen) {
+      if (isOpen) {
+        this.joinState = JoinLeaveGuildState.Confirm
+      }
+    }
+  },
+
   methods: {
     closeModal() {
       this.$accessor.modal.closeModal(Modal.LeaveGuild)
