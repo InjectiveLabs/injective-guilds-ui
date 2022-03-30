@@ -20,7 +20,7 @@ export const guildImageMappings = {
     banner: '/guilds/two/banner.jpg',
     thumbnail: '/guilds/two/thumbnail.png',
     story:
-      'Agile, cunning and deadly, Hades Raiders will do anything to win. They are very good at disguise and for have a wide network of spies, giving them the edge to learn about information before most people and nothing comes as a surprise to them. Followed The Kuja into the Tradingverse, it is anyone’s guess what are they scheming now.',
+      'Agile, cunning and deadly, Hades Raiders will do anything to win. They are very good at disguise and have a wide network of spies, giving them the edge to learn about information before most people and nothing comes as a surprise to them. Followed The Kuja into the Tradingverse, it is anyone’s guess what they are scheming now.',
     strategy: 'Coming soon.'
   },
   ethixx: {
