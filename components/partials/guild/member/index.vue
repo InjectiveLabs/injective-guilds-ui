@@ -27,7 +27,7 @@
           :class="{
             'border-t border-primary-500 border-opacity-30': index !== 0
           }"
-          v-bind="$attrs"
+          :portfolio-value="totalPortfolioValue"
         />
       </TableBody>
     </div>
@@ -36,6 +36,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
+import { BigNumberInBase } from '@injectivelabs/utils'
 import TableHeader from '~/components/partials/grid-table/header.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/guild/member/member-row.vue'
@@ -51,6 +53,19 @@ export default Vue.extend({
   computed: {
     members(): UiGuildMemberWithPortfolio[] {
       return this.$accessor.guild.members
+    },
+
+    totalPortfolioValue(): BigNumberInBase {
+      const { members } = this
+
+      if (members.length === 0) {
+        return ZERO_IN_BASE
+      }
+
+      return members.reduce(
+        (total, member) => total.plus(member.portfolio.portfolioValue),
+        ZERO_IN_BASE
+      )
     }
   }
 })

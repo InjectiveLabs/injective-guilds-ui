@@ -28,7 +28,7 @@
         </div>
 
         <v-portfolio class="mt-16" :portfolio-value="portfolioValue" />
-        <v-member class="mt-10" :portfolio-value="portfolioValue" />
+        <v-member class="mt-10" />
       </div>
     </div>
   </VHOCLoading>
