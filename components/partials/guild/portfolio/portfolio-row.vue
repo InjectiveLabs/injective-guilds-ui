@@ -50,6 +50,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { BigNumberInBase } from '@injectivelabs/utils'
+import { BIG_NUMBER_ROUND_DOWN_MODE } from '@injectivelabs/ui-common'
 import { UiPortfolioBalanceWithToken } from '~/types'
 import TableRow from '~/components/partials/grid-table/row.vue'
 import {
@@ -107,7 +108,14 @@ export default Vue.extend({
         return '0.00'
       }
 
-      return allocation.toFormat(UI_DEFAULT_PERCENTAGE_DECIMALS)
+      if (allocation.lt('0.01')) {
+        return '< 0.01'
+      }
+
+      return allocation.toFormat(
+        UI_DEFAULT_PERCENTAGE_DECIMALS,
+        BIG_NUMBER_ROUND_DOWN_MODE
+      )
     }
   }
 })
