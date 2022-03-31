@@ -24,6 +24,7 @@
       <v-button
         v-else-if="isPartOfGuild"
         accent
+        :disabled="isDefaultMember"
         :outline="!banner"
         @click="handleLeaveGuildClick"
       >
@@ -113,6 +114,10 @@ export default Vue.extend({
   computed: {
     isUserWalletConnected(): boolean {
       return this.$accessor.wallet.isUserWalletConnected
+    },
+
+    injectiveAddress(): string {
+      return this.$accessor.wallet.injectiveAddress
     },
 
     member(): UiMember | undefined {
@@ -216,6 +221,16 @@ export default Vue.extend({
           ({ outstandingAmountInBase }) => outstandingAmountInBase.gt('0')
         ) !== undefined
       )
+    },
+
+    isDefaultMember(): boolean {
+      const { injectiveAddress, guild } = this
+
+      if (!guild || !injectiveAddress) {
+        return false
+      }
+
+      return guild.defaultMemberAddress === injectiveAddress
     }
   },
 
