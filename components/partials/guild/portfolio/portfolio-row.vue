@@ -25,7 +25,10 @@
     </span>
     <div class="lg:col-span-4 text-right">
       <span v-if="item.unrealizedPnl.eq(0)">&mdash;</span>
-      <span v-else>{{ pnlToFormat }}</span>
+      <span v-else>
+        <span v-if="item.unrealizedPnl.gt(0)">+</span>
+        <span>{{ pnlToFormat }}</span>
+      </span>
     </div>
 
     <span class="lg:hidden">
