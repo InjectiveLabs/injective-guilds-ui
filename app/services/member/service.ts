@@ -9,12 +9,14 @@ import { MemberNotFoundException } from '~/app/exceptions'
 
 const calculateHistoricalReturns = (first: UiPortfolio, last: UiPortfolio) => {
   // round up to the nearest day
-  const difference = differenceInHours(last.updatedAt, first.updatedAt)
+  const differenceInDays = Math.ceil(
+    differenceInHours(last.updatedAt, first.updatedAt) / 24
+  )
 
   const historicalReturns = last.portfolioValue
     .minus(first.portfolioValue)
     .dividedBy(first.portfolioValue)
-    .dividedBy(difference)
+    .dividedBy(differenceInDays)
     .multipliedBy(365)
 
   return historicalReturns.isNaN() ? ZERO_IN_BASE : historicalReturns
