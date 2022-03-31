@@ -6,7 +6,7 @@
         <div class="ml-2">
           <span
             v-if="fetchBalanceStatus.isLoading()"
-            class="primary spinner spinner-md"
+            class="primary spinner spinner-sm"
           />
           <v-icon-rotate
             v-else

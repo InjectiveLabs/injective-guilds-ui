@@ -6,7 +6,7 @@ const metaTags = {
   url: 'https://guilds.injective.app',
   shortName: 'Injective Guilds',
   twitterHandle: '@InjectiveLabs',
-  ogImage: `${process.env.APP_BASE_URL}/images/og.jpeg`
+  ogImage: `${process.env.APP_BASE_URL}/images/og.jpg`
 }
 
 const nuxtMetaTags = [

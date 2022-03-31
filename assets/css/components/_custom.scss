@@ -7,6 +7,18 @@
   @apply block mx-auto w-6 h-6 bg-transparent border-4 rounded-full top-0 left-0 border-transparent;
   border-top-color: theme('colors.white');
   animation: spin 0.6s ease-out infinite;
+
+  &-sm {
+    @apply w-4 h-4;
+  }
+
+  &-md {
+    @apply w-5 h-5;
+  }
+
+  &-lg {
+    @apply w-10 h-10;
+  }
 }
 
 .spinner.primary {
