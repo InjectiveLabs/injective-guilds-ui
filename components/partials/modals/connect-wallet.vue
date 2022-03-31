@@ -5,7 +5,10 @@
     :title="title"
     @modal-closed="handleModalClosed"
   >
-    <VHOCLoading :status="status" :class="{ 'py-4': status.isLoading() }">
+    <VHOCLoading
+      :status="status"
+      :class="{ 'h-20 -mt-4 relative': status.isLoading() }"
+    >
       <!-- wallet selection -->
       <section v-if="!showLedger">
         <div class="grid grid-cols-1 xs:grid-cols-2">

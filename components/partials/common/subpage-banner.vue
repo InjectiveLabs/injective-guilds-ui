@@ -1,7 +1,7 @@
 <template>
   <section class="relative">
     <section
-      :style="{ backgroundImage: `url('/svg/sub-page-banner.svg')` }"
+      :style="{ backgroundImage: `url('/images/subpage-banner-blur.jpg')` }"
       class="py-16 bg-cover bg-right-top h-full absolute inset-0"
     />
 

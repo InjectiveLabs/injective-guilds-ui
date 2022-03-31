@@ -2,7 +2,7 @@
   <VHOCLoading :status="status">
     <div>
       <section
-        :style="{ backgroundImage: `url('/homepage-banner.png')` }"
+        :style="{ backgroundImage: `url('/images/homepage-banner.jpg')` }"
         class="py-16 bg-cover bg-right-bottom h-banner"
       >
         <div class="container flex h-full items-center">
