@@ -26,8 +26,8 @@ export const guildImageMappings = {
       'Active low risk market making. Diversify asset allocation between BTC/USDT and INJ/USDT market. Aiming to earn rewards while maintaining a small open position all the time. At any given time, orders will be on both buy and sell sides. If there is a sudden change in market condition, the open orders will be immediately updated.'
   },
   ethixx: {
-    card: '/guilds/three/card.png',
-    banner: '/guilds/three/banner.png',
+    card: '/guilds/three/card.jpg',
+    banner: '/guilds/three/banner.jpg',
     thumbnail: '/guilds/three/thumbnail.png',
     story:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -35,8 +35,8 @@ export const guildImageMappings = {
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
   },
   default: {
-    card: '/guilds/four/card.png',
-    banner: '/guilds/four/banner.png',
+    card: '/guilds/four/card.jpg',
+    banner: '/guilds/four/banner.jpg',
     thumbnail: '/guilds/four/thumbnail.png',
     story: 'Coming soon',
     strategy: 'Coming soon'
