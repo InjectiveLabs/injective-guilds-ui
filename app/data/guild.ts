@@ -13,7 +13,8 @@ export const guildImageMappings = {
     thumbnail: '/guilds/one/thumbnail.png',
     story:
       'Famous for viewing strength and courage as true beauty, The Kuja is a guild for the brave. Previously content being isolated in its planet since The Great War, the Kuja is now active again and has set its sight to be the best Trading Guild. The reason behind its motive remains unknown.',
-    strategy: 'Coming soon.'
+    strategy:
+      'Active medium risk market making. Aiming to find balance between making profit from trading and earning rewards.'
   },
   'hades raiders': {
     card: '/guilds/two/card.jpg',
@@ -21,7 +22,8 @@ export const guildImageMappings = {
     thumbnail: '/guilds/two/thumbnail.png',
     story:
       'Agile, cunning and deadly, Hades Raiders will do anything to win. They are very good at disguise and have a wide network of spies, giving them the edge to learn about information before most people and nothing comes as a surprise to them. Followed The Kuja into the Tradingverse, it is anyone’s guess what they are scheming now.',
-    strategy: 'Coming soon.'
+    strategy:
+      'Active low risk market making. Diversify asset allocation between BTC/USDT and INJ/USDT market. Aiming to earn rewards while maintaining a small open position all the time. At any given time, orders will be on both buy and sell sides. If there is a sudden change in market condition, the open orders will be immediately updated.'
   },
   ethixx: {
     card: '/guilds/three/card.png',
