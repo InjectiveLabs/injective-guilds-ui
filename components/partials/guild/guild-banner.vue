@@ -4,8 +4,8 @@
     :style="{ backgroundImage: `url(${guildAssets.banner})` }"
     class="py-16 bg-cover bg-center"
   >
-    <div class="container flex h-full items-center">
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
+    <div class="container flex h-full items-center w-full">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-5 w-full">
         <div class="md:col-span-2">
           <p class="font-bold text-sm tracking-wider uppercase mb-6">
             {{ $t('guild.guildName') }}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-wrap gap-4 mb-6 lg:h-8">
+    <div class="flex flex-wrap gap-4 mb-6 lg:min-h-8">
       <div
         v-for="(market, index) in guild.markets"
         :key="`guild-card-market-${index}`"
