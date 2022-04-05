@@ -136,6 +136,14 @@ export default Vue.extend({
     }
   },
 
+  watch: {
+    member(newMember) {
+      if (!newMember) {
+        this.$router.push({ name: 'index' })
+      }
+    }
+  },
+
   mounted() {
     this.fetchGuildAndProfile()
       .catch((error: any) => {
