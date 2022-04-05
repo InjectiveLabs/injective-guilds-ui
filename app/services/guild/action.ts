@@ -7,6 +7,7 @@ import {
   mapMultipleComposerResponseMessages
 } from '@injectivelabs/utils'
 import {
+  BIG_NUMBER_ROUND_UP_MODE,
   derivativeOrderTypeToGrpcOrderType,
   UiDerivativeLimitOrder,
   UiDerivativeMarketWithToken,
@@ -207,7 +208,7 @@ export class GuildActionService extends BaseActionService {
           denom: requirement.denom,
           amount: new BigNumberInBase(requirement.outstandingAmountInBase)
             .toWei(requirement.token.decimals)
-            .toFixed()
+            .toFixed(0, BIG_NUMBER_ROUND_UP_MODE)
         })
       }
     )
