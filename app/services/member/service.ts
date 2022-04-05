@@ -9,8 +9,9 @@ import { MemberNotFoundException } from '~/app/exceptions'
 
 const calculateHistoricalReturns = (first: UiPortfolio, last: UiPortfolio) => {
   // round up to the nearest day
-  const differenceInDays = Math.ceil(
-    differenceInHours(last.updatedAt, first.updatedAt) / 24
+  const differenceInDays = Math.max(
+    1,
+    Math.ceil(differenceInHours(last.updatedAt, first.updatedAt) / 24)
   )
 
   const historicalReturns = last.portfolioValue
