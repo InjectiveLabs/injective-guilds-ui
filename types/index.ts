@@ -1,5 +1,7 @@
-
-import { SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance } from '@injectivelabs/ui-common'
+import {
+  SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance,
+  TokenWithUsdPrice
+} from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
 import { UiGuild, UiGuildRequirement } from '~/app/services/guild'
 
@@ -26,9 +28,16 @@ export type UiGuildToJoinModal =
 
 export type UiGuildToLeaveModal = UiGuild | undefined
 
-export interface subaccountAvailableBalanceInUsd extends SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance {
+export interface BankBalanceWithTokenAndUsdPrice {
+  balance: string
+  denom: string
+  token: TokenWithUsdPrice
+}
+
+export interface AssetTokenWithAvailableBalanceInUsd {
   availableTokenBalanceInBase: BigNumberInBase
   availableBalanceInUsd: BigNumberInBase
+  token: TokenWithUsdPrice
 }
 
 export * from './enums'

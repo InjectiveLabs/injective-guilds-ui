@@ -32,7 +32,9 @@ export default {
 
   subaccount: {
     balance: {
-      title: 'Account Balance',
+      title: 'Available Balance',
+      tooltip:
+        'Available Balance includes all balances in Trading Account and the INJ balance in Injective Wallet.',
       moreTokens: 'more tokens'
     }
   },

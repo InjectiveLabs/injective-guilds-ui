@@ -2,8 +2,13 @@
   <div class="py-6 px-4 bg-white bg-opacity-10">
     <div class="tracking-wider text-sm">
       <div class="flex items-center">
+        <v-icon-info-tooltip
+          class="mr-2"
+          :tooltip="$t('subaccount.balance.tooltip')"
+        />
         <span>{{ $t('subaccount.balance.title') }}</span>
-        <div class="ml-2">
+
+        <div class="ml-3">
           <span
             v-if="fetchBalanceStatus.isLoading()"
             class="primary spinner spinner-sm"
@@ -16,7 +21,7 @@
         </div>
       </div>
     </div>
-    <h3 class="text-3.5xl tracking-wider text-right mt-3">
+    <h3 class="text-2xl tracking-wider text-right mt-3">
       ${{ totalAvailableBalanceInUsdToFormat }}
     </h3>
     <div v-if="sortedSubaccountAvailableBalancesInUsd.length > 0" class="mt-3">
@@ -47,11 +52,15 @@ import {
   StatusType
 } from '@injectivelabs/utils'
 import {
+  INJ_DENOM,
   SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance,
   ZERO_IN_BASE
 } from '@injectivelabs/ui-common'
 import VSubaccountBalanceItem from './subaccount-balance-item.vue'
-import { subaccountAvailableBalanceInUsd } from '~/types'
+import {
+  AssetTokenWithAvailableBalanceInUsd,
+  BankBalanceWithTokenAndUsdPrice
+} from '~/types'
 import { UI_DEFAULT_FIAT_DECIMALS } from '~/app/utils/constants'
 
 export default Vue.extend({
@@ -68,11 +77,42 @@ export default Vue.extend({
   },
 
   computed: {
+    bankBalancesWithTokenAndUsdPrice(): BankBalanceWithTokenAndUsdPrice[] {
+      return this.$accessor.bank.bankBalancesWithTokenAndUsdPrice
+    },
+
     subaccountBalancesWithTokenAndPrice(): SubaccountBalanceWithTokenAndUsdPriceAndUsdBalance[] {
       return this.$accessor.account.subaccountBalancesWithTokenAndPrice
     },
 
-    subaccountAvailableBalancesInUsd(): subaccountAvailableBalanceInUsd[] {
+    injBankAvailableBalanceInUsd():
+      | AssetTokenWithAvailableBalanceInUsd
+      | undefined {
+      const { bankBalancesWithTokenAndUsdPrice } = this
+
+      const injToken = bankBalancesWithTokenAndUsdPrice.find(
+        ({ denom }) => denom.toLowerCase() === INJ_DENOM
+      )
+
+      if (!injToken) {
+        return
+      }
+
+      const availableTokenBalanceInBase = new BigNumberInWei(
+        injToken.balance
+      ).toBase(injToken.token.decimals)
+      const availableBalanceInUsd = availableTokenBalanceInBase.multipliedBy(
+        injToken.token.usdPrice
+      )
+
+      return {
+        token: injToken.token,
+        availableTokenBalanceInBase,
+        availableBalanceInUsd
+      }
+    },
+
+    subaccountAvailableBalancesInUsd(): AssetTokenWithAvailableBalanceInUsd[] {
       const { subaccountBalancesWithTokenAndPrice } = this
 
       return subaccountBalancesWithTokenAndPrice.map((balance) => {
@@ -84,22 +124,58 @@ export default Vue.extend({
         )
 
         return {
-          ...balance,
+          token: balance.token,
           availableTokenBalanceInBase,
           availableBalanceInUsd
         }
       })
     },
 
-    sortedSubaccountAvailableBalancesInUsd(): subaccountAvailableBalanceInUsd[] {
-      const { subaccountAvailableBalancesInUsd } = this
+    subaccountAvailableBalancesWithBankInjBalance(): AssetTokenWithAvailableBalanceInUsd[] {
+      const { injBankAvailableBalanceInUsd, subaccountAvailableBalancesInUsd } =
+        this
 
-      return subaccountAvailableBalancesInUsd
+      if (!injBankAvailableBalanceInUsd) {
+        return subaccountAvailableBalancesInUsd
+      }
+
+      const subaccountInjBalance = subaccountAvailableBalancesInUsd.find(
+        ({ token }) => token.denom === INJ_DENOM
+      )
+
+      if (!subaccountInjBalance) {
+        return [
+          injBankAvailableBalanceInUsd,
+          ...subaccountAvailableBalancesInUsd
+        ]
+      }
+
+      return subaccountAvailableBalancesInUsd.map((balance) => {
+        if (balance.token.denom !== INJ_DENOM) {
+          return balance
+        }
+
+        return {
+          ...balance,
+          availableTokenBalanceInBase: balance.availableTokenBalanceInBase.plus(
+            injBankAvailableBalanceInUsd.availableTokenBalanceInBase
+          ),
+          availableBalanceInUsd: balance.availableBalanceInUsd.plus(
+            injBankAvailableBalanceInUsd.availableBalanceInUsd
+          )
+        }
+      })
+    },
+
+    sortedSubaccountAvailableBalancesInUsd(): AssetTokenWithAvailableBalanceInUsd[] {
+      const { subaccountAvailableBalancesWithBankInjBalance } = this
+
+      return subaccountAvailableBalancesWithBankInjBalance
         .filter((balance) => balance.availableTokenBalanceInBase.gt('0'))
         .sort(
           (
-            b1: subaccountAvailableBalanceInUsd,
-            b2: subaccountAvailableBalanceInUsd
+            b1: AssetTokenWithAvailableBalanceInUsd,
+            b2: AssetTokenWithAvailableBalanceInUsd
           ) =>
             b2.availableTokenBalanceInBase
               .minus(b1.availableTokenBalanceInBase)
@@ -107,7 +183,7 @@ export default Vue.extend({
         )
     },
 
-    paginatedSubaccountAvailableBalancesInUsd(): subaccountAvailableBalanceInUsd[] {
+    paginatedSubaccountAvailableBalancesInUsd(): AssetTokenWithAvailableBalanceInUsd[] {
       const { sortedSubaccountAvailableBalancesInUsd, limit } = this
 
       return sortedSubaccountAvailableBalancesInUsd.slice(0, limit)
@@ -117,7 +193,7 @@ export default Vue.extend({
       const { sortedSubaccountAvailableBalancesInUsd } = this
 
       return sortedSubaccountAvailableBalancesInUsd.reduce(
-        (total, balance: subaccountAvailableBalanceInUsd) =>
+        (total, balance: AssetTokenWithAvailableBalanceInUsd) =>
           total.plus(balance.availableBalanceInUsd),
         ZERO_IN_BASE
       )

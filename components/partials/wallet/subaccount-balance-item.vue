@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { subaccountAvailableBalanceInUsd } from '~/types'
+import { AssetTokenWithAvailableBalanceInUsd } from '~/types'
 import {
   UI_DEFAULT_ASSET_DECIMALS,
   UI_DEFAULT_FIAT_DECIMALS
@@ -18,7 +18,7 @@ import {
 export default Vue.extend({
   props: {
     balance: {
-      type: Object as PropType<subaccountAvailableBalanceInUsd>,
+      type: Object as PropType<AssetTokenWithAvailableBalanceInUsd>,
       required: true
     }
   },
