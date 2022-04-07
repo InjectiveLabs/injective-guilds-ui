@@ -12,6 +12,7 @@ import {
 } from '@injectivelabs/ui-common'
 import {
   CHAIN_ID,
+  IS_TESTNET,
   IS_DEVNET,
   METRICS_ENABLED,
   NETWORK,
@@ -38,7 +39,9 @@ const commonServiceOptions = {
 
 const guildServiceEndpoint = IS_DEVNET
   ? 'https://devnet.guilds.injective.dev'
-  : 'https://testnet.guilds.injective.dev/'
+  : IS_TESTNET
+  ? 'https://testnet.guilds.injective.dev/'
+  : 'https://staging.guilds.injective.network'
 
 const coinGeckoOptions = {
   apiKey: process.env.APP_COINGECKO_KEY as string,
