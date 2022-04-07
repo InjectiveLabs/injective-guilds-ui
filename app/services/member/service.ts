@@ -8,17 +8,10 @@ import { GuildTransformer } from '~/app/services/guild/transformer'
 import { MemberNotFoundException } from '~/app/exceptions'
 
 const calculateHistoricalReturns = (first: UiPortfolio, last: UiPortfolio) => {
-  // round up to the nearest day
-  const differenceInDays = Math.max(
-    1,
-    Math.ceil(differenceInHours(last.updatedAt, first.updatedAt) / 24)
-  )
-
   const historicalReturns = last.portfolioValue
     .minus(first.portfolioValue)
     .dividedBy(first.portfolioValue)
-    .dividedBy(differenceInDays)
-    .multipliedBy(365)
+    .multipliedBy(100)
 
   return historicalReturns.isNaN() ? ZERO_IN_BASE : historicalReturns
 }
