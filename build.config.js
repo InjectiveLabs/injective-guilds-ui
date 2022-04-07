@@ -10,8 +10,8 @@ const cacheGroups = {
 
       // npm package names are URL-safe, but some servers don't like @ symbols
       return `npm.${packageName.replace('@', '')}`
-    },
-  },
+    }
+  }
 }
 
 module.exports = {
@@ -22,8 +22,8 @@ module.exports = {
             chunks: 'all',
             maxInitialRequests: Infinity,
             minSize: 0,
-            cacheGroups,
-          },
+            cacheGroups
+          }
         }
-      : {},
+      : {}
 }

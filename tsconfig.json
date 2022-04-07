@@ -3,6 +3,7 @@
     "target": "ES2018",
     "module": "ESNext",
     "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "lib": [
       "ESNext",
       "ESNext.AsyncIterable",
@@ -21,17 +22,26 @@
       ],
       "@/*": [
         "./*"
+      ],
+      "~~/*": [
+        "./*"
+      ],
+      "@@/*": [
+        "./*"
       ]
     },
     "types": [
+      "@types/node",
       "@nuxt/types",
-      "@nuxtjs/axios",
-      "@types/node"
+      "@nuxtjs/toast",
+      "vue-toasted",
+      "vue-clickaway"
     ]
   },
   "exclude": [
     "node_modules",
     ".nuxt",
-    "dist"
+    "dist",
+    "static",
   ]
 }

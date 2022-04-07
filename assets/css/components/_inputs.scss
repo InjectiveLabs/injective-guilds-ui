@@ -1,0 +1,193 @@
+// firefox input hide up and down arrows
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.input-wrapper {
+  @apply shadow-sm bg-gray-900 rounded;
+}
+
+.input {
+  @apply border border-transparent bg-gray-900 shadow-sm text-gray-200 rounded w-full h-12 text-sm outline-none appearance-none max-w-full px-4;
+
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &::placeholder {
+    @apply opacity-75;
+  }
+
+  &[disabled] {
+    @apply pointer-events-none cursor-not-allowed bg-gray-700;
+  }
+
+  &.textarea {
+    @apply h-auto w-full pt-4;
+  }
+
+  &-round {
+    @apply h-10 rounded-3xl;
+  }
+
+  &-small {
+    @apply h-8;
+  }
+}
+
+.input-wrap .addon {
+  @apply text-gray-300;
+}
+
+.input-light {
+  .input {
+    @apply bg-gray-800;
+  }
+
+  .addon {
+    @apply text-gray-500;
+  }
+}
+
+.input-lg {
+  @apply text-xl h-14;
+}
+
+.input-large {
+  @apply bg-transparent text-gray-400 rounded-lg px-6 pr-2 w-full h-20 outline-none appearance-none max-w-full text-3xl border-none font-medium;
+}
+
+.input-xl {
+  @apply bg-transparent text-gray-400 rounded-lg px-6 w-full h-20 outline-none appearance-none max-w-full text-3xl border-none font-medium;
+}
+
+.input-lg,
+.input-xl {
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:focus {
+    @apply border-gray-700;
+  }
+
+  &[disabled] {
+    @apply pointer-events-none cursor-not-allowed bg-gray-700;
+  }
+}
+
+.is-valid {
+  .input {
+    @apply border-primary-500;
+  }
+}
+
+.is-invalid {
+  .input {
+    @apply border-red-400;
+  }
+}
+
+.no-shadow {
+  .input {
+    @apply border-transparent shadow-none;
+  }
+}
+
+.leverage-input {
+  @apply font-mono ml-2 w-16 py-1 text-sm text-right rounded-lg appearance-none bg-gray-900 text-gray-300;
+
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+.v-select.input-select {
+  @apply border border-primary-500 bg-black text-white rounded h-12 px-2 text-sm w-full max-w-full outline-none appearance-none;
+
+  &.transparent {
+    @apply bg-opacity-20 border-transparent;
+  }
+
+  .vs__search {
+    @apply text-sm text-gray-400;
+  }
+
+  .vs__dropdown-toggle {
+    width: 100%;
+    height: 100%;
+    border: none !important;
+  }
+
+  .vs__dropdown-menu {
+    @apply border-primary-500 bg-black text-white px-2;
+
+    margin-top: 2px;
+    left: -1px;
+    width: calc(100% + 2px);
+  }
+
+  .vs__selected {
+    @apply h-12 p-0 m-0 pl-2 border-none text-white break-all;
+  }
+
+  .vs__dropdown-option {
+    @apply text-white font-semibold text-sm rounded py-3 px-2;
+  }
+
+  .vs__actions {
+    @apply cursor-pointer;
+  }
+
+  .vs__actions svg {
+    @apply text-white;
+  }
+
+  .vs__actions svg path {
+    @apply fill-current;
+  }
+
+  .vs__dropdown-option--highlight {
+    @apply bg-primary-500 text-black;
+  }
+
+  .input {
+    @apply text-current shadow-none;
+  }
+
+  &:focus {
+    @apply border-black;
+  }
+
+  &[disabled] {
+    @apply bg-black;
+  }
+}
+
+.v-select.input-error {
+  @apply border-red-500;
+}
+
+.v-select.input-select.vs--open {
+  @apply border border-primary-500 bg-black text-white;
+
+  .input {
+    @apply shadow-none text-gray-200;
+  }
+
+  .vs__selected {
+    @apply opacity-100 text-gray-200;
+  }
+}

@@ -1,0 +1,51 @@
+.min-h-screen-excluding-header-footer {
+  min-height: calc(100vh - 64px - 72px);
+}
+
+.container {
+  @apply mx-auto;
+}
+
+/* ===== Scroll bar =====
+ Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: theme('colors.gray.200') theme('colors.gray.100');
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+body {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+body ::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.scroll {
+  &::-webkit-scrollbar {
+    display: initial !important;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-primary-500 bg-opacity-10;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply border border-primary-500 rounded-none bg-primary-500;
+  }
+}
+
+nav a.nuxt-link-exact-active {
+  @apply bg-gray-900 border-primary-500;
+
+  span {
+    @apply text-white font-semibold;
+  }
+}

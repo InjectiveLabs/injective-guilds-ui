@@ -8,10 +8,10 @@ if (process.env.APP_BUGSNAG_KEY) {
       config: {
         appVersion: process.env.npm_package_version,
         releaseStage: process.env.APP_ENV || 'development',
-        enabledReleaseStages: ['production', 'testnet', 'mainnet', 'staging'],
+        enabledReleaseStages: ['production', 'testnet', 'mainnet', 'staging']
       },
-      publishRelease: true,
-    },
+      publishRelease: true
+    }
   ])
 }
 
@@ -20,7 +20,7 @@ module.exports = [
     '@nuxtjs/axios',
     '@nuxtjs/toast',
     '@nuxtjs/google-gtag',
-    '@nuxtjs/sitemap',
+    '@nuxtjs/sitemap'
   ],
-  ...(process.env.NODE_ENV === 'production' ? prodModules : []),
+  ...(process.env.NODE_ENV === 'production' ? prodModules : [])
 ]

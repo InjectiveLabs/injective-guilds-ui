@@ -1,0 +1,157 @@
+.overflow-fix {
+  margin-right: calc(-1 * (100vw - 100%));
+  overflow-x: hidden;
+}
+
+.spinner {
+  @apply block mx-auto w-6 h-6 bg-transparent border-4 rounded-full top-0 left-0 border-transparent;
+  border-top-color: theme('colors.white');
+  animation: spin 0.6s ease-out infinite;
+
+  &-sm {
+    @apply w-4 h-4;
+  }
+
+  &-md {
+    @apply w-5 h-5;
+  }
+
+  &-lg {
+    @apply w-10 h-10;
+  }
+}
+
+.spinner.primary {
+  border-top-color: theme('colors.primary.500');
+}
+
+[class*='bg-gray-200'] .spinner {
+  border-top-color: theme('colors.primary.500');
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.toasted.bubble.error {
+  @apply text-black font-bold;
+  background: theme('colors.accent.500') !important;
+}
+
+.toasted.bubble.info {
+  @apply text-white shadow-md;
+  background: theme('colors.black') !important;
+
+  .action {
+    @apply font-bold;
+  }
+
+  .text-primary-500 {
+    color: theme('colors.primary.500') !important;
+  }
+}
+
+.toasted.bubble.success {
+  @apply text-gray-800 font-bold;
+  background: theme('colors.primary.500') !important;
+}
+
+.toasted.bubble.default {
+  @apply text-gray-200 shadow-sm;
+  background: theme('colors.black') !important;
+}
+
+.toasted-container .toasted.default .action.text-primary-500 {
+  @apply text-primary-500 font-bold;
+}
+
+.toasted-container .toasted.default .action.text-red-500 {
+  @apply text-red-500 font-bold;
+}
+
+.tooltip {
+  @apply block z-60;
+
+  .tooltip-inner {
+    @apply bg-primary-500 text-white border-transparent rounded py-1 px-3 text-xs border max-w-sm bg-opacity-70;
+  }
+
+  .tooltip-arrow {
+    @apply hidden;
+  }
+
+  &[x-placement^='top'] {
+    margin-bottom: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 0 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^='bottom'] {
+    margin-top: 5px;
+
+    .tooltip-arrow {
+      border-width: 0 5px 5px 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^='right'] {
+    margin-left: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 5px 0;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      left: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^='left'] {
+    margin-right: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 0 5px 5px;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      right: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
+
+// apex chart tooltip
+#chart .apexcharts-tooltip.apexcharts-theme-light {
+  @apply bg-black text-primary-500 border-primary-500;
+}
+
+#chart .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+  @apply bg-black text-primary-500 border-primary-500;
+}
+
+#chart .apexcharts-tooltip-marker {
+  @apply hidden;
+}
