@@ -15,7 +15,7 @@
           <div class="mx-auto md:ml-auto w-full">
             <v-overview
               v-if="memberPortfolio"
-              :portfolio="memberPortfolio.firstSnapshot"
+              :portfolio="memberPortfolio.lastSnapshot"
             />
 
             <v-card transparent class="mt-2">
