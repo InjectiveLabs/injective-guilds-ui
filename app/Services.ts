@@ -3,6 +3,7 @@ import {
   BankService,
   DerivativeActionService,
   DerivativeService,
+  MetricsProvider,
   ServiceOptions,
   SpotActionService,
   SpotService,
@@ -33,14 +34,17 @@ const commonServiceOptions = {
     exchangeApiEndpoint: APP_EXCHANGE_API_ENDPOINT || endpoints.exchangeApi,
     sentryGrpcApiEndpoint: APP_SENTRY_GRPC_ENDPOINT || endpoints.sentryGrpcApi
   },
-  metricsEnabled: METRICS_ENABLED || false,
-  metricsRegion: app.regionForMetrics
+  metricsProvider: new MetricsProvider({
+    region: app.regionForMetrics,
+    appEnv: process.env.APP_ENV,
+    nodeEnv: process.env.NODE_ENV
+  })
 } as ServiceOptions
 
 const guildServiceEndpoint = IS_DEVNET
   ? 'https://devnet.guilds.injective.dev'
   : IS_TESTNET
-  ? 'https://testnet.guilds.injective.dev/'
+  ? 'https://testnet.guilds.injective.dev'
   : 'https://staging.guilds.injective.network'
 
 const coinGeckoOptions = {
