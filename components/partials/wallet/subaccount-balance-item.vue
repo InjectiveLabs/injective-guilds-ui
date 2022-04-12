@@ -1,4 +1,4 @@
-<template>
+re<template>
   <div class="flex justify-between items-center text-sm">
     <span>{{ availableBalanceToFormat }} {{ balance.token.symbol }}</span>
     <span class="text-primary-500 text-opacity-50">

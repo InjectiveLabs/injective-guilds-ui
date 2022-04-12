@@ -1,10 +1,10 @@
 import { actionTree } from 'typed-vuex'
 import { memberService } from '~/app/Services'
-import { UiMember, UiMemberPortfolio } from '~/types'
+import { UiMember, UiMonthlyPortfolio, UiMemberPortfolio } from '~/types'
 
 const initialStateFactory = () => ({
   member: undefined as UiMember | undefined,
-  memberPortfolio: undefined as UiMemberPortfolio | undefined
+  memberPortfolio: [] as UiMonthlyPortfolio[]
 })
 
 const initialState = initialStateFactory()
@@ -23,7 +23,7 @@ export const mutations = {
 
   setMemberPortfolio(
     state: MemberStoreState,
-    memberPortfolio: UiMemberPortfolio
+    memberPortfolio: UiMonthlyPortfolio[]
   ) {
     state.memberPortfolio = memberPortfolio
   },

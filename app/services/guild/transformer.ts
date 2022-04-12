@@ -5,14 +5,37 @@ import {
   ApiGuild,
   ApiMarket,
   ApiGuildMember,
+  ApiMonthlyPortfolio,
   ApiPortfolio,
   ApiPortfolioBalance,
   UiGuild,
   UiGuildMember,
+  UiMonthlyPortfolio,
   UiPortfolio,
+  UiPortfolioWithoutDate,
   UiPortfolioBalanceWithToken
 } from './types'
 import { derivativeService, spotService, tokenService } from '~/app/Services'
+import { calculateHistoricalReturns } from '~/app/services/member/helper'
+
+const portfolioToUiPortfolio = async (
+  apiPortfolioBalances: ApiPortfolioBalance[]
+): Promise<UiPortfolioWithoutDate> => {
+  const balances = apiPortfolioBalances || []
+  const portfolioBalances = await Promise.all(
+    balances.map(ApiPortfolioBalanceToUiPortfolioBalanceWithToken)
+  )
+  const portfolioValue = portfolioBalances.reduce(
+    (total: BigNumberInBase, balance: UiPortfolioBalanceWithToken) =>
+      total.plus(balance.totalValueInUsd),
+    ZERO_IN_BASE
+  )
+
+  return {
+    balances: portfolioBalances,
+    portfolioValue
+  }
+}
 
 const ApiPortfolioBalanceToUiPortfolioBalanceWithToken = async (
   balance: ApiPortfolioBalance
@@ -93,22 +116,36 @@ export const ApiGuildToUiGuild = async (
   }
 }
 
+export const ApiMonthlyPortfolioToUiPortfolio = async (
+  apiMonthlyPortfolio: ApiMonthlyPortfolio
+): Promise<UiMonthlyPortfolio> => {
+  const beginSnapshotBalances = apiMonthlyPortfolio.begin_snapshot.balances
+  const endSnapshotBalances = apiMonthlyPortfolio.end_snapshot.balances
+
+  const beginPortfolio = await portfolioToUiPortfolio(beginSnapshotBalances)
+  const endPortfolio = await portfolioToUiPortfolio(endSnapshotBalances)
+
+  return {
+    portfolioValue: endPortfolio.portfolioValue,
+    balances: endPortfolio.balances,
+    returns: calculateHistoricalReturns(beginPortfolio, endPortfolio),
+    date: apiMonthlyPortfolio.time
+  }
+}
+
 export const ApiPortfolioToUiPortfolio = async (
   apiPortfolio: ApiPortfolio
 ): Promise<UiPortfolio> => {
-  const balances = apiPortfolio.balances ? apiPortfolio.balances : []
-  const portfolioBalances = await Promise.all(
-    balances.map(ApiPortfolioBalanceToUiPortfolioBalanceWithToken)
-  )
-  const portfolioValue = portfolioBalances.reduce(
-    (total: BigNumberInBase, balance: UiPortfolioBalanceWithToken) =>
-      total.plus(balance.totalValueInUsd),
-    ZERO_IN_BASE
+  const apiPortfolioBalances = apiPortfolio.balances
+    ? apiPortfolio.balances
+    : []
+  const { balances, portfolioValue } = await portfolioToUiPortfolio(
+    apiPortfolioBalances
   )
 
   return {
     portfolioValue,
-    balances: portfolioBalances,
+    balances,
     updatedAt: apiPortfolio.updated_at
   }
 }
@@ -156,11 +193,9 @@ export const ApiMarketToUiMarket = async (market: ApiMarket) => {
 }
 
 export class GuildTransformer {
-  static ApiGuildToUiGuild = ApiGuildToUiGuild
-
-  static ApiMarketToUiMarket = ApiMarketToUiMarket
-
   static ApiGuildMemberToUiGuildMember = ApiGuildMemberToUiGuildMember
-
+  static ApiGuildToUiGuild = ApiGuildToUiGuild
+  static ApiMarketToUiMarket = ApiMarketToUiMarket
+  static ApiMonthlyPortfolioToUiPortfolio = ApiMonthlyPortfolioToUiPortfolio
   static ApiPortfolioToUiPortfolio = ApiPortfolioToUiPortfolio
 }

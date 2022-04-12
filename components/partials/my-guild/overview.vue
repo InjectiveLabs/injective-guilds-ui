@@ -39,12 +39,12 @@ import Vue, { PropType } from 'vue'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
 import { UI_DEFAULT_FIAT_DECIMALS } from '~/app/utils/constants'
-import { UiPortfolio } from '~/types'
+import { UiMonthlyPortfolio } from '~/types'
 
 export default Vue.extend({
   props: {
     portfolio: {
-      type: Object as PropType<UiPortfolio>,
+      type: Object as PropType<UiMonthlyPortfolio>,
       required: true
     }
   },
