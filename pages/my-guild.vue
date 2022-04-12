@@ -15,7 +15,7 @@
           <div class="mx-auto md:ml-auto w-full">
             <v-overview
               v-if="memberPortfolio"
-              :portfolio="memberPortfolio[0]"
+              :portfolio="memberPortfolio[0] || {}"
             />
 
             <v-card transparent class="mt-2">
@@ -30,9 +30,7 @@
             </v-card>
 
             <v-card v-if="guild" transparent class="mt-2">
-              <v-historical-returns
-                :monthly-portfolios="guild.monthlyPortfolios"
-              >
+              <v-historical-returns :monthly-portfolios="memberPortfolio">
                 {{ $t('myGuild.returns') }}
               </v-historical-returns>
             </v-card>

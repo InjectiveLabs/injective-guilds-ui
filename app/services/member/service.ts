@@ -70,10 +70,10 @@ export class MemberService {
         portfolios: ApiMonthlyPortfolio[]
       }>
 
+      const portfolios = response.data.portfolios || []
+
       return await Promise.all(
-        response.data.portfolios.map(
-          GuildTransformer.ApiMonthlyPortfolioToUiPortfolio
-        )
+        portfolios.map(GuildTransformer.ApiMonthlyPortfolioToUiPortfolio)
       )
     } catch (error: any) {
       if ([404].includes(error.response.status)) {
