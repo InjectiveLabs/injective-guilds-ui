@@ -17,6 +17,12 @@ export interface ApiPortfolio {
   updated_at: number
 }
 
+export interface ApiMonthlyPortfolio {
+  time: number
+  begin_snapshot: ApiPortfolio
+  end_snapshot: ApiPortfolio
+}
+
 export interface ApiRequirements {
   denom: string
   min_amount_usd: number
@@ -59,11 +65,20 @@ export interface ApiMarket {
   is_perpetual: boolean
 }
 
+export interface UiMonthlyPortfolio {
+  portfolioValue: BigNumberInBase
+  balances: UiPortfolioBalanceWithToken[]
+  returns: BigNumberInBase
+  date: number
+}
+
 export interface UiPortfolio {
   portfolioValue: BigNumberInBase
   balances: UiPortfolioBalanceWithToken[]
   updatedAt: number
 }
+export interface UiPortfolioWithoutDate
+  extends Omit<UiPortfolio, 'updatedAt'> {}
 
 export interface ApiGuildMember {
   guild_id: string
@@ -107,8 +122,12 @@ export interface UiGuildMarket {
 }
 
 export interface UiGuildWithMeta extends UiGuild {
-  historicalReturns: BigNumberInBase
+  monthlyPortfolios: UiMonthlyPortfolio[]
   markets: UiGuildMarket[]
+}
+
+export interface UiGuildWithReturns extends UiGuildWithMeta {
+  returns: BigNumberInBase
 }
 
 export interface UIGuildChartData {

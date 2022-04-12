@@ -1,20 +1,15 @@
-import { differenceInHours } from 'date-fns'
 import { HttpException } from '@injectivelabs/exceptions'
 import { HttpClient } from '@injectivelabs/utils'
-import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
-import { ApiResponse, ApiPortfolio, ApiMember, UiPortfolio } from '~/types'
+import {
+  ApiResponse,
+  ApiPortfolio,
+  ApiMember,
+  ApiMonthlyPortfolio
+} from '~/types'
 import { MemberTransformer } from '~/app/services/member/transformer'
 import { GuildTransformer } from '~/app/services/guild/transformer'
 import { MemberNotFoundException } from '~/app/exceptions'
-
-const calculateHistoricalReturns = (first: UiPortfolio, last: UiPortfolio) => {
-  const historicalReturns = last.portfolioValue
-    .minus(first.portfolioValue)
-    .dividedBy(first.portfolioValue)
-    .multipliedBy(100)
-
-  return historicalReturns.isNaN() ? ZERO_IN_BASE : historicalReturns
-}
+import { calculateHistoricalReturns } from '~/app/services/member/helper'
 
 export class MemberService {
   private client: HttpClient
@@ -23,22 +18,41 @@ export class MemberService {
     this.client = new HttpClient(baseUrl)
   }
 
-  async fetchGuildHistoricalReturn(address: string) {
+  async fetchGuildMonthlyPortfolio(address: string) {
     try {
       const response = (await this.client.get(
-        `members/${address}/portfolios`
+        `members/${address}/monthly-portfolios`
       )) as ApiResponse<{
-        portfolios: ApiPortfolio[]
+        portfolios: ApiMonthlyPortfolio[]
       }>
 
-      const firstSnapshot = await GuildTransformer.ApiPortfolioToUiPortfolio(
-        response.data.portfolios[response.data.portfolios.length - 1]
-      )
-      const lastSnapshot = await GuildTransformer.ApiPortfolioToUiPortfolio(
-        response.data.portfolios[0]
-      )
+      const [latestPortfolio] = response.data.portfolios
 
-      return calculateHistoricalReturns(firstSnapshot, lastSnapshot)
+      return await GuildTransformer.ApiMonthlyPortfolioToUiPortfolio(
+        latestPortfolio
+      )
+    } catch (error: any) {
+      if ([404].includes(error.response.status)) {
+        throw new MemberNotFoundException(error.message)
+      }
+
+      throw new HttpException(error.message)
+    }
+  }
+
+  async fetchGuildMonthlyPortfolios(address: string) {
+    try {
+      const response = (await this.client.get(
+        `members/${address}/monthly-portfolios`
+      )) as ApiResponse<{
+        portfolios: ApiMonthlyPortfolio[]
+      }>
+
+      return await Promise.all(
+        response.data.portfolios.map(
+          GuildTransformer.ApiMonthlyPortfolioToUiPortfolio
+        )
+      )
     } catch (error: any) {
       if ([404].includes(error.response.status)) {
         throw new MemberNotFoundException(error.message)
@@ -51,26 +65,16 @@ export class MemberService {
   async fetchMemberPortfolio(address: string) {
     try {
       const response = (await this.client.get(
-        `members/${address}/portfolios`
+        `members/${address}/monthly-portfolios`
       )) as ApiResponse<{
-        portfolios: ApiPortfolio[]
+        portfolios: ApiMonthlyPortfolio[]
       }>
 
-      const firstSnapshot = await GuildTransformer.ApiPortfolioToUiPortfolio(
-        response.data.portfolios[response.data.portfolios.length - 1]
-      )
-      const lastSnapshot = await GuildTransformer.ApiPortfolioToUiPortfolio(
-        response.data.portfolios[0]
-      )
-
-      return {
-        firstSnapshot,
-        lastSnapshot,
-        historicalReturns: calculateHistoricalReturns(
-          firstSnapshot,
-          lastSnapshot
+      return await Promise.all(
+        response.data.portfolios.map(
+          GuildTransformer.ApiMonthlyPortfolioToUiPortfolio
         )
-      }
+      )
     } catch (error: any) {
       if ([404].includes(error.response.status)) {
         throw new MemberNotFoundException(error.message)

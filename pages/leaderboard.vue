@@ -65,8 +65,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import { BigNumberInBase, Status, StatusType } from '@injectivelabs/utils'
+import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import VBanner from '~/components/partials/common/subpage-banner.vue'
-import { LeaderboardTableHeaderType, UiGuildWithMeta } from '~/types'
+import {
+  LeaderboardTableHeaderType,
+  UiGuildWithMeta,
+  UiGuildWithReturns
+} from '~/types'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/leaderboard/leaderboard-row.vue'
 import TableHeader from '~/components/partials/grid-table/header.vue'
@@ -92,13 +97,32 @@ export default Vue.extend({
   },
 
   computed: {
-    sortedGuildData(): UiGuildWithMeta[] {
-      const { sortBy } = this
-      const guildData = [...this.$accessor.guild.guilds]
+    guilds(): UiGuildWithMeta[] {
+      return this.$accessor.guild.guilds
+    },
+
+    guildWithReturns(): UiGuildWithReturns[] {
+      const { guilds } = this
+
+      return guilds.map((guild) => {
+        const returns =
+          guild.monthlyPortfolios.length === 0
+            ? ZERO_IN_BASE
+            : guild.monthlyPortfolios[0].returns
+
+        return {
+          ...guild,
+          returns
+        }
+      })
+    },
+
+    sortedGuildData(): UiGuildWithReturns[] {
+      const { guildWithReturns, sortBy } = this
 
       if (sortBy === LeaderboardTableHeaderType.Value) {
-        return [...guildData].sort(
-          (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
+        return [...guildWithReturns].sort(
+          (v1: UiGuildWithReturns, v2: UiGuildWithReturns) => {
             return new BigNumberInBase(v2.portfolio.portfolioValue)
               .minus(v1.portfolio.portfolioValue)
               .toNumber()
@@ -107,22 +131,22 @@ export default Vue.extend({
       }
 
       if (sortBy === LeaderboardTableHeaderType.Member) {
-        return [...guildData].sort(
-          (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
+        return [...guildWithReturns].sort(
+          (v1: UiGuildWithReturns, v2: UiGuildWithReturns) => {
             return v2.memberCount - v1.memberCount
           }
         )
       }
 
       if (sortBy === LeaderboardTableHeaderType.Returns) {
-        return [...guildData].sort(
-          (v1: UiGuildWithMeta, v2: UiGuildWithMeta) => {
-            return v2.historicalReturns.minus(v1.historicalReturns).toNumber()
+        return [...guildWithReturns].sort(
+          (v1: UiGuildWithReturns, v2: UiGuildWithReturns) => {
+            return v2.returns.minus(v1.returns).toNumber()
           }
         )
       }
 
-      return guildData
+      return guildWithReturns
     },
 
     sortedGuildDataWithDirection(): UiGuildWithMeta[] {

@@ -9,13 +9,14 @@ import {
   SpotService,
   SubaccountService,
   TokenCoinGeckoService,
-  TokenService
+  TokenService,
+  TxProvider
 } from '@injectivelabs/ui-common'
+import { TxProviderBaseOptions } from '@injectivelabs/ui-common/dist/providers/TxProvider'
 import {
   CHAIN_ID,
   IS_TESTNET,
   IS_DEVNET,
-  METRICS_ENABLED,
   NETWORK,
   APP_EXCHANGE_API_ENDPOINT,
   APP_SENTRY_GRPC_ENDPOINT
@@ -54,6 +55,11 @@ const coinGeckoOptions = {
     : 'https://api.coingecko.com/api/v3'
 }
 
+const txProvider = new TxProvider({
+  ...commonServiceOptions,
+  web3Strategy
+} as TxProviderBaseOptions)
+
 export const tokenCoinGeckoService = new TokenCoinGeckoService(
   commonServiceOptions,
   coinGeckoOptions
@@ -67,15 +73,17 @@ export const spotService = new SpotService(commonServiceOptions)
 export const subaccountService = new SubaccountService(commonServiceOptions)
 export const tokenService = new TokenService(commonServiceOptions)
 
-export const derivativeActionService = new DerivativeActionService(
-  commonServiceOptions,
-  web3Strategy
-)
-export const spotActionService = new SpotActionService(
-  commonServiceOptions,
-  web3Strategy
-)
-export const guildActionService = new GuildActionService(
-  commonServiceOptions,
-  web3Strategy
-)
+export const derivativeActionService = new DerivativeActionService({
+  options: commonServiceOptions,
+  txProvider
+})
+
+export const spotActionService = new SpotActionService({
+  options: commonServiceOptions,
+  txProvider
+})
+
+export const guildActionService = new GuildActionService({
+  options: commonServiceOptions,
+  txProvider
+})

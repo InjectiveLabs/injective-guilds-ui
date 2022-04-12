@@ -19,7 +19,13 @@
               </div>
             </v-card>
 
-            <v-historical-returns class="mt-2" />
+            <v-card v-if="guild" class="mt-2">
+              <v-historical-returns
+                :monthly-portfolios="guild.monthlyPortfolios"
+              >
+                {{ $t('guild.returns') }}
+              </v-historical-returns>
+            </v-card>
           </div>
 
           <v-card class="row-start-1 md:row-start-auto md:col-span-3" square>
@@ -42,7 +48,7 @@ import { GuildNotFoundException } from '~/app/exceptions'
 import VBanner from '~/components/partials/guild/guild-banner.vue'
 import VChart from '~/components/partials/guild/chart-wrapper.vue'
 import VGuildMaster from '~/components/partials/guild/guild-master.vue'
-import VHistoricalReturns from '~/components/partials/guild/historical-returns.vue'
+import VHistoricalReturns from '~/components/partials/common/historical-returns.vue'
 import VPortfolio from '~/components/partials/guild/portfolio/index.vue'
 import VMember from '~/components/partials/guild/member/index.vue'
 import { UiPortfolioBalanceWithToken, UiGuildWithMeta } from '~/types'

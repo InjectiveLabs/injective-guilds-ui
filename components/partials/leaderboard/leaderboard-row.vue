@@ -51,7 +51,7 @@ import Vue, { PropType } from 'vue'
 import { ZERO_IN_BASE } from '@injectivelabs/ui-common'
 import { BigNumberInBase } from '@injectivelabs/utils'
 import TableRow from '~/components/partials/grid-table/row.vue'
-import { UiGuildWithMeta } from '~/types'
+import { UiGuildWithReturns } from '~/types'
 import { UI_DEFAULT_PERCENTAGE_DECIMALS } from '~/app/utils/constants'
 import { guildImageMappings, GuildAsset } from '~/app/data/guild'
 
@@ -62,7 +62,7 @@ export default Vue.extend({
 
   props: {
     guild: {
-      type: Object as PropType<UiGuildWithMeta>,
+      type: Object as PropType<UiGuildWithReturns>,
       required: true
     },
     index: {
@@ -94,15 +94,11 @@ export default Vue.extend({
     historicalReturns(): BigNumberInBase {
       const { guild } = this
 
-      if (
-        !guild ||
-        !guild.historicalReturns ||
-        !guild.historicalReturns.isFinite()
-      ) {
+      if (!guild || !guild.returns || !guild.returns.isFinite()) {
         return ZERO_IN_BASE
       }
 
-      return guild.historicalReturns
+      return guild.returns
     },
 
     historicalReturnsToString(): string {

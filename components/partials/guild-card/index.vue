@@ -75,13 +75,19 @@ export default Vue.extend({
 
       if (
         !guild ||
-        !guild.historicalReturns ||
-        !guild.historicalReturns.isFinite()
+        !guild.monthlyPortfolios ||
+        guild.monthlyPortfolios.length === 0
       ) {
         return ZERO_IN_BASE
       }
 
-      return guild.historicalReturns
+      const [lastSnapshot] = guild.monthlyPortfolios
+
+      if (!lastSnapshot.returns.isFinite()) {
+        return ZERO_IN_BASE
+      }
+
+      return lastSnapshot.returns
     },
 
     historicalReturnsToFormat(): string {

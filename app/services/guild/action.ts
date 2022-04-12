@@ -1,6 +1,5 @@
 import { Web3Exception } from '@injectivelabs/exceptions'
 import { AuthzComposer } from '@injectivelabs/chain-consumer'
-import { BaseActionService } from '@injectivelabs/ui-common/dist/BaseActionService'
 import {
   BigNumberInBase,
   BigNumberInWei,
@@ -15,6 +14,7 @@ import {
   UiSpotLimitOrder,
   ZERO_TO_STRING
 } from '@injectivelabs/ui-common'
+import { BaseActionService } from '@injectivelabs/ui-common/dist/services/BaseActionService'
 import { SpotMarketComposer } from '@injectivelabs/spot-consumer'
 import { DerivativeMarketComposer } from '@injectivelabs/derivatives-consumer'
 import { SubaccountComposer } from '@injectivelabs/subaccount-consumer'

@@ -1,7 +1,7 @@
 <template>
   <VPopperBox
     ref="popper"
-    class="popper bg-black border border-primary-500 flex-col flex-wrap absolute z-60 shadow-md w-[294px]"
+    class="popper bg-black border border-primary-500 flex-col flex-wrap absolute z-60 shadow-md w-[290px]"
     :class="[isUserWalletConnected ? 'flex' : 'hidden']"
     binding-element="#wallet-address"
     :options="popperOption"
@@ -80,7 +80,7 @@
 
       <v-subaccount-balance />
 
-      <div class="p-4 border-t border-primary-500">
+      <div v-if="isJoinedGuild" class="p-4 border-t border-primary-500">
         <nuxt-link
           :to="{ name: 'my-guild' }"
           class="uppercase tracking-wider hover:text-primary-600"
@@ -161,6 +161,10 @@ export default Vue.extend({
       const { injectiveAddress } = this
 
       return formatWalletAddress(injectiveAddress)
+    },
+
+    isJoinedGuild(): boolean {
+      return !!this.$accessor.member.member
     }
   },
 

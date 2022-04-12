@@ -123,14 +123,14 @@ export const actions = actionTree(
     async fetchGuild({ commit }, guildId: string) {
       const guild = await guildService.fetchGuild(guildId)
       const markets = await guildService.fetchMarkets(guildId)
-      const historicalReturns = await memberService.fetchGuildHistoricalReturn(
+      const monthlyPortfolios = await memberService.fetchGuildMonthlyPortfolios(
         guild.defaultMemberAddress
       )
 
       commit('setGuild', {
         ...guild,
         markets,
-        historicalReturns
+        monthlyPortfolios
       })
     },
 
@@ -139,15 +139,15 @@ export const actions = actionTree(
       const guildsWithHistoricalReturns = await Promise.all(
         guilds.map(async (guild) => {
           const markets = await guildService.fetchMarkets(guild.id)
-          const historicalReturns =
-            await memberService.fetchGuildHistoricalReturn(
+          const monthlyPortfolios =
+            await memberService.fetchGuildMonthlyPortfolio(
               guild.defaultMemberAddress
             )
 
           return {
             ...guild,
             markets,
-            historicalReturns
+            monthlyPortfolios: [monthlyPortfolios]
           }
         })
       )

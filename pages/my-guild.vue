@@ -15,7 +15,7 @@
           <div class="mx-auto md:ml-auto w-full">
             <v-overview
               v-if="memberPortfolio"
-              :portfolio="memberPortfolio.lastSnapshot"
+              :portfolio="memberPortfolio[0]"
             />
 
             <v-card transparent class="mt-2">
@@ -29,15 +29,12 @@
               </div>
             </v-card>
 
-            <v-card transparent class="mt-2">
-              <div class="flex items-start justify-between">
-                <span class="text-sm font-bold uppercase tracking-widest mt-1">
-                  {{ $t('myGuild.returns') }}
-                </span>
-                <span class="text-3.5xl font-bold">
-                  {{ historicalReturnsToFormat }}%
-                </span>
-              </div>
+            <v-card v-if="guild" transparent class="mt-2">
+              <v-historical-returns
+                :monthly-portfolios="guild.monthlyPortfolios"
+              >
+                {{ $t('myGuild.returns') }}
+              </v-historical-returns>
             </v-card>
           </div>
         </div>
@@ -61,7 +58,8 @@ import VBanner from '~/components/partials/common/subpage-banner.vue'
 import TableBody from '~/components/partials/grid-table/body.vue'
 import TableRow from '~/components/partials/my-guild/my-guild-row.vue'
 import VOverview from '~/components/partials/my-guild/overview.vue'
-import { UiGuild, UiMember, UiMemberPortfolio } from '~/types'
+import VHistoricalReturns from '~/components/partials/common/historical-returns.vue'
+import { UiGuild, UiMember, UiMonthlyPortfolio } from '~/types'
 import {
   GuildNotFoundException,
   MemberNotFoundException
@@ -76,6 +74,7 @@ export default Vue.extend({
     TableBody,
     TableRow,
     VBanner,
+    VHistoricalReturns,
     VOverview
   },
 
@@ -97,20 +96,21 @@ export default Vue.extend({
       return this.$accessor.member.member
     },
 
-    memberPortfolio(): UiMemberPortfolio | undefined {
-      return this.$accessor.member.memberPortfolio
+    memberPortfolio(): UiMonthlyPortfolio[] {
+      return this.$accessor.member.memberPortfolio || []
     },
 
     myEarnings(): BigNumberInBase {
       const { memberPortfolio } = this
 
-      if (!memberPortfolio) {
+      if (!memberPortfolio || memberPortfolio.length === 0) {
         return ZERO_IN_BASE
       }
 
-      return memberPortfolio.lastSnapshot.portfolioValue.minus(
-        memberPortfolio.firstSnapshot.portfolioValue
-      )
+      const firstSnapshot = memberPortfolio[memberPortfolio.length - 1]
+      const lastSnapshot = memberPortfolio[0]
+
+      return lastSnapshot.portfolioValue.minus(firstSnapshot.portfolioValue)
     },
 
     myEarningsToFormat(): string {
@@ -122,11 +122,11 @@ export default Vue.extend({
     historicalReturns(): BigNumberInBase {
       const { memberPortfolio } = this
 
-      if (!memberPortfolio || !memberPortfolio.historicalReturns) {
+      if (!memberPortfolio || memberPortfolio.length === 0) {
         return ZERO_IN_BASE
       }
 
-      return memberPortfolio.historicalReturns
+      return memberPortfolio[0].returns
     },
 
     historicalReturnsToFormat(): string {
