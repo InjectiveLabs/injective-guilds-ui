@@ -26,6 +26,10 @@ export class MemberService {
         portfolios: ApiMonthlyPortfolio[]
       }>
 
+      if (!response.data.portfolios) {
+        return []
+      }
+
       const [latestPortfolio] = response.data.portfolios
 
       return await GuildTransformer.ApiMonthlyPortfolioToUiPortfolio(
@@ -47,6 +51,10 @@ export class MemberService {
       )) as ApiResponse<{
         portfolios: ApiMonthlyPortfolio[]
       }>
+
+      if (!response.data.portfolios) {
+        return []
+      }
 
       return await Promise.all(
         response.data.portfolios.map(
@@ -70,10 +78,14 @@ export class MemberService {
         portfolios: ApiMonthlyPortfolio[]
       }>
 
-      const portfolios = response.data.portfolios || []
+      if (!response.data.portfolios) {
+        return []
+      }
 
       return await Promise.all(
-        portfolios.map(GuildTransformer.ApiMonthlyPortfolioToUiPortfolio)
+        response.data.portfolios.map(
+          GuildTransformer.ApiMonthlyPortfolioToUiPortfolio
+        )
       )
     } catch (error: any) {
       if ([404].includes(error.response.status)) {

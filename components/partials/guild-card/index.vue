@@ -83,7 +83,7 @@ export default Vue.extend({
 
       const [lastSnapshot] = guild.monthlyPortfolios
 
-      if (!lastSnapshot.returns.isFinite()) {
+      if (!lastSnapshot.returns || !lastSnapshot.returns.isFinite()) {
         return ZERO_IN_BASE
       }
 
