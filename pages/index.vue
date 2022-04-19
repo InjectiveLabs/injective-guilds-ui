@@ -32,6 +32,7 @@
           :key="`guild-card-${index}`"
           :guild="guild"
         />
+        <ComingSoonGuild />
       </div>
     </div>
   </VHOCLoading>
@@ -41,11 +42,13 @@
 import Vue from 'vue'
 import { Status, StatusType } from '@injectivelabs/utils'
 import GuildCard from '~/components/partials/guild-card/index.vue'
+import ComingSoonGuild from '~/components/partials/coming-soon-guild/index.vue'
 import { UiGuildWithMeta } from '~/types'
 
 export default Vue.extend({
   components: {
-    GuildCard
+    GuildCard,
+    ComingSoonGuild
   },
 
   data() {
