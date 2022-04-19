@@ -93,7 +93,10 @@ export default {
     maxCapacity: 'Max capacity',
     insufficientBalance: 'Insufficient Balance',
     youAreInThisGuild: 'You are in this guild',
-    requirement: 'Requirements'
+    requirement: 'Requirements',
+    comingSoon: 'Coming soon',
+    getEmailNotification: 'Get email notification when guild opens',
+    registerInterest: 'Register Interest'
   },
 
   joinGuildModal: {

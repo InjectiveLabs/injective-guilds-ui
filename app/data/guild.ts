@@ -40,6 +40,13 @@ export const guildImageMappings = {
     thumbnail: '/guilds/four/thumbnail.png',
     story: 'Coming soon',
     strategy: 'Coming soon'
+  },
+  comingSoon: {
+    card: '/guilds/nine/nine.jpg',
+    banner: '/guilds/nine/banner.jpg',
+    thumbnail: '/guilds/nine/thumbnail.png',
+    story: 'Coming soon',
+    strategy: 'Coming soon'
   }
 } as Record<string, GuildAsset>
 
