@@ -128,6 +128,7 @@ export const ApiMonthlyPortfolioToUiPortfolio = async (
   return {
     portfolioValue: endPortfolio.portfolioValue,
     balances: endPortfolio.balances,
+    earnings: endPortfolio.portfolioValue.minus(beginPortfolio.portfolioValue),
     returns: calculateHistoricalReturns(beginPortfolio, endPortfolio),
     date: apiMonthlyPortfolio.time
   }

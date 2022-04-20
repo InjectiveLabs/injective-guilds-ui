@@ -68,6 +68,7 @@ export interface ApiMarket {
 export interface UiMonthlyPortfolio {
   portfolioValue: BigNumberInBase
   balances: UiPortfolioBalanceWithToken[]
+  earnings: BigNumberInBase
   returns: BigNumberInBase
   date: number
 }

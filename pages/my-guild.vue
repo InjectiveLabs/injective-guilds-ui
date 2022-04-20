@@ -105,10 +105,7 @@ export default Vue.extend({
         return ZERO_IN_BASE
       }
 
-      const firstSnapshot = memberPortfolio[memberPortfolio.length - 1]
-      const lastSnapshot = memberPortfolio[0]
-
-      return lastSnapshot.portfolioValue.minus(firstSnapshot.portfolioValue)
+      return memberPortfolio[0].earnings
     },
 
     myEarningsToFormat(): string {
