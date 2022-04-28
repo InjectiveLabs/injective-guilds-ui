@@ -1,10 +1,17 @@
 const { HttpClient } = require('@injectivelabs/utils')
-const { Network } = require('@injectivelabs/networks')
+const {
+  APP_GUILDS_API_ENDPOINT,
+  IS_DEVNET,
+  IS_TESTNET
+} = require('./app/utils/constants')
 
 const guildServiceEndpoint =
-  process.env.APP_NETWORK === Network.Devnet
+  APP_GUILDS_API_ENDPOINT ||
+  (IS_DEVNET
     ? 'https://devnet.guilds.injective.dev'
-    : 'https://testnet.guilds.injective.dev/'
+    : IS_TESTNET
+    ? 'https://testnet.guilds.injective.dev'
+    : 'https://staging.guilds.injective.network')
 
 const fetchGuilds = async () => {
   const client = new HttpClient(guildServiceEndpoint)
@@ -20,10 +27,8 @@ const fetchGuilds = async () => {
 
 const routes = async () => {
   const staticRoutes = ['/', '/how-it-works', '/leaderboard', '/my-guild']
-
   const guilds = await fetchGuilds()
-
-  const guildsRoutes = guilds.map(
+  const guildsRoutes = (guilds || []).map(
     // @ts-ignore
     (guild) => `/guild/${guild.id}`
   )
