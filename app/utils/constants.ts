@@ -29,6 +29,8 @@ export const APP_EXCHANGE_API_ENDPOINT: string =
   process.env.APP_EXCHANGE_API_ENDPOINT || ''
 export const APP_SENTRY_GRPC_ENDPOINT: string =
   process.env.APP_SENTRY_GRPC_ENDPOINT || ''
+export const APP_GUILDS_API_ENDPOINT: string =
+  process.env.APP_GUILDS_API_ENDPOINT || ''
 
 export const UI_DEFAULT_FIAT_DECIMALS = 2
 export const UI_DEFAULT_ASSET_DECIMALS = 3

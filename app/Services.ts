@@ -15,9 +15,10 @@ import {
 import { TxProviderBaseOptions } from '@injectivelabs/ui-common/dist/providers/TxProvider'
 import {
   CHAIN_ID,
-  IS_TESTNET,
-  IS_DEVNET,
+  APP_GUILDS_API_ENDPOINT,
   NETWORK,
+  IS_DEVNET,
+  IS_TESTNET,
   APP_EXCHANGE_API_ENDPOINT,
   APP_SENTRY_GRPC_ENDPOINT
 } from './utils/constants'
@@ -42,11 +43,13 @@ const commonServiceOptions = {
   })
 } as ServiceOptions
 
-const guildServiceEndpoint = IS_DEVNET
-  ? 'https://devnet.guilds.injective.dev'
-  : IS_TESTNET
-  ? 'https://testnet.guilds.injective.dev'
-  : 'https://staging.guilds.injective.network'
+const guildServiceEndpoint =
+  APP_GUILDS_API_ENDPOINT ||
+  (IS_DEVNET
+    ? 'https://devnet.guilds.injective.dev'
+    : IS_TESTNET
+    ? 'https://testnet.guilds.injective.dev'
+    : 'https://staging.guilds.injective.network')
 
 const coinGeckoOptions = {
   apiKey: process.env.APP_COINGECKO_KEY as string,

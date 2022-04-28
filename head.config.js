@@ -14,7 +14,7 @@ if (process.env.APP_GOOGLE_SITE_VERIFICATION_KEY) {
 }
 
 module.exports = {
-  titleTemplate: process.env.APP_NAME || 'Injective Guilds',
+  titleTemplate: process.env.APP_NAME || 'Trading Guilds',
   meta,
   htmlAttrs: {
     class: 'font-sans'

@@ -59,15 +59,15 @@ export default {
   },
 
   sitemap: {
-    hostname: process.env.APP_BASE_URL || 'https://guilds.injective.app',
+    hostname: process.env.APP_BASE_URL || 'https://guilds.ai',
     gzip: true
   },
 
   loading: { color: '#00f2ff' },
 
   env: {
-    APP_TITLE: process.env.APP_TITLE || 'Injective Guilds',
-    APP_BASE_URL: process.env.APP_BASE_URL || 'https://guilds.injective.app',
+    APP_TITLE: process.env.APP_TITLE || 'Trading Guilds',
+    APP_BASE_URL: process.env.APP_BASE_URL || 'https://guilds.ai',
     APP_NETWORK: process.env.APP_NETWORK,
     APP_CHAIN_ID: process.env.APP_CHAIN_ID,
     APP_ALCHEMY_KEY: process.env.APP_ALCHEMY_KEY,
@@ -78,6 +78,7 @@ export default {
     NODE_ENV: process.env.NODE_ENV,
     APP_ENV: process.env.APP_ENV || 'production',
     APP_VER: process.env.npm_package_version,
+    APP_GUILDS_API_ENDPOINT: process.env.APP_GUILDS_API_ENDPOINT,
     APP_EXCHANGE_API_ENDPOINT: process.env.APP_EXCHANGE_API_ENDPOINT,
     APP_SENTRY_GRPC_ENDPOINT: process.env.APP_SENTRY_GRPC_ENDPOINT,
     GEO_IP_RESTRICTIONS_ENABLED: process.env.GEO_IP_RESTRICTIONS_ENABLED

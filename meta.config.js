@@ -1,11 +1,11 @@
 const metaTags = {
-  title: process.env.APP_NAME ? process.env.APP_NAME : 'Injective Guilds',
+  title: process.env.APP_NAME ? process.env.APP_NAME : 'Trading Guilds',
   description: '',
   keywords: '',
-  author: 'InjectiveLabs',
-  url: 'https://guilds.injective.app',
-  shortName: 'Injective Guilds',
-  twitterHandle: '@InjectiveLabs',
+  author: 'TradingGuilds',
+  url: 'https://guilds.ai',
+  shortName: 'Trading Guilds',
+  twitterHandle: '@TradingGuilds',
   ogImage: `${process.env.APP_BASE_URL}/images/og.jpg`
 }
 
@@ -73,8 +73,8 @@ const pwaMetaTags = {
   ogUrl: metaTags.url,
   ogImage: metaTags.ogImage,
   twitterCard: 'summary_large_image',
-  twitterSite: '@InjectiveLabs',
-  twitterCreator: '@InjectiveLabs'
+  twitterSite: '@TradingGuilds',
+  twitterCreator: '@TradingGuilds'
 }
 
 const manifestMetaTags = {
